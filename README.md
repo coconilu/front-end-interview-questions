@@ -7,18 +7,98 @@
 ```
 .
 ├── algo/                      # 算法相关题目
+│   ├── array/                 # 数组相关算法
+│   │   ├── 1_two_sum.js                # 两数之和
+│   │   ├── 11_container_with_most_water.js # 盛最多水的容器
+│   │   ├── 15_3sum.js                  # 三数之和
+│   │   ├── 53_maximum_subarray.js      # 最大子序和
+│   │   └── 238_product_of_array_except_self.js # 除自身以外数组的乘积
+│   │
 │   ├── backtracking/          # 回溯算法
+│   │   ├── 46_permutations.js          # 全排列
+│   │   └── 78_subsets.js               # 子集
+│   │
 │   ├── bit-manipulation/      # 位运算
+│   │   ├── 136_single_number.js        # 只出现一次的数字
+│   │   └── 191_number_of_1_bits.js     # 位1的个数
+│   │
 │   ├── design-patterns/       # 设计模式
+│   │   ├── 23_merge_k_sorted_lists.js  # 合并K个升序链表
+│   │   └── 208_implement_trie_prefix_tree.js # 实现Trie(前缀树)
+│   │
 │   ├── dp/                    # 动态规划
+│   │   ├── 5_longest_palindromic_substring.js # 最长回文子串
+│   │   ├── 70_climbing_stairs.js       # 爬楼梯
+│   │   ├── 121_best_time_to_buy_and_sell_stock.js # 买卖股票的最佳时机
+│   │   ├── 322_coin_change.js          # 零钱兑换
+│   │   ├── climbStairs.js              # 爬楼梯（详细解法）
+│   │   ├── coinChange.js               # 零钱兑换（详细解法）
+│   │   ├── editDistance.js             # 编辑距离
+│   │   ├── fibonacci.js                # 斐波那契数列
+│   │   ├── knapsack.js                 # 背包问题
+│   │   ├── longestCommonSubsequence.js # 最长公共子序列
+│   │   └── maxSubArray.js              # 最大子数组和（详细解法）
+│   │
 │   ├── graph-algorithms/      # 图算法
+│   │   ├── 200_number_of_islands.js    # 岛屿数量
+│   │   └── 207_course_schedule.js      # 课程表
+│   │
 │   ├── greedy/                # 贪心算法
+│   │   ├── 55_jump_game.js             # 跳跃游戏
+│   │   └── 56_merge_intervals.js       # 合并区间
+│   │
+│   ├── hash-table/            # 哈希表
+│   │   ├── 3_longest_substring_without_repeating_characters.js # 无重复字符的最长子串
+│   │   ├── 49_group_anagrams.js        # 字母异位词分组
+│   │   └── 146_lru_cache.js            # LRU缓存机制
+│   │
 │   ├── linkList/              # 链表算法
+│   │   ├── 21_merge_two_sorted_lists.js # 合并两个有序链表
+│   │   ├── 141_linked_list_cycle.js    # 环形链表
+│   │   ├── 206_reverse_linked_list.js  # 反转链表
+│   │   ├── addTwoNumbers.js            # 两数相加
+│   │   ├── detectCycle.js              # 环形链表II
+│   │   ├── getIntersectionNode.js      # 相交链表
+│   │   ├── hasCycle.js                 # 环形链表（详细解法）
+│   │   ├── isPalindrome.js             # 回文链表
+│   │   ├── mergeSortedLink.js          # 合并有序链表
+│   │   ├── mergeTwoLists.js            # 合并两个有序链表（详细解法）
+│   │   ├── removeNthFromEnd.js         # 删除链表的倒数第N个节点
+│   │   ├── reorderList.js              # 重排链表
+│   │   ├── reverseList.js              # 反转链表（详细解法）
+│   │   └── sortList.js                 # 排序链表
+│   │
 │   ├── math/                  # 数学算法
+│   │   ├── 50_powx_n.js                # Pow(x, n)
+│   │   ├── 69_sqrtx.js                 # x的平方根
+│   │   └── sieveOfEratosthenes.js      # 埃拉托斯特尼筛法
+│   │
 │   ├── searching/             # 搜索算法
+│   │   ├── 33_search_in_rotated_sorted_array.js # 搜索旋转排序数组
+│   │   ├── 704_binary_search.js        # 二分查找
+│   │   ├── binarySearch.js             # 二分查找（详细解法）
+│   │   └── dfs.js                      # 深度优先搜索
+│   │
 │   ├── sorting/               # 排序算法
+│   │   ├── 912_sort_an_array.js        # 排序数组
+│   │   ├── mergeSort.js                # 归并排序
+│   │   └── quickSort.js                # 快速排序
+│   │
+│   ├── stack-and-queue/       # 栈和队列
+│   │   ├── 20_valid_parentheses.js     # 有效的括号
+│   │   └── 155_min_stack.js            # 最小栈
+│   │
 │   ├── string-algorithms/     # 字符串算法
+│   │   ├── 5_longest_palindromic_substring.js # 最长回文子串
+│   │   ├── 76_minimum_window_substring.js # 最小覆盖子串
+│   │   └── kmp.js                      # KMP字符串匹配算法
+│   │
 │   └── tree/                  # 树相关算法
+│       ├── 94_binary_tree_inorder_traversal.js # 二叉树的中序遍历
+│       ├── 101_symmetric_tree.js       # 对称二叉树
+│       ├── 104_maximum_depth_of_binary_tree.js # 二叉树的最大深度
+│       ├── 226_invert_binary_tree.js   # 翻转二叉树
+│       └── binaryTreeTraversal.js      # 二叉树遍历方法
 │
 ├── array-operations/          # 数组操作相关题目
 │   ├── flattenArray.js        # 数组扁平化实现
