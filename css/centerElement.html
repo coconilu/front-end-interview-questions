@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS元素居中的多种方法</title>
+  <style>
+    /* 通用样式 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      margin: 20px 0 10px;
+    }
+    
+    .container {
+      border: 2px dashed #666;
+      margin-bottom: 30px;
+      height: 200px;
+      position: relative;
+    }
+    
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+    
+    /* 1. Flexbox方法 */
+    .flex-center {
+      display: flex;
+      justify-content: center; /* 水平居中 */
+      align-items: center;     /* 垂直居中 */
+    }
+    
+    /* 2. Grid方法 */
+    .grid-center {
+      display: grid;
+      place-items: center;     /* 水平和垂直居中的简写 */
+    }
+    
+    /* 3. 绝对定位 + transform */
+    .absolute-transform .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    /* 4. 绝对定位 + 负margin */
+    .absolute-margin .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;  /* 负值等于高度的一半 */
+      margin-left: -50px; /* 负值等于宽度的一半 */
+    }
+    
+    /* 5. 绝对定位 + 四个方向为0 + margin: auto */
+    .absolute-auto .box {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+    
+    /* 6. 表格单元格方法 */
+    .table-center {
+      display: table;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .table-cell {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+    
+    .table-cell .box {
+      display: inline-block; /* 使margin: 0 auto生效 */
+      margin: 0 auto;
+    }
+    
+    /* 7. line-height方法（仅适用于单行文本垂直居中） */
+    .line-height-center {
+      text-align: center;
+    }
+    
+    .line-height-center .box {
+      display: inline-block;
+      line-height: 100px; /* 与高度相同 */
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS元素居中的多种方法</h1>
+  
+  <h2>1. Flexbox方法</h2>
+  <div class="container flex-center">
+    <div class="box">Flexbox</div>
+  </div>
+  
+  <h2>2. Grid方法</h2>
+  <div class="container grid-center">
+    <div class="box">Grid</div>
+  </div>
+  
+  <h2>3. 绝对定位 + transform</h2>
+  <div class="container absolute-transform">
+    <div class="box">Transform</div>
+  </div>
+  
+  <h2>4. 绝对定位 + 负margin</h2>
+  <div class="container absolute-margin">
+    <div class="box">负Margin</div>
+  </div>
+  
+  <h2>5. 绝对定位 + 四个方向为0 + margin: auto</h2>
+  <div class="container absolute-auto">
+    <div class="box">Margin Auto</div>
+  </div>
+  
+  <h2>6. 表格单元格方法</h2>
+  <div class="container table-center">
+    <div class="table-cell">
+      <div class="box">Table Cell</div>
+    </div>
+  </div>
+  
+  <h2>7. line-height方法（仅适用于单行文本）</h2>
+  <div class="container line-height-center">
+    <div class="box">Line Height</div>
+  </div>
+  
+  <div style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+    <h3>面试要点：</h3>
+    <ul>
+      <li>Flexbox和Grid是现代布局方式，代码简洁，兼容性好（IE11+）</li>
+      <li>绝对定位 + transform是最通用的居中方法，适用于未知尺寸的元素</li>
+      <li>绝对定位 + 负margin需要知道元素的确切尺寸</li>
+      <li>表格方法兼容性最好，但语义不佳</li>
+      <li>选择方法时要考虑：浏览器兼容性、元素尺寸是否已知、父容器特性等因素</li>
+    </ul>
+  </div>
+</body>
+</html> 
