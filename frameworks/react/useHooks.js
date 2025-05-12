@@ -1,10 +1,10 @@
 /**
  * React自定义Hook实现
- * 
+ *
  * 面试题：实现几个常用的自定义Hook
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from "react";
 
 /**
  * 1. useLocalStorage - 将状态持久化到localStorage
@@ -27,10 +27,11 @@ function useLocalStorage(key, initialValue) {
   });
 
   // 更新localStorage的函数
-  const setValue = value => {
+  const setValue = (value) => {
     try {
       // 允许value是函数，类似于setState
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
       // 保存到state
       setStoredValue(valueToStore);
       // 保存到localStorage
@@ -123,16 +124,16 @@ function useMediaQuery(query) {
     setMatches(mediaQuery.matches);
 
     // 定义回调函数
-    const handleChange = event => {
+    const handleChange = (event) => {
       setMatches(event.matches);
     };
 
     // 添加监听器
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
 
     // 清理函数
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, [query]);
 
@@ -148,7 +149,7 @@ function useClickOutside(handler) {
   const ref = useRef();
 
   useEffect(() => {
-    const listener = event => {
+    const listener = (event) => {
       // 如果点击的元素不在ref引用的元素内部，则调用handler
       if (!ref.current || ref.current.contains(event.target)) {
         return;
@@ -157,13 +158,13 @@ function useClickOutside(handler) {
     };
 
     // 添加事件监听器
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
 
     // 清理函数
     return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
     };
   }, [handler]);
 
@@ -246,5 +247,5 @@ export {
   useDebounce,
   useFetch,
   useMediaQuery,
-  useClickOutside
-}; 
+  useClickOutside,
+};

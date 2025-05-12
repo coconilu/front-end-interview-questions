@@ -7,12 +7,12 @@
  */
 function quickSort(arr) {
   if (arr.length <= 1) return arr;
-  
+
   const pivot = arr[Math.floor(arr.length / 2)];
   const left = [];
   const middle = [];
   const right = [];
-  
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < pivot) {
       left.push(arr[i]);
@@ -22,7 +22,7 @@ function quickSort(arr) {
       middle.push(arr[i]);
     }
   }
-  
+
   return [...quickSort(left), ...middle, ...quickSort(right)];
 }
 
@@ -30,4 +30,4 @@ function quickSort(arr) {
 const arr = [3, 1, 4, 1, 5, 9, 2, 6, 5];
 console.log(quickSort(arr)); // [1, 1, 2, 3, 4, 5, 5, 6, 9]
 
-module.exports = quickSort; 
+module.exports = quickSort;

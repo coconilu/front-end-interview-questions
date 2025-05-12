@@ -1,29 +1,29 @@
 /**
  * 问题1: 异步执行顺序
- * 
+ *
  * 请预测以下代码的输出顺序，并解释为什么会是这样的顺序。
  * 考察点: 事件循环、宏任务、微任务的执行顺序
  */
 
-console.log('1');
+console.log("1");
 
 setTimeout(() => {
-  console.log('2');
+  console.log("2");
 }, 0);
 
 new Promise((resolve) => {
-  console.log('3');
+  console.log("3");
   resolve();
 }).then(() => {
-  console.log('4');
+  console.log("4");
 });
 
-console.log('5');
+console.log("5");
 
 /**
  * 答案:
  * 输出顺序: 1, 3, 5, 4, 2
- * 
+ *
  * 解释:
  * 1. 首先执行同步代码，输出 '1'
  * 2. 遇到 setTimeout，将回调函数放入宏任务队列
@@ -32,4 +32,4 @@ console.log('5');
  * 5. 继续执行同步代码，输出 '5'
  * 6. 同步代码执行完毕，检查微任务队列，执行 Promise.then 的回调，输出 '4'
  * 7. 微任务队列清空后，执行下一个宏任务，即 setTimeout 的回调，输出 '2'
- */ 
+ */

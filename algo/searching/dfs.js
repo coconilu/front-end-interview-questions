@@ -33,8 +33,8 @@ class Graph {
       if (!vertex) return null;
       visited[vertex] = true;
       result.push(vertex);
-      
-      adjacencyList[vertex].forEach(neighbor => {
+
+      adjacencyList[vertex].forEach((neighbor) => {
         if (!visited[neighbor]) {
           return dfs(neighbor);
         }
@@ -55,14 +55,14 @@ class Graph {
       const currentVertex = stack.pop();
       result.push(currentVertex);
 
-      this.adjacencyList[currentVertex].forEach(neighbor => {
+      this.adjacencyList[currentVertex].forEach((neighbor) => {
         if (!visited[neighbor]) {
           visited[neighbor] = true;
           stack.push(neighbor);
         }
       });
     }
-    
+
     return result;
   }
 }
@@ -89,4 +89,4 @@ console.log(g.dfsRecursive("A"));
 // DFS: ["A", "C", "E", "F", "D", "B"]
 console.log(g.dfsIterative("A"));
 
-module.exports = Graph; 
+module.exports = Graph;

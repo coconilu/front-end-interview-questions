@@ -6,24 +6,24 @@
  * @returns {Promise<Array>}
  */
 function promiseLimit(tasks, limit) {
-    const results = []
-    let i = 0
-    let running = 0
-    return new Promise((resolve, reject) => {
-        function runNext() {
-            if (i === tasks.length && running === 0) return resolve(results)
-            while (running < limit && i < tasks.length) {
-                const cur = i++
-                running++
-                tasks[cur]()
-                    .then(res => results[cur] = res)
-                    .catch(reject)
-                    .finally(() => {
-                        running--
-                        runNext()
-                    })
-            }
-        }
-        runNext()
-    })
-} 
+  const results = [];
+  let i = 0;
+  let running = 0;
+  return new Promise((resolve, reject) => {
+    function runNext() {
+      if (i === tasks.length && running === 0) return resolve(results);
+      while (running < limit && i < tasks.length) {
+        const cur = i++;
+        running++;
+        tasks[cur]()
+          .then((res) => (results[cur] = res))
+          .catch(reject)
+          .finally(() => {
+            running--;
+            runNext();
+          });
+      }
+    }
+    runNext();
+  });
+}

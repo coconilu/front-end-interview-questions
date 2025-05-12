@@ -1,6 +1,6 @@
 /**
  * 虚拟DOM实现原理
- * 
+ *
  * 面试题：实现一个简单的虚拟DOM和diff算法
  */
 
@@ -15,9 +15,11 @@ function createElement(type, props = {}, ...children) {
   return {
     type,
     props,
-    children: children.flat().map(child => 
-      typeof child === 'object' ? child : createTextElement(child)
-    )
+    children: children
+      .flat()
+      .map((child) =>
+        typeof child === "object" ? child : createTextElement(child),
+      ),
   };
 }
 
@@ -28,10 +30,10 @@ function createElement(type, props = {}, ...children) {
  */
 function createTextElement(text) {
   return {
-    type: 'TEXT_ELEMENT',
+    type: "TEXT_ELEMENT",
     props: {},
     children: [],
-    value: text
+    value: text,
   };
 }
 
@@ -42,32 +44,33 @@ function createTextElement(text) {
  */
 function render(vNode, container) {
   // 创建DOM元素
-  const dom = vNode.type === 'TEXT_ELEMENT'
-    ? document.createTextNode(vNode.value)
-    : document.createElement(vNode.type);
-  
+  const dom =
+    vNode.type === "TEXT_ELEMENT"
+      ? document.createTextNode(vNode.value)
+      : document.createElement(vNode.type);
+
   // 设置属性
   if (vNode.props) {
-    Object.keys(vNode.props).forEach(name => {
+    Object.keys(vNode.props).forEach((name) => {
       // 处理事件
-      if (name.startsWith('on')) {
+      if (name.startsWith("on")) {
         const eventType = name.toLowerCase().substring(2);
         dom.addEventListener(eventType, vNode.props[name]);
-      } else if (name === 'style') {
+      } else if (name === "style") {
         // 处理样式
         Object.assign(dom.style, vNode.props.style);
-      } else if (name !== 'children') {
+      } else if (name !== "children") {
         // 设置其他属性
         dom[name] = vNode.props[name];
       }
     });
   }
-  
+
   // 递归渲染子节点
   if (vNode.children) {
-    vNode.children.forEach(child => render(child, dom));
+    vNode.children.forEach((child) => render(child, dom));
   }
-  
+
   // 将元素添加到容器
   container.appendChild(dom);
 }
@@ -84,13 +87,13 @@ function updateElement(dom, oldVNode, newVNode) {
     dom.remove();
     return;
   }
-  
+
   // 情况2：新节点是文本节点
-  if (typeof newVNode === 'string') {
+  if (typeof newVNode === "string") {
     dom.textContent = newVNode;
     return;
   }
-  
+
   // 情况3：节点类型改变
   if (oldVNode.type !== newVNode.type) {
     const newDom = document.createElement(newVNode.type);
@@ -98,21 +101,17 @@ function updateElement(dom, oldVNode, newVNode) {
     render(newVNode, newDom.parentNode);
     return;
   }
-  
+
   // 情况4：更新属性
   updateProps(dom, oldVNode.props || {}, newVNode.props || {});
-  
+
   // 情况5：更新子节点
   const oldChildren = oldVNode.children || [];
   const newChildren = newVNode.children || [];
   const maxLength = Math.max(oldChildren.length, newChildren.length);
-  
+
   for (let i = 0; i < maxLength; i++) {
-    updateElement(
-      dom.childNodes[i],
-      oldChildren[i],
-      newChildren[i]
-    );
+    updateElement(dom.childNodes[i], oldChildren[i], newChildren[i]);
   }
 }
 
@@ -124,17 +123,17 @@ function updateElement(dom, oldVNode, newVNode) {
  */
 function updateProps(dom, oldProps, newProps) {
   // 设置新属性
-  Object.keys(newProps).forEach(name => {
-    if (name === 'children') return;
-    
+  Object.keys(newProps).forEach((name) => {
+    if (name === "children") return;
+
     // 处理事件
-    if (name.startsWith('on')) {
+    if (name.startsWith("on")) {
       const eventType = name.toLowerCase().substring(2);
       if (oldProps[name]) {
         dom.removeEventListener(eventType, oldProps[name]);
       }
       dom.addEventListener(eventType, newProps[name]);
-    } else if (name === 'style') {
+    } else if (name === "style") {
       // 处理样式
       Object.assign(dom.style, newProps.style);
     } else {
@@ -142,18 +141,18 @@ function updateProps(dom, oldProps, newProps) {
       dom[name] = newProps[name];
     }
   });
-  
+
   // 移除不再存在的属性
-  Object.keys(oldProps).forEach(name => {
-    if (name === 'children' || newProps[name] !== undefined) return;
-    
+  Object.keys(oldProps).forEach((name) => {
+    if (name === "children" || newProps[name] !== undefined) return;
+
     // 移除事件
-    if (name.startsWith('on')) {
+    if (name.startsWith("on")) {
       const eventType = name.toLowerCase().substring(2);
       dom.removeEventListener(eventType, oldProps[name]);
     } else {
       // 移除属性
-      dom[name] = '';
+      dom[name] = "";
     }
   });
 }
@@ -166,19 +165,19 @@ function updateProps(dom, oldProps, newProps) {
  */
 function createComponent(component, props) {
   let instance;
-  
+
   // 类组件
   if (component.prototype && component.prototype.render) {
     instance = new component(props);
-  } 
+  }
   // 函数组件
   else {
     instance = {
       render: () => component(props),
-      props
+      props,
     };
   }
-  
+
   return instance;
 }
 
@@ -245,5 +244,5 @@ render(vNode, document.getElementById('root'));
 module.exports = {
   createElement,
   render,
-  updateElement
-}; 
+  updateElement,
+};

@@ -6,23 +6,23 @@
  * @returns {Object}
  */
 function myObjectCreate(proto, propertiesObject) {
-    if (typeof proto !== 'object' && typeof proto !== 'function') {
-        throw new TypeError('参数必须是对象或null')
-    }
-    
-    // 创建一个空的构造函数
-    function F() {}
-    
-    // 设置原型
-    F.prototype = proto
-    
-    // 创建实例
-    const obj = new F()
-    
-    // 如果有第二个参数，添加属性
-    if (propertiesObject !== undefined) {
-        Object.defineProperties(obj, propertiesObject)
-    }
-    
-    return obj
-} 
+  if (typeof proto !== "object" && typeof proto !== "function") {
+    throw new TypeError("参数必须是对象或null");
+  }
+
+  // 创建一个空的构造函数
+  function F() {}
+
+  // 设置原型
+  F.prototype = proto;
+
+  // 创建实例
+  const obj = new F();
+
+  // 如果有第二个参数，添加属性
+  if (propertiesObject !== undefined) {
+    Object.defineProperties(obj, propertiesObject);
+  }
+
+  return obj;
+}

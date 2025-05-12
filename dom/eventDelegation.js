@@ -1,6 +1,6 @@
 /**
  * 事件委托实现
- * 
+ *
  * 面试题：实现一个通用的事件委托函数，支持元素选择器过滤
  */
 
@@ -15,33 +15,33 @@
 function delegate(parent, eventType, selector, callback) {
   // 参数检查
   if (!parent || !(parent instanceof HTMLElement)) {
-    throw new Error('Parent must be a valid HTML element');
+    throw new Error("Parent must be a valid HTML element");
   }
-  
-  if (!eventType || typeof eventType !== 'string') {
-    throw new Error('Event type must be a valid string');
+
+  if (!eventType || typeof eventType !== "string") {
+    throw new Error("Event type must be a valid string");
   }
-  
-  if (!selector || typeof selector !== 'string') {
-    throw new Error('Selector must be a valid string');
+
+  if (!selector || typeof selector !== "string") {
+    throw new Error("Selector must be a valid string");
   }
-  
-  if (!callback || typeof callback !== 'function') {
-    throw new Error('Callback must be a function');
+
+  if (!callback || typeof callback !== "function") {
+    throw new Error("Callback must be a function");
   }
-  
+
   // 事件处理函数
-  const eventHandler = function(event) {
+  const eventHandler = function (event) {
     // 获取事件目标
     const target = event.target;
-    
+
     // 查找匹配选择器的目标元素
     const potentialElements = Array.from(parent.querySelectorAll(selector));
     let elementFound = false;
-    
+
     // 检查事件目标是否匹配选择器，或者是否是匹配选择器的元素的子元素
     let currentNode = target;
-    
+
     while (currentNode && currentNode !== parent) {
       if (potentialElements.includes(currentNode)) {
         elementFound = true;
@@ -49,17 +49,17 @@ function delegate(parent, eventType, selector, callback) {
       }
       currentNode = currentNode.parentNode;
     }
-    
+
     // 如果找到匹配的元素，调用回调函数
     if (elementFound) {
       // 将当前匹配的元素作为this传递给回调函数
       callback.call(currentNode, event, currentNode);
     }
   };
-  
+
   // 添加事件监听
   parent.addEventListener(eventType, eventHandler);
-  
+
   // 返回一个函数，用于移除事件监听
   return function removeListener() {
     parent.removeEventListener(eventType, eventHandler);
@@ -74,9 +74,9 @@ function delegate(parent, eventType, selector, callback) {
  * @param {Function} callback - 回调函数
  */
 function simpleDelegate(parent, eventType, selector, callback) {
-  parent.addEventListener(eventType, function(event) {
+  parent.addEventListener(eventType, function (event) {
     const target = event.target;
-    
+
     // 使用Element.matches API检查目标是否匹配选择器
     if (target.matches(selector) || target.closest(selector)) {
       callback.call(target, event);
@@ -121,9 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 // 导出函数供其他模块使用
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     delegate,
-    simpleDelegate
+    simpleDelegate,
   };
-} 
+}

@@ -7,25 +7,25 @@
  */
 function mergeSort(arr) {
   if (arr.length <= 1) return arr;
-  
+
   const mid = Math.floor(arr.length / 2);
   const left = mergeSort(arr.slice(0, mid));
   const right = mergeSort(arr.slice(mid));
-  
+
   return merge(left, right);
 }
 
 /**
  * 合并两个已排序的数组
- * @param {Array} left 
- * @param {Array} right 
+ * @param {Array} left
+ * @param {Array} right
  * @returns {Array}
  */
 function merge(left, right) {
   const result = [];
   let leftIndex = 0;
   let rightIndex = 0;
-  
+
   while (leftIndex < left.length && rightIndex < right.length) {
     if (left[leftIndex] < right[rightIndex]) {
       result.push(left[leftIndex]);
@@ -35,7 +35,7 @@ function merge(left, right) {
       rightIndex++;
     }
   }
-  
+
   return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)];
 }
 
@@ -43,4 +43,4 @@ function merge(left, right) {
 const arr = [38, 27, 43, 3, 9, 82, 10];
 console.log(mergeSort(arr)); // [3, 9, 10, 27, 38, 43, 82]
 
-module.exports = { mergeSort, merge }; 
+module.exports = { mergeSort, merge };

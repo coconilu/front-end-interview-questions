@@ -6,19 +6,19 @@
  * @returns {boolean}
  */
 function myInstanceOf(obj, constructor) {
-    // 基本类型直接返回false
-    if (obj === null || typeof obj !== 'object') return false
-    
-    // 获取对象的原型
-    let proto = Object.getPrototypeOf(obj)
-    
-    // 递归查找原型链
-    while (proto !== null) {
-        if (proto === constructor.prototype) {
-            return true
-        }
-        proto = Object.getPrototypeOf(proto)
+  // 基本类型直接返回false
+  if (obj === null || typeof obj !== "object") return false;
+
+  // 获取对象的原型
+  let proto = Object.getPrototypeOf(obj);
+
+  // 递归查找原型链
+  while (proto !== null) {
+    if (proto === constructor.prototype) {
+      return true;
     }
-    
-    return false
-} 
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return false;
+}

@@ -13,7 +13,7 @@ function computeLPS(pattern) {
   const lps = new Array(pattern.length).fill(0);
   let length = 0;
   let i = 1;
-  
+
   while (i < pattern.length) {
     if (pattern[i] === pattern[length]) {
       length++;
@@ -28,7 +28,7 @@ function computeLPS(pattern) {
       }
     }
   }
-  
+
   return lps;
 }
 
@@ -41,19 +41,19 @@ function computeLPS(pattern) {
 function kmpSearch(text, pattern) {
   if (pattern.length === 0) return [];
   if (pattern.length > text.length) return [];
-  
+
   const matches = [];
   const lps = computeLPS(pattern);
-  
+
   let i = 0; // 文本串的索引
   let j = 0; // 模式串的索引
-  
+
   while (i < text.length) {
     if (pattern[j] === text[i]) {
       i++;
       j++;
     }
-    
+
     if (j === pattern.length) {
       // 找到匹配，记录起始位置
       matches.push(i - j);
@@ -68,7 +68,7 @@ function kmpSearch(text, pattern) {
       }
     }
   }
-  
+
   return matches;
 }
 
@@ -81,4 +81,4 @@ const text2 = "AABAACAADAABAABA";
 const pattern2 = "AABA";
 console.log(kmpSearch(text2, pattern2)); // [0, 9, 12]
 
-module.exports = { kmpSearch, computeLPS }; 
+module.exports = { kmpSearch, computeLPS };
