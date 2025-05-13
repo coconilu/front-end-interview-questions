@@ -159,7 +159,12 @@
 ├── typescript/                # TypeScript相关
 │   ├── genericTypes.ts        # 泛型使用示例
 │   ├── inferTypes.ts          # 类型推断示例
-│   └── decorators.ts          # 装饰器模式实现
+│   ├── decorators.ts          # 装饰器模式实现
+│   ├── advancedTypes.ts       # 高级类型实现
+│   ├── typeGuards.ts          # 类型守卫实现
+│   ├── conditionalTypes.ts    # 条件类型实现
+│   ├── genericConstraints.ts  # 泛型约束实现
+│   └── utilityTypes.ts        # 工具类型实现
 │
 ├── mobile/                    # 移动端和响应式
 │   ├── touchEvents.js         # 移动端触摸事件
