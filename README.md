@@ -126,7 +126,14 @@
 │   │   └── virtualDOM.js      # 虚拟DOM实现原理
 │   └── vue/                   # Vue相关题目
 │       ├── reactivity.js      # 响应式原理实现
-│       └── vueLifecycle.js    # 生命周期钩子使用
+│       ├── vue2observer.js    # Vue2数组响应式原理实现
+│       ├── vue3observer.js    # Vue3数组响应式原理实现
+│       ├── vueLifecycle.js    # 生命周期钩子使用
+│       ├── componentCommunication.js # 组件通信方式
+│       ├── vueRouter.js       # Vue Router实现与应用
+│       ├── vuex.js            # Vuex状态管理
+│       ├── compositionAPI.js  # Vue3 Composition API
+│       └── renderFunction.js  # 渲染函数与JSX
 │
 ├── performance/               # 前端性能优化
 │   ├── lazyLoading.js         # 图片懒加载实现
