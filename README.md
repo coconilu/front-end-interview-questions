@@ -126,6 +126,7 @@
 │   │   └── virtualDOM.js      # 虚拟DOM实现原理
 │   └── vue/                   # Vue相关题目
 │       ├── reactivity.js      # 响应式原理实现
+│       ├── useDebounceRef.js  # 自定义防抖Ref实现
 │       ├── vue2observer.js    # Vue2数组响应式原理实现
 │       ├── vue3observer.js    # Vue3数组响应式原理实现
 │       ├── vueLifecycle.js    # 生命周期钩子使用
@@ -157,6 +158,7 @@
 │
 ├── typescript/                # TypeScript相关
 │   ├── genericTypes.ts        # 泛型使用示例
+│   ├── inferTypes.ts          # 类型推断示例
 │   └── decorators.ts          # 装饰器模式实现
 │
 ├── mobile/                    # 移动端和响应式
@@ -166,7 +168,11 @@
 ├── js-core/                   # JavaScript核心概念
 │   ├── function/              # 函数相关题目
 │   │   ├── currying.js        # 函数柯里化实现
-│   │   └── bind.js            # 手写bind函数
+│   │   ├── bind.js            # 手写bind函数
+│   │   ├── call.js            # 手写call函数
+│   │   ├── apply.js           # 手写apply函数
+│   │   └── once.js            # 只执行一次的函数
+│   │
 │   └── object/                # 对象相关题目
 │       ├── deepClone.js       # 深拷贝实现
 │       └── inheritance.js     # 继承模式实现
