@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS预处理器比较 (Sass/Less/Stylus)</title>
+  <style>
+    /* 通用样式 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      margin: 30px 0 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    
+    h3 {
+      margin: 25px 0 10px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    p {
+      margin-bottom: 15px;
+    }
+    
+    ul, ol {
+      margin-bottom: 15px;
+      margin-left: 20px;
+    }
+    
+    li {
+      margin-bottom: 5px;
+    }
+    
+    /* 代码示例格式 */
+    .code-comparison {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      gap: 15px;
+    }
+    
+    .code-block {
+      flex: 1;
+      min-width: 300px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .code-title {
+      background-color: #2c3e50;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+    
+    .sass-title {
+      background-color: #c6538c;
+    }
+    
+    .less-title {
+      background-color: #1d365d;
+    }
+    
+    .stylus-title {
+      background-color: #448a00;
+    }
+    
+    .css-title {
+      background-color: #1572b6;
+    }
+    
+    pre {
+      margin: 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      overflow-x: auto;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .sass-code {
+      background-color: #fdf7fa;
+    }
+    
+    .less-code {
+      background-color: #f7faff;
+    }
+    
+    .stylus-code {
+      background-color: #f7fff7;
+    }
+    
+    .css-code {
+      background-color: #f7fbff;
+    }
+    
+    /* 比较表 */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    .comparison-table th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    
+    .comparison-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    .comparison-table tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    /* 特性标记 */
+    .feature-yes {
+      color: #2ecc71;
+    }
+    
+    .feature-no {
+      color: #e74c3c;
+    }
+    
+    .feature-partial {
+      color: #f39c12;
+    }
+    
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .code-block {
+        flex: 100%;
+      }
+      
+      .comparison-table {
+        font-size: 14px;
+      }
+      
+      .comparison-table th,
+      .comparison-table td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CSS预处理器比较 (Sass/Less/Stylus)</h1>
+    
+    <div class="section">
+      <h2>CSS预处理器简介</h2>
+      <p>CSS预处理器是一种特殊的语言，通过编译转化为常规CSS，增强了CSS的能力，提高了开发效率。主流的CSS预处理器包括Sass、Less和Stylus。</p>
+      
+      <h3>预处理器解决了哪些问题？</h3>
+      <ul>
+        <li>CSS缺乏变量、嵌套、函数等编程特性</li>
+        <li>CSS代码难以维护和复用</li>
+        <li>缺少模块化机制</li>
+        <li>无法执行计算</li>
+        <li>重复代码多</li>
+      </ul>
+      
+      <h3>预处理器的共同特性</h3>
+      <ul>
+        <li>变量：存储和重用值</li>
+        <li>嵌套：简化选择器编写</li>
+        <li>混合(Mixins)：可重用代码块</li>
+        <li>函数：执行操作并返回结果</li>
+        <li>条件语句：根据条件应用不同样式</li>
+        <li>循环：生成重复样式</li>
+        <li>导入：分割和组织代码</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>主要CSS预处理器比较</h2>
+      
+      <h3>1. Sass</h3>
+      <p>Sass (Syntactically Awesome Style Sheets) 是最成熟、最强大的CSS预处理器，有两种语法：SCSS (Sassy CSS) 和原始Sass语法。</p>
+      <ul>
+        <li><strong>特点</strong>：成熟的社区支持，强大的功能集，两种语法可选（SCSS和Sass）</li>
+        <li><strong>扩展名</strong>：.scss（新语法，类似CSS）或.sass（旧语法，基于缩进）</li>
+        <li><strong>实现</strong>：基于Ruby，现在有Node.js实现(node-sass, sass)和Dart实现</li>
+        <li><strong>流行框架</strong>：Bootstrap, Foundation, Compass</li>
+      </ul>
+      
+      <h3>2. Less</h3>
+      <p>Less (Leaner Style Sheets) 是一个受Sass启发的CSS预处理器，语法更接近CSS，学习曲线较低。</p>
+      <ul>
+        <li><strong>特点</strong>：易学易用，直接在浏览器中运行，语法接近CSS</li>
+        <li><strong>扩展名</strong>：.less</li>
+        <li><strong>实现</strong>：基于JavaScript，可在浏览器和Node.js环境中运行</li>
+        <li><strong>流行框架</strong>：Bootstrap 3, Ant Design</li>
+      </ul>
+      
+      <h3>3. Stylus</h3>
+      <p>Stylus是最年轻的CSS预处理器，语法非常灵活，可以省略大多数标点符号。</p>
+      <ul>
+        <li><strong>特点</strong>：极简主义语法，高度灵活，可选择是否使用冒号、分号、花括号</li>
+        <li><strong>扩展名</strong>：.styl</li>
+        <li><strong>实现</strong>：基于Node.js</li>
+        <li><strong>流行框架</strong>：Kouto Swiss</li>
+      </ul>
+      
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>特性</th>
+            <th>Sass</th>
+            <th>Less</th>
+            <th>Stylus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>变量声明</td>
+            <td><code>$variable: value;</code></td>
+            <td><code>@variable: value;</code></td>
+            <td><code>variable = value</code></td>
+          </tr>
+          <tr>
+            <td>嵌套选择器</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+          </tr>
+          <tr>
+            <td>父选择器引用</td>
+            <td><code>&</code></td>
+            <td><code>&</code></td>
+            <td><code>&</code></td>
+          </tr>
+          <tr>
+            <td>混合声明</td>
+            <td><code>@mixin name {}</code></td>
+            <td><code>.name() {}</code></td>
+            <td><code>name() {}</code></td>
+          </tr>
+          <tr>
+            <td>混合调用</td>
+            <td><code>@include name;</code></td>
+            <td><code>.name();</code></td>
+            <td><code>name()</code></td>
+          </tr>
+          <tr>
+            <td>扩展/继承</td>
+            <td><code>@extend .class;</code></td>
+            <td><code>&:extend(.class);</code></td>
+            <td><code>@extend .class</code></td>
+          </tr>
+          <tr>
+            <td>条件语句</td>
+            <td><code>@if/@else</code></td>
+            <td><code>when</code> 守卫</td>
+            <td><code>if/else</code></td>
+          </tr>
+          <tr>
+            <td>循环</td>
+            <td><code>@for/@each/@while</code></td>
+            <td class="feature-partial">基于mixin递归</td>
+            <td><code>for/each</code></td>
+          </tr>
+          <tr>
+            <td>导入</td>
+            <td><code>@import</code></td>
+            <td><code>@import</code></td>
+            <td><code>@import</code></td>
+          </tr>
+          <tr>
+            <td>命名空间</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+          </tr>
+          <tr>
+            <td>操作符</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+            <td class="feature-yes">✓</td>
+          </tr>
+          <tr>
+            <td>内置函数</td>
+            <td class="feature-yes">丰富</td>
+            <td class="feature-partial">中等</td>
+            <td class="feature-yes">丰富</td>
+          </tr>
+          <tr>
+            <td>学习曲线</td>
+            <td>中等</td>
+            <td>低</td>
+            <td>中高</td>
+          </tr>
+          <tr>
+            <td>社区支持</td>
+            <td class="feature-yes">非常强</td>
+            <td class="feature-yes">强</td>
+            <td class="feature-partial">中等</td>
+          </tr>
+          <tr>
+            <td>编译速度</td>
+            <td>较慢 (Ruby版本)，较快 (Dart/LibSass版本)</td>
+            <td>快</td>
+            <td>快</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="section">
+      <h2>代码比较示例</h2>
+      
+      <h3>1. 变量与嵌套</h3>
+      <div class="code-comparison">
+        <div class="code-block">
+          <div class="code-title sass-title">Sass (SCSS)</div>
+          <pre class="sass-code">
+$primary-color: #3498db;
+$padding: 15px;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  // 嵌套
+  .header {
+    background-color: $primary-color;
+    padding: $padding;
+    
+    h1 {
+      color: white;
+    }
+    
+    // 父选择器引用
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title less-title">Less</div>
+          <pre class="less-code">
+@primary-color: #3498db;
+@padding: 15px;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  // 嵌套
+  .header {
+    background-color: @primary-color;
+    padding: @padding;
+    
+    h1 {
+      color: white;
+    }
+    
+    // 父选择器引用
+    &:hover {
+      background-color: darken(@primary-color, 10%);
+    }
+  }
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title stylus-title">Stylus</div>
+          <pre class="stylus-code">
+primary-color = #3498db
+padding = 15px
+
+.container
+  max-width 1200px
+  margin 0 auto
+  
+  // 嵌套
+  .header
+    background-color primary-color
+    padding padding
+    
+    h1
+      color white
+    
+    // 父选择器引用
+    &:hover
+      background-color darken(primary-color, 10%)</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title css-title">编译后的CSS</div>
+          <pre class="css-code">
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container .header {
+  background-color: #3498db;
+  padding: 15px;
+}
+
+.container .header h1 {
+  color: white;
+}
+
+.container .header:hover {
+  background-color: #217dbb;
+}</pre>
+        </div>
+      </div>
+      
+      <h3>2. 混合(Mixins)</h3>
+      <div class="code-comparison">
+        <div class="code-block">
+          <div class="code-title sass-title">Sass (SCSS)</div>
+          <pre class="sass-code">
+// 定义混合
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($x, $y, $blur, $color) {
+  -webkit-box-shadow: $x $y $blur $color;
+  -moz-box-shadow: $x $y $blur $color;
+  box-shadow: $x $y $blur $color;
+}
+
+// 使用混合
+.button {
+  @include border-radius(5px);
+  @include box-shadow(0, 2px, 5px, rgba(0, 0, 0, 0.3));
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title less-title">Less</div>
+          <pre class="less-code">
+// 定义混合
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-shadow(@x, @y, @blur, @color) {
+  -webkit-box-shadow: @x @y @blur @color;
+  -moz-box-shadow: @x @y @blur @color;
+  box-shadow: @x @y @blur @color;
+}
+
+// 使用混合
+.button {
+  .border-radius(5px);
+  .box-shadow(0, 2px, 5px, rgba(0, 0, 0, 0.3));
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title stylus-title">Stylus</div>
+          <pre class="stylus-code">
+// 定义混合
+border-radius(radius)
+  -webkit-border-radius radius
+  -moz-border-radius radius
+  border-radius radius
+
+box-shadow(x, y, blur, color)
+  -webkit-box-shadow x y blur color
+  -moz-box-shadow x y blur color
+  box-shadow x y blur color
+
+// 使用混合
+.button
+  border-radius(5px)
+  box-shadow(0, 2px, 5px, rgba(0, 0, 0, 0.3))
+  background-color #3498db
+  color white
+  padding 10px 20px</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title css-title">编译后的CSS</div>
+          <pre class="css-code">
+.button {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+}</pre>
+        </div>
+      </div>
+      
+      <h3>3. 继承/扩展</h3>
+      <div class="code-comparison">
+        <div class="code-block">
+          <div class="code-title sass-title">Sass (SCSS)</div>
+          <pre class="sass-code">
+// 基本样式
+%message {
+  padding: 10px;
+  border: 1px solid #eee;
+  color: #333;
+}
+
+// 使用继承
+.success {
+  @extend %message;
+  border-color: green;
+  color: green;
+}
+
+.error {
+  @extend %message;
+  border-color: red;
+  color: red;
+}
+
+.warning {
+  @extend %message;
+  border-color: yellow;
+  color: #aa0;</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title less-title">Less</div>
+          <pre class="less-code">
+// 基本样式
+.message {
+  padding: 10px;
+  border: 1px solid #eee;
+  color: #333;
+}
+
+// 使用继承
+.success {
+  &:extend(.message);
+  border-color: green;
+  color: green;
+}
+
+.error {
+  &:extend(.message);
+  border-color: red;
+  color: red;
+}
+
+.warning {
+  &:extend(.message);
+  border-color: yellow;
+  color: #aa0;
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title stylus-title">Stylus</div>
+          <pre class="stylus-code">
+// 基本样式
+message()
+  padding 10px
+  border 1px solid #eee
+  color #333
+
+// 使用继承
+.success
+  @extend .message
+  border-color green
+  color green
+
+.error
+  @extend .message
+  border-color red
+  color red
+
+.warning
+  @extend .message
+  border-color yellow
+  color #aa0</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title css-title">编译后的CSS</div>
+          <pre class="css-code">
+.success, .error, .warning {
+  padding: 10px;
+  border: 1px solid #eee;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+  color: green;
+}
+
+.error {
+  border-color: red;
+  color: red;
+}
+
+.warning {
+  border-color: yellow;
+  color: #aa0;
+}</pre>
+        </div>
+      </div>
+      
+      <h3>4. 条件与循环</h3>
+      <div class="code-comparison">
+        <div class="code-block">
+          <div class="code-title sass-title">Sass (SCSS)</div>
+          <pre class="sass-code">
+// 条件语句
+@mixin theme($dark-mode) {
+  @if $dark-mode {
+    background-color: #333;
+    color: white;
+  } @else {
+    background-color: white;
+    color: #333;
+  }
+}
+
+.dark-theme {
+  @include theme(true);
+}
+
+.light-theme {
+  @include theme(false);
+}
+
+// 循环
+$colors: (red, green, blue, yellow, purple);
+
+@for $i from 1 through length($colors) {
+  .color-#{$i} {
+    background-color: nth($colors, $i);
+  }
+}</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title less-title">Less</div>
+          <pre class="less-code">
+// 条件语句
+.theme(@dark-mode) when (@dark-mode = true) {
+  background-color: #333;
+  color: white;
+}
+
+.theme(@dark-mode) when (@dark-mode = false) {
+  background-color: white;
+  color: #333;
+}
+
+.dark-theme {
+  .theme(true);
+}
+
+.light-theme {
+  .theme(false);
+}
+
+// 循环 (递归mixin)
+@colors: red, green, blue, yellow, purple;
+
+.color-loop(@i, @list) when (@i > 0) {
+  @item: extract(@list, @i);
+  .color-@{i} {
+    background-color: @item;
+  }
+  .color-loop(@i - 1, @list);
+}
+
+.color-loop(length(@colors), @colors);</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title stylus-title">Stylus</div>
+          <pre class="stylus-code">
+// 条件语句
+theme(dark-mode)
+  if dark-mode
+    background-color #333
+    color white
+  else
+    background-color white
+    color #333
+
+.dark-theme
+  theme(true)
+
+.light-theme
+  theme(false)
+
+// 循环
+colors = red green blue yellow purple
+
+for i, color in colors
+  .color-{i + 1}
+    background-color color</pre>
+        </div>
+        
+        <div class="code-block">
+          <div class="code-title css-title">编译后的CSS</div>
+          <pre class="css-code">
+.dark-theme {
+  background-color: #333;
+  color: white;
+}
+
+.light-theme {
+  background-color: white;
+  color: #333;
+}
+
+.color-1 {
+  background-color: red;
+}
+
+.color-2 {
+  background-color: green;
+}
+
+.color-3 {
+  background-color: blue;
+}
+
+.color-4 {
+  background-color: yellow;
+}
+
+.color-5 {
+  background-color: purple;
+}</pre>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>如何选择CSS预处理器</h2>
+      
+      <h3>选择Sass的原因</h3>
+      <ul>
+        <li>最成熟和功能最全面的预处理器</li>
+        <li>强大的社区支持和丰富的资源</li>
+        <li>与主流CSS框架兼容性好</li>
+        <li>拥有最广泛的功能集，包括强大的控制指令</li>
+        <li>两种语法可选（SCSS和Sass）</li>
+      </ul>
+      
+      <h3>选择Less的原因</h3>
+      <ul>
+        <li>入门容易，语法最接近CSS</li>
+        <li>基于JavaScript，可直接在浏览器中运行</li>
+        <li>设置简单，学习曲线低</li>
+        <li>与Bootstrap 3等大型框架集成</li>
+      </ul>
+      
+      <h3>选择Stylus的原因</h3>
+      <ul>
+        <li>最灵活的语法，可以省略大多数标点符号</li>
+        <li>强大的编程能力，接近JavaScript</li>
+        <li>更喜欢极简主义语法</li>
+        <li>性能优良</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>未来发展</h2>
+      <p>随着CSS原生功能的增强，预处理器的某些功能已经被现代CSS所取代：</p>
+      <ul>
+        <li>CSS变量（自定义属性）提供了与预处理器变量类似的功能，但更加动态</li>
+        <li>CSS嵌套语法正在标准化过程中</li>
+        <li>CSS颜色函数扩展</li>
+        <li>CSS计算功能增强</li>
+      </ul>
+      
+      <p>然而，预处理器仍然提供了许多CSS原生不支持的功能，例如混合、扩展、条件和循环等。预处理器和原生CSS可以结合使用，取长补短。</p>
+    </div>
+  </div>
+  
+  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+    <h3>面试要点：</h3>
+    <ul>
+      <li>CSS预处理器增强了CSS的功能，提高了开发效率和代码可维护性</li>
+      <li>三大主流预处理器：Sass (最流行且功能丰富)、Less (易于学习)、Stylus (语法灵活)</li>
+      <li>预处理器共同特性：变量、嵌套、混合、继承、运算等</li>
+      <li>Sass提供了最丰富的功能集和最广泛的生态系统</li>
+      <li>Less基于JavaScript，学习曲线低，可直接在浏览器中处理</li>
+      <li>Stylus语法最为灵活，几乎所有标点符号都是可选的</li>
+      <li>预处理器优势：代码组织、可维护性、模块化、复用性</li>
+      <li>选择预处理器要考虑：团队熟悉度、项目需求、与其他工具集成等因素</li>
+      <li>预处理器与现代CSS结合使用效果最佳</li>
+    </ul>
+  </div>
+</body>
+</html> 

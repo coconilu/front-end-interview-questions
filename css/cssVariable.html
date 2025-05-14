@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS变量(自定义属性)</title>
+  <style>
+    /* 通用样式 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      margin: 30px 0 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: Consolas, Monaco, monospace;
+      margin: 15px 0;
+    }
+    
+    code {
+      background-color: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: Consolas, Monaco, monospace;
+    }
+    
+    /* CSS变量基础 */
+    :root {
+      /* 全局变量定义在:root选择器中 */
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --accent-color: #e74c3c;
+      --text-color: #333;
+      --light-color: #f5f5f5;
+      --dark-color: #2c3e50;
+      --border-radius: 5px;
+      --spacing-small: 10px;
+      --spacing-medium: 20px;
+      --spacing-large: 30px;
+      --font-size-small: 14px;
+      --font-size-medium: 16px;
+      --font-size-large: 18px;
+      --font-size-xlarge: 24px;
+    }
+    
+    /* 基本使用示例 */
+    .basic-demo {
+      padding: var(--spacing-medium);
+      background-color: var(--light-color);
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-medium);
+    }
+    
+    .basic-demo h3 {
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .basic-demo p {
+      font-size: var(--font-size-medium);
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .basic-demo .btn {
+      display: inline-block;
+      padding: var(--spacing-small) var(--spacing-medium);
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      text-decoration: none;
+      font-size: var(--font-size-small);
+    }
+    
+    /* 局部变量示例 */
+    .local-vars {
+      /* 局部变量仅在此元素及其子元素中可用 */
+      --card-bg: #fff;
+      --card-color: var(--dark-color);
+      --card-padding: var(--spacing-medium);
+      
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-medium);
+      margin-bottom: var(--spacing-medium);
+    }
+    
+    .card {
+      background-color: var(--card-bg);
+      color: var(--card-color);
+      padding: var(--card-padding);
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: calc(33.33% - var(--spacing-medium));
+      min-width: 250px;
+    }
+    
+    /* 每个卡片使用不同的主题色 */
+    .card:nth-child(1) {
+      --card-theme: var(--primary-color);
+    }
+    
+    .card:nth-child(2) {
+      --card-theme: var(--secondary-color);
+    }
+    
+    .card:nth-child(3) {
+      --card-theme: var(--accent-color);
+    }
+    
+    .card-header {
+      padding-bottom: var(--spacing-small);
+      margin-bottom: var(--spacing-small);
+      border-bottom: 2px solid var(--card-theme);
+    }
+    
+    .card-title {
+      color: var(--card-theme);
+    }
+    
+    /* 响应式变量变化 */
+    .responsive-vars {
+      background-color: var(--primary-color);
+      color: white;
+      padding: var(--spacing-large);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-medium);
+      --btn-size: var(--font-size-medium);
+    }
+    
+    @media (max-width: 768px) {
+      .responsive-vars {
+        --btn-size: var(--font-size-small);
+        padding: var(--spacing-medium);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .responsive-vars {
+        --btn-size: var(--font-size-small);
+        padding: var(--spacing-small);
+      }
+    }
+    
+    .responsive-vars button {
+      padding: var(--spacing-small) var(--spacing-medium);
+      font-size: var(--btn-size);
+      background-color: white;
+      color: var(--primary-color);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+    
+    /* 主题切换示例 */
+    .theme-demo {
+      padding: var(--spacing-medium);
+      background-color: var(--theme-bg, white);
+      color: var(--theme-text, #333);
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      margin-bottom: var(--spacing-medium);
+    }
+    
+    .theme-light {
+      --theme-bg: white;
+      --theme-text: #333;
+      --theme-border: #ddd;
+      --theme-accent: var(--primary-color);
+    }
+    
+    .theme-dark {
+      --theme-bg: #2c3e50;
+      --theme-text: #ecf0f1;
+      --theme-border: #34495e;
+      --theme-accent: var(--accent-color);
+    }
+    
+    .theme-cool {
+      --theme-bg: #e8f4fc;
+      --theme-text: #2980b9;
+      --theme-border: #bde0fc;
+      --theme-accent: #3498db;
+    }
+    
+    .theme-warm {
+      --theme-bg: #fff5eb;
+      --theme-text: #d35400;
+      --theme-border: #fde3cd;
+      --theme-accent: #e67e22;
+    }
+    
+    .theme-demo button {
+      padding: var(--spacing-small) var(--spacing-medium);
+      background-color: var(--theme-accent);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      margin-right: var(--spacing-small);
+      margin-bottom: var(--spacing-small);
+    }
+    
+    /* calc()与CSS变量结合使用 */
+    .calc-demo {
+      --base-size: 16px;
+      --scale-ratio: 1.25;
+      
+      padding: var(--spacing-medium);
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-medium);
+    }
+    
+    .calc-demo h2 {
+      font-size: calc(var(--base-size) * var(--scale-ratio) * var(--scale-ratio) * var(--scale-ratio));
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .calc-demo h3 {
+      font-size: calc(var(--base-size) * var(--scale-ratio) * var(--scale-ratio));
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .calc-demo h4 {
+      font-size: calc(var(--base-size) * var(--scale-ratio));
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .calc-demo p {
+      font-size: var(--base-size);
+      margin-bottom: var(--spacing-small);
+    }
+    
+    .calc-demo small {
+      font-size: calc(var(--base-size) / var(--scale-ratio));
+    }
+    
+    /* JS操作CSS变量示例 */
+    .js-control-demo {
+      --hue: 210; /* 蓝色 */
+      --saturation: 80%;
+      --lightness: 50%;
+      
+      padding: var(--spacing-medium);
+      background-color: hsl(var(--hue), var(--saturation), var(--lightness));
+      color: white;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-medium);
+      transition: all 0.3s ease;
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-medium);
+      margin-top: var(--spacing-medium);
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .control-group label {
+      margin-bottom: var(--spacing-small);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CSS变量(自定义属性)</h1>
+    
+    <div class="section">
+      <h2>CSS变量基础</h2>
+      <p>CSS变量（也称为自定义属性）允许开发者定义在整个文档中可重复使用的值。这提高了代码的可维护性和可读性。</p>
+      
+      <h3>定义和使用语法</h3>
+      <pre>
+/* 定义变量 */
+:root {
+  --main-color: #3498db;
+  --padding: 15px;
+}
+
+/* 使用变量 */
+.element {
+  color: var(--main-color);
+  padding: var(--padding);
+}
+      </pre>
+      
+      <h3>变量作用域</h3>
+      <p>CSS变量具有作用域，可以在全局（:root）或特定元素内定义。子元素可以继承父元素的变量，也可以覆盖它们。</p>
+      
+      <div class="basic-demo">
+        <h3>基本使用示例</h3>
+        <p>这个示例使用了全局定义的CSS变量来设置样式。</p>
+        <a href="#" class="btn">按钮</a>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>局部变量和继承</h2>
+      <p>CSS变量可以在组件级别定义，只影响该组件和其子元素。这有助于组件封装和避免全局污染。</p>
+      
+      <div class="local-vars">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">卡片 1</h3>
+          </div>
+          <div class="card-body">
+            <p>这张卡片使用了--primary-color作为主题色。</p>
+            <p>CSS变量可以是全局或局部的。局部变量仅适用于定义它的元素及其子元素。</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">卡片 2</h3>
+          </div>
+          <div class="card-body">
+            <p>这张卡片使用了--secondary-color作为主题色。</p>
+            <p>子元素会继承父元素的CSS变量，但可以通过重新定义来覆盖它们。</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">卡片 3</h3>
+          </div>
+          <div class="card-body">
+            <p>这张卡片使用了--accent-color作为主题色。</p>
+            <p>CSS变量可以引用其他CSS变量，创建相互依赖的关系。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>媒体查询中的CSS变量</h2>
+      <p>CSS变量可以在媒体查询中重新定义，使响应式设计更加简洁。</p>
+      
+      <pre>
+:root {
+  --font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size: 14px;
+  }
+}
+      </pre>
+      
+      <div class="responsive-vars">
+        <h3>响应式变量示例</h3>
+        <p>调整浏览器窗口大小，观察按钮大小的变化。</p>
+        <button>响应式按钮</button>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>主题切换</h2>
+      <p>CSS变量是实现主题切换功能的强大工具。通过更改几个基本变量，可以完全改变网站的外观。</p>
+      
+      <div class="theme-demo theme-light" id="theme-container">
+        <h3>主题切换演示</h3>
+        <p>点击下面的按钮切换不同的主题：</p>
+        <div>
+          <button data-theme="theme-light">浅色主题</button>
+          <button data-theme="theme-dark">深色主题</button>
+          <button data-theme="theme-cool">冷色主题</button>
+          <button data-theme="theme-warm">暖色主题</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>CSS变量与calc()</h2>
+      <p>CSS变量可以与calc()函数结合使用，实现动态计算，创建复杂的关系。</p>
+      
+      <div class="calc-demo">
+        <h3>使用calc()和CSS变量的排版比例</h3>
+        <h2>这是一个大标题 (base * 1.25³)</h2>
+        <h3>这是一个中等标题 (base * 1.25²)</h3>
+        <h4>这是一个小标题 (base * 1.25)</h4>
+        <p>这是正文文本 (base size)</p>
+        <small>这是小文本 (base / 1.25)</small>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>使用JavaScript操作CSS变量</h2>
+      <p>CSS变量的一个强大特性是可以通过JavaScript动态修改，实现交互效果。</p>
+      
+      <pre>
+// 设置CSS变量
+document.documentElement.style.setProperty('--main-color', 'red');
+
+// 获取CSS变量
+getComputedStyle(document.documentElement).getPropertyValue('--main-color');
+      </pre>
+      
+      <div class="js-control-demo" id="color-demo">
+        <h3>使用滑块控制颜色</h3>
+        <p>移动下面的滑块来调整背景色：</p>
+        
+        <div class="controls">
+          <div class="control-group">
+            <label for="hue">色相 (H): <span id="hue-value">210</span></label>
+            <input type="range" id="hue" min="0" max="360" value="210">
+          </div>
+          
+          <div class="control-group">
+            <label for="saturation">饱和度 (S): <span id="saturation-value">80%</span></label>
+            <input type="range" id="saturation" min="0" max="100" value="80">
+          </div>
+          
+          <div class="control-group">
+            <label for="lightness">亮度 (L): <span id="lightness-value">50%</span></label>
+            <input type="range" id="lightness" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>CSS变量的浏览器兼容性</h2>
+      <p>CSS变量在现代浏览器中得到广泛支持，但在IE11和更早版本中不支持。可以使用回退值或CSS预处理器作为替代方案。</p>
+      
+      <pre>
+.element {
+  color: #3498db; /* 回退颜色 */
+  color: var(--main-color, #3498db); /* 使用变量，提供回退值 */
+}
+      </pre>
+      
+      <p>另一种处理方式是使用特性检测：</p>
+      
+      <pre>
+@supports (--css: variables) {
+  /* 支持CSS变量的浏览器的样式 */
+  .element {
+    color: var(--main-color);
+  }
+}
+      </pre>
+    </div>
+  </div>
+  
+  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+    <h3>面试要点：</h3>
+    <ul>
+      <li>CSS变量（自定义属性）用 -- 前缀定义，使用var()函数引用</li>
+      <li>CSS变量可以全局（:root）或局部定义，具有作用域和继承特性</li>
+      <li>可以在媒体查询中重新定义变量，简化响应式设计</li>
+      <li>可以与calc()等函数结合使用，实现动态计算</li>
+      <li>可以通过JavaScript动态操作，实现交互效果</li>
+      <li>CSS变量与Sass/Less变量的区别：CSS变量在运行时有效，可以通过DOM访问；预处理器变量在编译时处理</li>
+      <li>可以使用变量回退值和@supports规则处理浏览器兼容性问题</li>
+      <li>主要应用场景：主题切换、组件封装、响应式设计、减少重复代码</li>
+    </ul>
+  </div>
+  
+  <script>
+    // 主题切换功能
+    document.querySelectorAll('#theme-container button').forEach(button => {
+      button.addEventListener('click', function() {
+        const theme = this.getAttribute('data-theme');
+        document.getElementById('theme-container').className = 'theme-demo ' + theme;
+      });
+    });
+    
+    // HSL颜色控制
+    const colorDemo = document.getElementById('color-demo');
+    const hueSlider = document.getElementById('hue');
+    const saturationSlider = document.getElementById('saturation');
+    const lightnessSlider = document.getElementById('lightness');
+    const hueValue = document.getElementById('hue-value');
+    const saturationValue = document.getElementById('saturation-value');
+    const lightnessValue = document.getElementById('lightness-value');
+    
+    function updateColor() {
+      colorDemo.style.setProperty('--hue', hueSlider.value);
+      colorDemo.style.setProperty('--saturation', saturationSlider.value + '%');
+      colorDemo.style.setProperty('--lightness', lightnessSlider.value + '%');
+      
+      hueValue.textContent = hueSlider.value;
+      saturationValue.textContent = saturationSlider.value + '%';
+      lightnessValue.textContent = lightnessSlider.value + '%';
+    }
+    
+    hueSlider.addEventListener('input', updateColor);
+    saturationSlider.addEventListener('input', updateColor);
+    lightnessSlider.addEventListener('input', updateColor);
+  </script>
+</body>
+</html> 
