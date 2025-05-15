@@ -175,8 +175,11 @@
 │   └── utilityTypes.ts        # 工具类型实现
 │
 ├── mobile/                    # 移动端和响应式
-│   ├── touchEvents.js         # 移动端触摸事件
-│   └── responsiveDesign.html  # 响应式设计实现
+│   ├── touchEvents.js         # 移动端触摸事件处理与手势识别
+│   ├── responsiveDesign.html  # 响应式设计实现
+│   ├── mobileOptimization.html # 移动端性能优化方法和技巧
+│   ├── deviceAdaptation.html  # 移动端设备适配方案
+│   └── hybridApp.html         # 混合应用开发基础知识和技术
 │
 ├── js-core/                   # JavaScript核心概念
 │   ├── function/              # 函数相关题目
