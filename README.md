@@ -142,7 +142,8 @@
 │       ├── vueRouter.js       # Vue Router实现与应用
 │       ├── vuex.js            # Vuex状态管理
 │       ├── compositionAPI.js  # Vue3 Composition API
-│       └── renderFunction.js  # 渲染函数与JSX
+│       ├── renderFunction.js  # 渲染函数与JSX
+│       └── virtualDOM.js      # 虚拟DOM结构与实现
 │
 ├── performance/               # 前端性能优化
 │   ├── lazyLoading.js         # 图片懒加载实现
