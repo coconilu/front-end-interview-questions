@@ -17,6 +17,37 @@ class ListNode {
   }
 }
 
+// 用于递归解法的全局变量
+let frontPointer;
+
+/**
+ * 递归方式判断链表是否为回文链表
+ * @param {ListNode} currentNode
+ * @return {boolean}
+ */
+function isPalindromeRecursive(currentNode) {
+  if (currentNode !== null) {
+    if (!isPalindromeRecursive(currentNode.next)) {
+      return false;
+    }
+    if (currentNode.val !== frontPointer.val) {
+      return false;
+    }
+    frontPointer = frontPointer.next;
+  }
+  return true;
+}
+
+/**
+ * 递归解法的主函数
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+function isPalindromeRecursiveSolution(head) {
+  frontPointer = head;
+  return isPalindromeRecursive(head);
+}
+
 /**
  * 判断链表是否为回文链表
  * @param {ListNode} head
@@ -73,7 +104,36 @@ function reverseList(head) {
   return prev;
 }
 
-// 测试用例
+/**
+ * 使用数组判断链表是否为回文链表
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+function isPalindromeArray(head) {
+  // 将链表值存入数组
+  const values = [];
+  let current = head;
+  while (current) {
+    values.push(current.val);
+    current = current.next;
+  }
+  
+  // 使用双指针判断数组是否为回文
+  let left = 0;
+  let right = values.length - 1;
+  
+  while (left < right) {
+    if (values[left] !== values[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  
+  return true;
+}
+
+// 修改测试函数，添加数组解法的测试
 function test() {
   // 测试用例1: [1,2,2,1] - 回文
   const list1 = new ListNode(1);
@@ -81,13 +141,17 @@ function test() {
   list1.next.next = new ListNode(2);
   list1.next.next.next = new ListNode(1);
 
-  console.log("测试用例1结果:", isPalindrome(list1)); // 应该输出 true
+  console.log("测试用例1结果 (迭代解法):", isPalindrome(list1)); // 应该输出 true
+  console.log("测试用例1结果 (递归解法):", isPalindromeRecursiveSolution(list1)); // 应该输出 true
+  console.log("测试用例1结果 (数组解法):", isPalindromeArray(list1)); // 应该输出 true
 
   // 测试用例2: [1,2] - 非回文
   const list2 = new ListNode(1);
   list2.next = new ListNode(2);
 
-  console.log("测试用例2结果:", isPalindrome(list2)); // 应该输出 false
+  console.log("测试用例2结果 (迭代解法):", isPalindrome(list2)); // 应该输出 false
+  console.log("测试用例2结果 (递归解法):", isPalindromeRecursiveSolution(list2)); // 应该输出 false
+  console.log("测试用例2结果 (数组解法):", isPalindromeArray(list2)); // 应该输出 false
 }
 
 // 运行测试
