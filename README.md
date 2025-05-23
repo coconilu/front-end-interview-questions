@@ -131,7 +131,12 @@
 ├── frameworks/                # 前端框架相关
 │   ├── react/                 # React相关题目
 │   │   ├── useHooks.js        # 自定义Hook实现
-│   │   └── virtualDOM.js      # 虚拟DOM实现原理
+│   │   ├── virtualDOM.js      # 虚拟DOM实现原理
+│   │   ├── hooksImplementation.js # React Hooks实现原理
+│   │   ├── performanceOptimization.js # React性能优化
+│   │   ├── stateManagement.js # React状态管理(Redux实现)
+│   │   ├── contextImplementation.js # Context API实现
+│   │   └── routerImplementation.js # React Router实现
 │   └── vue/                   # Vue相关题目
 │       ├── reactivity.js      # 响应式原理实现
 │       ├── useDebounceRef.js  # 自定义防抖Ref实现
@@ -141,9 +146,10 @@
 │       ├── componentCommunication.js # 组件通信方式
 │       ├── vueRouter.js       # Vue Router实现与应用
 │       ├── vuex.js            # Vuex状态管理
-│       ├── compositionAPI.js  # Vue3 Composition API
+│       ├── compositionAPI.js  # Composition API
 │       ├── renderFunction.js  # 渲染函数与JSX
-│       └── virtualDOM.js      # 虚拟DOM结构与实现
+│       ├── virtualDOM.js      # 虚拟DOM结构与实现
+│       └── diffAlgorithm.js   # Diff算法及最长递增子序列实现
 │
 ├── performance/               # 前端性能优化
 │   ├── lazyLoading.js         # 图片懒加载实现
