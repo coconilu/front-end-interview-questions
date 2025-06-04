@@ -1,6 +1,6 @@
 # 前端面试笔试题集合
 
-这个仓库收集了前端开发面试中常见的笔试题和编程挑战，包括JavaScript核心概念、数据结构、算法、异步编程等多个方面。每个示例都包含详细注释，帮助理解实现思路。
+这个仓库收集了前端开发面试中常见的笔试题和编程挑战，包括 JavaScript 核心概念、数据结构、算法、异步编程等多个方面。每个示例都包含详细注释，帮助理解实现思路。
 
 ## 项目结构
 
@@ -110,7 +110,9 @@
 │
 ├── data-structures/           # 数据结构实现
 │   ├── LRUCache.js            # LRU缓存实现
-│   └── hashTable.js           # 哈希表实现
+│   ├── hashTable.js           # 哈希表实现
+│   ├── heap.js                # 堆（最大堆/最小堆）实现
+│   └── stack.js               # 栈数据结构实现
 │
 ├── dom/                       # DOM操作和事件处理
 │   ├── eventDelegation.js     # 事件委托实现
@@ -212,14 +214,14 @@
 
 ## 使用方法
 
-每个JavaScript文件都是独立的，包含了一个特定问题的解决方案。你可以直接查看源代码学习实现思路，或者在本地环境中运行测试。
+每个 JavaScript 文件都是独立的，包含了一个特定问题的解决方案。你可以直接查看源代码学习实现思路，或者在本地环境中运行测试。
 
 ## 学习资源
 
-- [MDN Web文档](https://developer.mozilla.org/zh-CN/)
-- [JavaScript高级程序设计](https://book.douban.com/subject/10546125/)
+- [MDN Web 文档](https://developer.mozilla.org/zh-CN/)
+- [JavaScript 高级程序设计](https://book.douban.com/subject/10546125/)
 - [算法导论](https://book.douban.com/subject/20432061/)
 
 ## 许可证
 
-MIT 
+MIT
