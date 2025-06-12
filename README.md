@@ -207,9 +207,45 @@
 │   ├── promiseLimit.js        # 实现Promise并发限制
 │   └── promiseRace.js         # 实现Promise.race
 │
-└── utils/                     # 实用工具函数
-    ├── eventEmitter.js        # 事件发布订阅模式
-    └── deepEqual.js           # 对象深度比较
+├── utils/                     # 实用工具函数
+│   ├── eventEmitter.js        # 事件发布订阅模式
+│   └── deepEqual.js           # 对象深度比较
+│
+├── micro-frontend/            # 微前端架构
+│   ├── moduleFederation.js    # Webpack Module Federation实现
+│   ├── singleSpa.js           # Single-SPA框架使用
+│   ├── qiankun.js             # qiankun微前端框架
+│   └── microAppCommunication.js # 微应用间通信方案
+│
+├── ssr/                       # 服务端渲染
+│   ├── nextjsSSR.js           # Next.js服务端渲染实现
+│   └── nuxtSSR.js             # Nuxt.js服务端渲染实现
+│
+├── build-tools/               # 构建工具深入
+│   ├── webpackAdvanced.js     # Webpack高级配置与优化
+│   └── viteConfig.js          # Vite配置与优化
+│
+├── monitoring-debugging/      # 监控与调试
+│   ├── performanceMonitoring.js # 前端性能监控实现
+│   └── debuggingTools.js      # 调试工具与技巧
+│
+├── design-patterns-advanced/  # 设计模式进阶
+│   └── designPatterns.js      # 高级设计模式实现
+│
+├── nodejs-backend/            # Node.js后端开发
+│   └── nodeBasics.js          # Node.js基础与实践
+│
+├── testing/                   # 测试框架与实践
+│   └── testingFrameworks.js   # 前端测试框架使用
+│
+├── low-code-visual/           # 低代码/可视化开发
+│   └── lowCodePlatform.js     # 低代码平台实现
+│
+├── webassembly/               # WebAssembly
+│   └── wasmBasics.js          # WebAssembly基础与应用
+│
+└── emerging-tech/             # 新兴技术与趋势
+    └── emergingTechnologies.js # Web3、AI集成、边缘计算等新兴技术
 ```
 
 ## 使用方法
