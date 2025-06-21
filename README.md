@@ -205,7 +205,8 @@
 ├── promise/                   # Promise相关实现
 │   ├── promiseAll.js          # 实现Promise.all
 │   ├── promiseLimit.js        # 实现Promise并发限制
-│   └── promiseRace.js         # 实现Promise.race
+│   ├── promiseRace.js         # 实现Promise.race
+│   └── promiseCancel.js       # Promise取消机制实现
 │
 ├── utils/                     # 实用工具函数
 │   ├── eventEmitter.js        # 事件发布订阅模式
