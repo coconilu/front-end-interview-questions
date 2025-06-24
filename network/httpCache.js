@@ -40,19 +40,19 @@ function demonstrateStrongCache() {
   // 服务端设置强缓存的示例代码
   function serverResponseWithStrongCache(res) {
     // 设置资源有效期为1小时
-    res.setHeader("Cache-Control", "max-age=3600");
+    res.setHeader('Cache-Control', 'max-age=3600');
 
     // 或者设置绝对过期时间
     const expiresDate = new Date();
     expiresDate.setTime(expiresDate.getTime() + 3600 * 1000);
-    res.setHeader("Expires", expiresDate.toUTCString());
+    res.setHeader('Expires', expiresDate.toUTCString());
 
     // 返回资源内容
-    res.send("资源内容");
+    res.send('资源内容');
   }
 
   return {
-    description: "强缓存示例",
+    description: '强缓存示例',
     serverCode: serverResponseWithStrongCache.toString(),
   };
 }
@@ -86,7 +86,7 @@ function demonstrateNegotiationCache() {
     const lastModified = new Date().toUTCString();
 
     // 检查If-None-Match头（ETag）
-    const ifNoneMatch = req.headers["if-none-match"];
+    const ifNoneMatch = req.headers['if-none-match'];
     if (ifNoneMatch && ifNoneMatch === etag) {
       // ETag匹配，返回304状态码
       res.status(304).end();
@@ -94,7 +94,7 @@ function demonstrateNegotiationCache() {
     }
 
     // 检查If-Modified-Since头（Last-Modified）
-    const ifModifiedSince = req.headers["if-modified-since"];
+    const ifModifiedSince = req.headers['if-modified-since'];
     if (
       ifModifiedSince &&
       new Date(ifModifiedSince).getTime() >= new Date(lastModified).getTime()
@@ -105,18 +105,18 @@ function demonstrateNegotiationCache() {
     }
 
     // 设置ETag和Last-Modified
-    res.setHeader("ETag", etag);
-    res.setHeader("Last-Modified", lastModified);
+    res.setHeader('ETag', etag);
+    res.setHeader('Last-Modified', lastModified);
 
     // 设置Cache-Control为no-cache，表示需要使用协商缓存
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader('Cache-Control', 'no-cache');
 
     // 返回资源内容
-    res.send("资源内容");
+    res.send('资源内容');
   }
 
   return {
-    description: "协商缓存示例",
+    description: '协商缓存示例',
     serverCode: serverResponseWithNegotiationCache.toString(),
   };
 }
@@ -147,37 +147,37 @@ function cacheBestPractices() {
   return {
     html: {
       headers: {
-        "Cache-Control": "no-cache",
+        'Cache-Control': 'no-cache',
         ETag: '"hash-of-content"',
       },
-      reason: "确保用户始终能获取最新的HTML结构",
+      reason: '确保用户始终能获取最新的HTML结构',
     },
     js_css: {
       headers: {
-        "Cache-Control": "max-age=31536000",
+        'Cache-Control': 'max-age=31536000',
       },
-      fileNaming: "app.[hash].js",
-      reason: "长时间缓存，通过文件名哈希处理更新",
+      fileNaming: 'app.[hash].js',
+      reason: '长时间缓存，通过文件名哈希处理更新',
     },
     images: {
       headers: {
-        "Cache-Control": "max-age=86400",
+        'Cache-Control': 'max-age=86400',
       },
-      reason: "图片变化不频繁，可以缓存较长时间",
+      reason: '图片变化不频繁，可以缓存较长时间',
     },
     api: {
       dynamic: {
         headers: {
-          "Cache-Control": "no-cache",
+          'Cache-Control': 'no-cache',
           ETag: '"hash-of-content"',
         },
-        reason: "频繁更新的数据使用协商缓存",
+        reason: '频繁更新的数据使用协商缓存',
       },
       static: {
         headers: {
-          "Cache-Control": "max-age=3600",
+          'Cache-Control': 'max-age=3600',
         },
-        reason: "不频繁更新的数据可以短时间缓存",
+        reason: '不频繁更新的数据可以短时间缓存',
       },
     },
   };
@@ -230,7 +230,7 @@ function expressCacheExample() {
   app.listen(3000);
   */
 
-  return "以上是Express服务器中实现不同缓存策略的示例代码";
+  return '以上是Express服务器中实现不同缓存策略的示例代码';
 }
 
 /**

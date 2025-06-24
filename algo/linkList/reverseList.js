@@ -62,11 +62,11 @@ function test() {
 
   // 测试迭代方法
   const reversed1 = reverseList(head);
-  console.log("迭代方法结果：", printList(reversed1));
+  console.log('迭代方法结果：', printList(reversed1));
 
   // 测试递归方法
   const reversed2 = reverseListRecursive(reversed1);
-  console.log("递归方法结果：", printList(reversed2));
+  console.log('递归方法结果：', printList(reversed2));
 }
 
 // 辅助函数：打印链表
@@ -77,7 +77,7 @@ function printList(head) {
     result.push(curr.val);
     curr = curr.next;
   }
-  return result.join("->");
+  return result.join('->');
 }
 
 // 运行测试

@@ -58,7 +58,7 @@ function test() {
   const result = removeNthFromEnd(head, 2);
 
   // 打印结果
-  console.log("删除倒数第2个节点后的链表：", printList(result));
+  console.log('删除倒数第2个节点后的链表：', printList(result));
 }
 
 // 辅助函数：打印链表
@@ -69,7 +69,7 @@ function printList(head) {
     result.push(curr.val);
     curr = curr.next;
   }
-  return result.join("->");
+  return result.join('->');
 }
 
 // 运行测试

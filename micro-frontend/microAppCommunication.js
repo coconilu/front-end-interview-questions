@@ -1,6 +1,6 @@
 /**
  * 微应用间通信方案
- * 
+ *
  * 微前端架构中，不同应用间的通信是一个重要问题
  * 本文件展示了多种通信方案的实现
  */
@@ -16,19 +16,19 @@ class EventBus {
     if (!this.events.has(eventName)) {
       this.events.set(eventName, []);
     }
-    
+
     const listener = {
       callback,
       once: options.once || false,
-      priority: options.priority || 0
+      priority: options.priority || 0,
     };
-    
+
     const listeners = this.events.get(eventName);
     listeners.push(listener);
-    
+
     // 按优先级排序
     listeners.sort((a, b) => b.priority - a.priority);
-    
+
     // 返回取消订阅函数
     return () => this.off(eventName, callback);
   }
@@ -36,14 +36,16 @@ class EventBus {
   // 取消订阅
   off(eventName, callback) {
     if (!this.events.has(eventName)) return;
-    
+
     const listeners = this.events.get(eventName);
-    const index = listeners.findIndex(listener => listener.callback === callback);
-    
+    const index = listeners.findIndex(
+      (listener) => listener.callback === callback
+    );
+
     if (index > -1) {
       listeners.splice(index, 1);
     }
-    
+
     if (listeners.length === 0) {
       this.events.delete(eventName);
     }
@@ -52,14 +54,14 @@ class EventBus {
   // 发布事件
   emit(eventName, data) {
     if (!this.events.has(eventName)) return;
-    
+
     const listeners = this.events.get(eventName);
     const toRemove = [];
-    
+
     listeners.forEach((listener, index) => {
       try {
         listener.callback(data);
-        
+
         if (listener.once) {
           toRemove.push(index);
         }
@@ -67,9 +69,9 @@ class EventBus {
         console.error(`Event listener error for ${eventName}:`, error);
       }
     });
-    
+
     // 移除一次性监听器
-    toRemove.reverse().forEach(index => {
+    toRemove.reverse().forEach((index) => {
       listeners.splice(index, 1);
     });
   }
@@ -111,7 +113,7 @@ class SharedStore {
   // 获取状态
   getState(path) {
     if (!path) return this.state;
-    
+
     return path.split('.').reduce((obj, key) => {
       return obj && obj[key];
     }, this.state);
@@ -120,24 +122,30 @@ class SharedStore {
   // 设置状态
   setState(path, value, meta = {}) {
     const oldState = { ...this.state };
-    const action = { type: 'SET_STATE', path, value, meta, timestamp: Date.now() };
-    
+    const action = {
+      type: 'SET_STATE',
+      path,
+      value,
+      meta,
+      timestamp: Date.now(),
+    };
+
     // 执行中间件
     let finalAction = action;
     for (const middleware of this.middleware) {
       finalAction = middleware(finalAction, this.state) || finalAction;
     }
-    
+
     // 更新状态
     this.updateState(finalAction.path, finalAction.value);
-    
+
     // 记录历史
     this.addToHistory({
       action: finalAction,
       oldState,
-      newState: { ...this.state }
+      newState: { ...this.state },
     });
-    
+
     // 通知订阅者
     this.notifySubscribers(finalAction.path, finalAction.value, oldState);
   }
@@ -146,7 +154,7 @@ class SharedStore {
   updateState(path, value) {
     const keys = path.split('.');
     const lastKey = keys.pop();
-    
+
     let current = this.state;
     for (const key of keys) {
       if (!current[key] || typeof current[key] !== 'object') {
@@ -154,7 +162,7 @@ class SharedStore {
       }
       current = current[key];
     }
-    
+
     current[lastKey] = value;
   }
 
@@ -163,9 +171,9 @@ class SharedStore {
     if (!this.subscribers.has(path)) {
       this.subscribers.set(path, []);
     }
-    
+
     this.subscribers.get(path).push(callback);
-    
+
     // 返回取消订阅函数
     return () => {
       const callbacks = this.subscribers.get(path);
@@ -182,7 +190,7 @@ class SharedStore {
   notifySubscribers(path, value, oldState) {
     // 精确匹配
     if (this.subscribers.has(path)) {
-      this.subscribers.get(path).forEach(callback => {
+      this.subscribers.get(path).forEach((callback) => {
         try {
           callback(value, this.getStateByPath(oldState, path));
         } catch (error) {
@@ -190,13 +198,16 @@ class SharedStore {
         }
       });
     }
-    
+
     // 父路径匹配
     this.subscribers.forEach((callbacks, subscribePath) => {
       if (path.startsWith(subscribePath + '.') || subscribePath === '*') {
-        callbacks.forEach(callback => {
+        callbacks.forEach((callback) => {
           try {
-            callback(this.getState(subscribePath), this.getStateByPath(oldState, subscribePath));
+            callback(
+              this.getState(subscribePath),
+              this.getStateByPath(oldState, subscribePath)
+            );
           } catch (error) {
             console.error('Subscriber error:', error);
           }
@@ -264,7 +275,7 @@ class PostMessageCommunication {
       type,
       data,
       timestamp: Date.now(),
-      id: this.generateId()
+      id: this.generateId(),
     };
 
     if (window.parent !== window) {
@@ -273,7 +284,7 @@ class PostMessageCommunication {
     }
 
     // 发送给所有子窗口
-    Array.from(window.frames).forEach(frame => {
+    Array.from(window.frames).forEach((frame) => {
       try {
         frame.postMessage(message, targetOrigin);
       } catch (error) {
@@ -285,23 +296,23 @@ class PostMessageCommunication {
   // 处理接收到的消息
   handleMessage(event) {
     const { data } = event;
-    
+
     // 验证消息格式
     if (!this.isValidMessage(data)) return;
-    
+
     // 验证来源
     if (this.targetOrigins.size > 0 && !this.targetOrigins.has(event.origin)) {
       console.warn('Message from untrusted origin:', event.origin);
       return;
     }
-    
+
     // 检查是否是发给当前应用的消息
     if (data.to && data.to !== this.appName) return;
-    
+
     // 执行消息处理器
     if (this.messageHandlers.has(data.type)) {
       const handlers = this.messageHandlers.get(data.type);
-      handlers.forEach(handler => {
+      handlers.forEach((handler) => {
         try {
           handler(data.data, data);
         } catch (error) {
@@ -313,11 +324,13 @@ class PostMessageCommunication {
 
   // 验证消息格式
   isValidMessage(data) {
-    return data && 
-           typeof data === 'object' && 
-           data.from && 
-           data.type && 
-           data.timestamp;
+    return (
+      data &&
+      typeof data === 'object' &&
+      data.from &&
+      data.type &&
+      data.timestamp
+    );
   }
 
   // 注册消息处理器
@@ -325,9 +338,9 @@ class PostMessageCommunication {
     if (!this.messageHandlers.has(type)) {
       this.messageHandlers.set(type, []);
     }
-    
+
     this.messageHandlers.get(type).push(handler);
-    
+
     return () => this.off(type, handler);
   }
 
@@ -360,16 +373,16 @@ class URLCommunication {
     window.addEventListener('popstate', () => {
       this.handleURLChange();
     });
-    
+
     // 重写 pushState 和 replaceState
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
-    
+
     history.pushState = (...args) => {
       originalPushState.apply(history, args);
       this.handleURLChange();
     };
-    
+
     history.replaceState = (...args) => {
       originalReplaceState.apply(history, args);
       this.handleURLChange();
@@ -379,15 +392,15 @@ class URLCommunication {
   // 设置 URL 参数
   setParams(params) {
     const url = new URL(window.location);
-    
-    Object.keys(params).forEach(key => {
+
+    Object.keys(params).forEach((key) => {
       if (params[key] === null || params[key] === undefined) {
         url.searchParams.delete(key);
       } else {
         url.searchParams.set(key, params[key]);
       }
     });
-    
+
     history.pushState({}, '', url.toString());
   }
 
@@ -395,18 +408,18 @@ class URLCommunication {
   getParams() {
     const params = {};
     const searchParams = new URLSearchParams(window.location.search);
-    
+
     for (const [key, value] of searchParams) {
       params[key] = value;
     }
-    
+
     return params;
   }
 
   // 监听 URL 变化
   onChange(callback) {
     this.listeners.push(callback);
-    
+
     return () => {
       const index = this.listeners.indexOf(callback);
       if (index > -1) {
@@ -418,7 +431,7 @@ class URLCommunication {
   // 处理 URL 变化
   handleURLChange() {
     const params = this.getParams();
-    this.listeners.forEach(callback => {
+    this.listeners.forEach((callback) => {
       try {
         callback(params);
       } catch (error) {
@@ -448,11 +461,11 @@ class StorageCommunication {
     const value = {
       data,
       timestamp: Date.now(),
-      from: window.location.origin
+      from: window.location.origin,
     };
-    
+
     localStorage.setItem(fullKey, JSON.stringify(value));
-    
+
     // 手动触发事件（同一页面内的变化）
     this.notifyListeners(key, data);
   }
@@ -461,7 +474,7 @@ class StorageCommunication {
   getData(key) {
     const fullKey = `${this.prefix}:${key}`;
     const value = localStorage.getItem(fullKey);
-    
+
     if (value) {
       try {
         const parsed = JSON.parse(value);
@@ -470,7 +483,7 @@ class StorageCommunication {
         console.error('Failed to parse storage data:', error);
       }
     }
-    
+
     return null;
   }
 
@@ -485,9 +498,9 @@ class StorageCommunication {
     if (!this.listeners.has(key)) {
       this.listeners.set(key, []);
     }
-    
+
     this.listeners.get(key).push(callback);
-    
+
     return () => {
       const callbacks = this.listeners.get(key);
       if (callbacks) {
@@ -502,10 +515,10 @@ class StorageCommunication {
   // 处理存储变化
   handleStorageChange(event) {
     if (!event.key || !event.key.startsWith(this.prefix)) return;
-    
+
     const key = event.key.replace(`${this.prefix}:`, '');
     let newData = null;
-    
+
     if (event.newValue) {
       try {
         const parsed = JSON.parse(event.newValue);
@@ -515,14 +528,14 @@ class StorageCommunication {
         return;
       }
     }
-    
+
     this.notifyListeners(key, newData);
   }
 
   // 通知监听器
   notifyListeners(key, data) {
     if (this.listeners.has(key)) {
-      this.listeners.get(key).forEach(callback => {
+      this.listeners.get(key).forEach((callback) => {
         try {
           callback(data);
         } catch (error) {
@@ -558,7 +571,9 @@ postMessage.on('data-update', (data) => {
   console.log('接收到数据更新:', data);
 });
 
-postMessage.send('child-app', 'data-update', { message: 'Hello from main app' });
+postMessage.send('child-app', 'data-update', {
+  message: 'Hello from main app',
+});
 
 // URL 通信示例
 urlComm.setParams({ tab: 'profile', id: '123' });
@@ -626,18 +641,18 @@ export {
   PostMessageCommunication,
   URLCommunication,
   StorageCommunication,
-  CommunicationManager
+  CommunicationManager,
 };
 
 /**
  * 微应用通信最佳实践：
- * 
+ *
  * 1. 选择合适的通信方式：
  *    - 事件总线：适用于同一页面内的应用通信
  *    - PostMessage：适用于跨域或 iframe 通信
  *    - URL 参数：适用于路由状态共享
  *    - LocalStorage：适用于持久化状态共享
- * 
+ *
  * 2. 数据格式标准化：统一消息格式，便于维护
  * 3. 错误处理：完善的错误边界和降级策略
  * 4. 性能优化：避免频繁通信，合理使用缓存

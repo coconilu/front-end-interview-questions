@@ -69,24 +69,24 @@ class Graph {
 
 // 测试
 const g = new Graph();
-g.addVertex("A");
-g.addVertex("B");
-g.addVertex("C");
-g.addVertex("D");
-g.addVertex("E");
-g.addVertex("F");
+g.addVertex('A');
+g.addVertex('B');
+g.addVertex('C');
+g.addVertex('D');
+g.addVertex('E');
+g.addVertex('F');
 
-g.addEdge("A", "B");
-g.addEdge("A", "C");
-g.addEdge("B", "D");
-g.addEdge("C", "E");
-g.addEdge("D", "E");
-g.addEdge("D", "F");
-g.addEdge("E", "F");
+g.addEdge('A', 'B');
+g.addEdge('A', 'C');
+g.addEdge('B', 'D');
+g.addEdge('C', 'E');
+g.addEdge('D', 'E');
+g.addEdge('D', 'F');
+g.addEdge('E', 'F');
 
 // DFS: ["A", "B", "D", "E", "C", "F"]
-console.log(g.dfsRecursive("A"));
+console.log(g.dfsRecursive('A'));
 // DFS: ["A", "C", "E", "F", "D", "B"]
-console.log(g.dfsIterative("A"));
+console.log(g.dfsIterative('A'));
 
 module.exports = Graph;

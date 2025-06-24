@@ -1,6 +1,6 @@
 /**
  * TypeScript 高级类型面试题
- * 
+ *
  * 本文件包含TypeScript高级类型相关的面试题和实现
  */
 
@@ -20,10 +20,10 @@ type ReadonlyUser = MyReadonly<User>;
 
 // 2. 实现一个DeepReadonly类型，递归地使对象所有层级的属性变为只读
 type DeepReadonly<T> = {
-  readonly [P in keyof T]: T[P] extends object 
-    ? T[P] extends Function 
-      ? T[P] 
-      : DeepReadonly<T[P]> 
+  readonly [P in keyof T]: T[P] extends object
+    ? T[P] extends Function
+      ? T[P]
+      : DeepReadonly<T[P]>
     : T[P];
 };
 
@@ -34,8 +34,8 @@ interface NestedObject {
     address: {
       city: string;
       country: string;
-    }
-  }
+    };
+  };
 }
 
 // 测试DeepReadonly
@@ -107,11 +107,14 @@ type T1 = MyExtract<'a' | 'b' | 'c', 'a' | 'f'>;
 // 等价于: 'a'
 
 // 10. 实现一个ReturnType类型，获取函数类型的返回类型
-type GetReturnType<T extends (...args: any) => any> = 
-  T extends (...args: any) => infer R ? R : any;
+type GetReturnType<T extends (...args: any) => any> = T extends (
+  ...args: any
+) => infer R
+  ? R
+  : any;
 
 function greet(): string {
-  return "Hello";
+  return 'Hello';
 }
 
 // 测试GetReturnType
@@ -120,10 +123,10 @@ type GreetReturn = GetReturnType<typeof greet>;
 
 // 面试题：实现一个Merge类型，将两个类型合并，第二个类型的属性会覆盖第一个类型的同名属性
 type Merge<T, U> = {
-  [P in keyof T | keyof U]: P extends keyof U 
-    ? U[P] 
-    : P extends keyof T 
-      ? T[P] 
+  [P in keyof T | keyof U]: P extends keyof U
+    ? U[P]
+    : P extends keyof T
+      ? T[P]
       : never;
 };
 
@@ -141,4 +144,4 @@ interface Employee {
 // 测试Merge
 type PersonEmployee = Merge<Person, Employee>;
 // 等价于: { name: string; age: number; jobTitle: string; salary: number; }
-// 注意name属性使用了Employee中的定义 
+// 注意name属性使用了Employee中的定义

@@ -8,7 +8,7 @@
  * 1. 使用滚动事件 + getBoundingClientRect 实现懒加载
  * @param {string} selector - 图片选择器
  */
-function lazyLoadWithScroll(selector = "img.lazy") {
+function lazyLoadWithScroll(selector = 'img.lazy') {
   // 获取所有需要懒加载的图片
   const lazyImages = document.querySelectorAll(selector);
 
@@ -16,7 +16,7 @@ function lazyLoadWithScroll(selector = "img.lazy") {
   function checkIfInView() {
     lazyImages.forEach((image) => {
       // 已经加载过的图片跳过
-      if (image.dataset.loaded === "true") return;
+      if (image.dataset.loaded === 'true') return;
 
       // 获取图片相对于视口的位置
       const rect = image.getBoundingClientRect();
@@ -43,9 +43,9 @@ function lazyLoadWithScroll(selector = "img.lazy") {
 
     // 图片加载完成后的处理
     image.onload = function () {
-      image.classList.remove("lazy");
-      image.classList.add("loaded");
-      image.dataset.loaded = "true";
+      image.classList.remove('lazy');
+      image.classList.add('loaded');
+      image.dataset.loaded = 'true';
     };
 
     // 设置图片源
@@ -59,7 +59,7 @@ function lazyLoadWithScroll(selector = "img.lazy") {
 
     // 添加节流处理的滚动事件监听
     let timeout;
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       if (timeout) {
         window.cancelAnimationFrame(timeout);
       }
@@ -70,8 +70,8 @@ function lazyLoadWithScroll(selector = "img.lazy") {
     });
 
     // 监听窗口大小变化
-    window.addEventListener("resize", checkIfInView);
-    window.addEventListener("orientationchange", checkIfInView);
+    window.addEventListener('resize', checkIfInView);
+    window.addEventListener('orientationchange', checkIfInView);
   }
 
   // 初始化
@@ -82,9 +82,9 @@ function lazyLoadWithScroll(selector = "img.lazy") {
  * 2. 使用Intersection Observer API实现懒加载
  * @param {string} selector - 图片选择器
  */
-function lazyLoadWithIntersectionObserver(selector = "img.lazy") {
+function lazyLoadWithIntersectionObserver(selector = 'img.lazy') {
   // 检查浏览器是否支持Intersection Observer
-  if (!("IntersectionObserver" in window)) {
+  if (!('IntersectionObserver' in window)) {
     // 降级处理，使用传统方法
     lazyLoadWithScroll(selector);
     return;
@@ -99,9 +99,9 @@ function lazyLoadWithIntersectionObserver(selector = "img.lazy") {
     if (!src) return;
 
     image.onload = function () {
-      image.classList.remove("lazy");
-      image.classList.add("loaded");
-      image.dataset.loaded = "true";
+      image.classList.remove('lazy');
+      image.classList.add('loaded');
+      image.dataset.loaded = 'true';
     };
 
     image.src = src;
@@ -125,9 +125,9 @@ function lazyLoadWithIntersectionObserver(selector = "img.lazy") {
     },
     {
       // 配置项
-      rootMargin: "0px 0px 300px 0px", // 提前300px加载
+      rootMargin: '0px 0px 300px 0px', // 提前300px加载
       threshold: 0.01, // 当1%的图片进入视口时触发
-    },
+    }
   );
 
   // 观察所有图片
@@ -143,9 +143,9 @@ function lazyLoadWithIntersectionObserver(selector = "img.lazy") {
  * 示例:
  * <img src="placeholder.jpg" data-src="actual-image.jpg" loading="lazy" alt="Lazy loaded image">
  */
-function nativeLazyLoading(selector = "img.lazy") {
+function nativeLazyLoading(selector = 'img.lazy') {
   // 检查浏览器是否支持原生懒加载
-  const supportsNativeLazy = "loading" in HTMLImageElement.prototype;
+  const supportsNativeLazy = 'loading' in HTMLImageElement.prototype;
 
   if (supportsNativeLazy) {
     // 获取所有需要懒加载的图片
@@ -153,14 +153,14 @@ function nativeLazyLoading(selector = "img.lazy") {
 
     lazyImages.forEach((img) => {
       // 设置原生懒加载属性
-      img.loading = "lazy";
+      img.loading = 'lazy';
 
       // 直接设置src（浏览器会自动懒加载）
       if (img.dataset.src) {
         img.src = img.dataset.src;
       }
 
-      img.classList.remove("lazy");
+      img.classList.remove('lazy');
     });
   } else {
     // 降级处理，使用Intersection Observer
@@ -183,20 +183,20 @@ function lazyLoadWithLibrary() {
   // 3. 库会自动处理懒加载
   */
 
-  console.log("使用第三方懒加载库，如lazysizes");
+  console.log('使用第三方懒加载库，如lazysizes');
 }
 
 /**
  * 完整的懒加载解决方案
  * @param {string} selector - 图片选择器
  */
-function initLazyLoading(selector = "img.lazy") {
+function initLazyLoading(selector = 'img.lazy') {
   // 检查是否支持原生懒加载
-  if ("loading" in HTMLImageElement.prototype) {
+  if ('loading' in HTMLImageElement.prototype) {
     nativeLazyLoading(selector);
   }
   // 检查是否支持Intersection Observer
-  else if ("IntersectionObserver" in window) {
+  else if ('IntersectionObserver' in window) {
     lazyLoadWithIntersectionObserver(selector);
   }
   // 降级到传统滚动事件方法

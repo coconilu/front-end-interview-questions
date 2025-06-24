@@ -47,7 +47,7 @@ function* fetchSequentialGenerator(ids) {
 
     return results;
   } catch (error) {
-    console.error("Error in generator:", error);
+    console.error('Error in generator:', error);
     return results;
   }
 }
@@ -63,7 +63,7 @@ function* fetchParallelGenerator(ids) {
 
     return results;
   } catch (error) {
-    console.error("Error in parallel generator:", error);
+    console.error('Error in parallel generator:', error);
     return [];
   }
 }
@@ -86,20 +86,20 @@ function* fetchWithErrorHandlingGenerator(ids) {
 }
 
 // 测试
-console.log("--- Sequential Execution with Generator ---");
+console.log('--- Sequential Execution with Generator ---');
 runGenerator(function* () {
-  console.time("Generator Sequential");
+  console.time('Generator Sequential');
   const sequentialResults = yield* fetchSequentialGenerator([1, 2, 3]);
-  console.timeEnd("Generator Sequential");
-  console.log("Sequential Results:", sequentialResults);
+  console.timeEnd('Generator Sequential');
+  console.log('Sequential Results:', sequentialResults);
 
-  console.log("\n--- Parallel Execution with Generator ---");
-  console.time("Generator Parallel");
+  console.log('\n--- Parallel Execution with Generator ---');
+  console.time('Generator Parallel');
   const parallelResults = yield* fetchParallelGenerator([4, 5, 6]);
-  console.timeEnd("Generator Parallel");
-  console.log("Parallel Results:", parallelResults);
+  console.timeEnd('Generator Parallel');
+  console.log('Parallel Results:', parallelResults);
 
-  console.log("\n--- Error Handling with Generator ---");
+  console.log('\n--- Error Handling with Generator ---');
   const errorResults = yield* fetchWithErrorHandlingGenerator([7, 8, 9]);
-  console.log("Error Handling Results:", errorResults);
+  console.log('Error Handling Results:', errorResults);
 });

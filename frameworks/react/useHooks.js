@@ -4,7 +4,7 @@
  * 面试题：实现几个常用的自定义Hook
  */
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
  * 1. useLocalStorage - 将状态持久化到localStorage
@@ -129,11 +129,11 @@ function useMediaQuery(query) {
     };
 
     // 添加监听器
-    mediaQuery.addEventListener("change", handleChange);
+    mediaQuery.addEventListener('change', handleChange);
 
     // 清理函数
     return () => {
-      mediaQuery.removeEventListener("change", handleChange);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, [query]);
 
@@ -158,13 +158,13 @@ function useClickOutside(handler) {
     };
 
     // 添加事件监听器
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
 
     // 清理函数
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
     };
   }, [handler]);
 

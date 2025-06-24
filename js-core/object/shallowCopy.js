@@ -5,6 +5,6 @@
  * @returns {Object}
  */
 function shallowCopy(obj) {
-  if (obj === null || typeof obj !== "object") return obj;
+  if (obj === null || typeof obj !== 'object') return obj;
   return Array.isArray(obj) ? obj.slice() : { ...obj };
 }

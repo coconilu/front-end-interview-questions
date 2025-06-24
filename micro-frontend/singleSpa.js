@@ -1,6 +1,6 @@
 /**
  * Single-SPA 微前端框架应用
- * 
+ *
  * Single-SPA 是一个将多个单页应用聚合为一个整体应用的 JavaScript 前端框架
  * 支持多种前端技术栈共存，如 React、Vue、Angular 等
  */
@@ -15,17 +15,17 @@ registerApplication({
   activeWhen: '/react',
   customProps: {
     domElement: document.getElementById('react-container'),
-    authToken: 'abc123'
-  }
+    authToken: 'abc123',
+  },
 });
 
 registerApplication({
-  name: 'vue-app', 
+  name: 'vue-app',
   app: () => import('./vue-app/main.js'),
   activeWhen: '/vue',
   customProps: {
-    domElement: document.getElementById('vue-container')
-  }
+    domElement: document.getElementById('vue-container'),
+  },
 });
 
 // 启动 Single-SPA
@@ -53,7 +53,7 @@ const lifecycles = singleSpaReact({
   errorBoundary(err, info, props) {
     console.error('React app error:', err);
     return <div>React 应用出错了</div>;
-  }
+  },
 });
 
 export const { bootstrap, mount, unmount } = lifecycles;
@@ -73,16 +73,16 @@ const VueApp = {
   `,
   data() {
     return {
-      count: 0
+      count: 0,
     };
-  }
+  },
 };
 
 const vueLifecycles = singleSpaVue({
   Vue,
   appOptions: {
-    render: h => h(VueApp)
-  }
+    render: (h) => h(VueApp),
+  },
 });
 
 export const { bootstrap, mount, unmount } = vueLifecycles;
@@ -99,64 +99,65 @@ class CustomMicroApp {
   // 引导阶段 - 只执行一次
   async bootstrap(props) {
     console.log(`${this.name} bootstrapping`);
-    
+
     // 初始化应用资源
     await this.loadResources();
-    
+
     // 设置全局错误处理
     this.setupErrorHandling();
-    
+
     return Promise.resolve();
   }
 
   // 挂载阶段 - 每次激活时执行
   async mount(props) {
     console.log(`${this.name} mounting`);
-    
+
     this.isActive = true;
-    this.domElement = props.domElement || document.getElementById(this.config.containerId);
-    
+    this.domElement =
+      props.domElement || document.getElementById(this.config.containerId);
+
     // 渲染应用
     await this.render(props);
-    
+
     // 绑定事件监听
     this.bindEvents();
-    
+
     return Promise.resolve();
   }
 
   // 卸载阶段 - 每次失活时执行
   async unmount(props) {
     console.log(`${this.name} unmounting`);
-    
+
     this.isActive = false;
-    
+
     // 清理 DOM
     if (this.domElement) {
       this.domElement.innerHTML = '';
     }
-    
+
     // 移除事件监听
     this.unbindEvents();
-    
+
     // 清理定时器和订阅
     this.cleanup();
-    
+
     return Promise.resolve();
   }
 
   // 加载资源
   async loadResources() {
     const { css, js } = this.config.assets || {};
-    
+
     // 加载 CSS
     if (css) {
-      await Promise.all(css.map(url => this.loadCSS(url)));
+      await Promise.all(css.map((url) => this.loadCSS(url)));
     }
-    
+
     // 加载 JS
     if (js) {
-      await Promise.all(js.map(url => this.loadJS(url)));
+      await Promise.all(js.map((url) => this.loadJS(url)));
     }
   }
 
@@ -195,7 +196,7 @@ class CustomMicroApp {
     if (this.config.events) {
       this.config.events.forEach(({ selector, event, handler }) => {
         const elements = this.domElement.querySelectorAll(selector);
-        elements.forEach(el => el.addEventListener(event, handler));
+        elements.forEach((el) => el.addEventListener(event, handler));
       });
     }
   }
@@ -205,7 +206,7 @@ class CustomMicroApp {
     if (this.config.events) {
       this.config.events.forEach(({ selector, event, handler }) => {
         const elements = this.domElement.querySelectorAll(selector);
-        elements.forEach(el => el.removeEventListener(event, handler));
+        elements.forEach((el) => el.removeEventListener(event, handler));
       });
     }
   }
@@ -214,13 +215,13 @@ class CustomMicroApp {
   cleanup() {
     // 清理定时器
     if (this.timers) {
-      this.timers.forEach(timer => clearTimeout(timer));
+      this.timers.forEach((timer) => clearTimeout(timer));
       this.timers = [];
     }
-    
+
     // 清理订阅
     if (this.subscriptions) {
-      this.subscriptions.forEach(unsubscribe => unsubscribe());
+      this.subscriptions.forEach((unsubscribe) => unsubscribe());
       this.subscriptions = [];
     }
   }
@@ -305,16 +306,16 @@ class MicroAppRouter {
     window.addEventListener('popstate', () => {
       this.handleRouteChange();
     });
-    
+
     // 监听 pushState 和 replaceState
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
-    
+
     history.pushState = (...args) => {
       originalPushState.apply(history, args);
       this.handleRouteChange();
     };
-    
+
     history.replaceState = (...args) => {
       originalReplaceState.apply(history, args);
       this.handleRouteChange();
@@ -325,7 +326,7 @@ class MicroAppRouter {
   handleRouteChange() {
     const path = window.location.pathname;
     const appName = this.findMatchingApp(path);
-    
+
     if (appName !== this.currentApp) {
       this.switchApp(appName);
     }
@@ -347,12 +348,12 @@ class MicroAppRouter {
       // 卸载当前应用
       this.unmountApp(this.currentApp);
     }
-    
+
     if (appName) {
       // 挂载新应用
       this.mountApp(appName);
     }
-    
+
     this.currentApp = appName;
   }
 
@@ -380,7 +381,7 @@ const customApp = new CustomMicroApp('custom-app', {
   containerId: 'custom-container',
   assets: {
     css: ['/custom-app/styles.css'],
-    js: ['/custom-app/bundle.js']
+    js: ['/custom-app/bundle.js'],
   },
   render: (container, props) => {
     container.innerHTML = `
@@ -397,19 +398,19 @@ const customApp = new CustomMicroApp('custom-app', {
       event: 'click',
       handler: () => {
         communication.emit('customButtonClick', { timestamp: Date.now() });
-      }
-    }
+      },
+    },
   ],
   errorHandler: (error) => {
     console.error('Custom app error:', error);
-  }
+  },
 });
 
 // 注册自定义应用
 registerApplication({
   name: 'custom-app',
   app: () => Promise.resolve(customApp),
-  activeWhen: '/custom'
+  activeWhen: '/custom',
 });
 
 // 应用间通信示例
@@ -423,15 +424,11 @@ const unsubscribe = communication.subscribe('user', (user) => {
   console.log('User state changed:', user);
 });
 
-export {
-  CustomMicroApp,
-  MicroAppCommunication,
-  MicroAppRouter
-};
+export { CustomMicroApp, MicroAppCommunication, MicroAppRouter };
 
 /**
  * Single-SPA 最佳实践：
- * 
+ *
  * 1. 应用隔离：确保各微应用之间的样式和 JS 不互相影响
  * 2. 生命周期管理：正确实现 bootstrap、mount、unmount 生命周期
  * 3. 错误边界：为每个微应用设置错误边界，避免单个应用错误影响整体

@@ -52,7 +52,7 @@ function test() {
   node0.next = node4;
   node4.next = node2; // 形成环
 
-  console.log("是否有环：", hasCycle(head));
+  console.log('是否有环：', hasCycle(head));
 
   // 创建无环的链表：1->2->3->4
   const head2 = new ListNode(1);
@@ -60,7 +60,7 @@ function test() {
   head2.next.next = new ListNode(3);
   head2.next.next.next = new ListNode(4);
 
-  console.log("是否有环：", hasCycle(head2));
+  console.log('是否有环：', hasCycle(head2));
 }
 
 // 运行测试

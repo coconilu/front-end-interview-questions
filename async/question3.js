@@ -43,35 +43,35 @@ class MyPromise {
 function testMyPromise() {
   const promise1 = new MyPromise((resolve, reject) => {
     setTimeout(() => {
-      resolve("成功");
+      resolve('成功');
     }, 1000);
   });
 
   promise1
     .then((value) => {
-      console.log("Promise1 成功:", value);
-      return "链式调用";
+      console.log('Promise1 成功:', value);
+      return '链式调用';
     })
     .then((value) => {
-      console.log("Promise1 链式调用:", value);
+      console.log('Promise1 链式调用:', value);
     });
 
   const promise2 = new MyPromise((resolve, reject) => {
     setTimeout(() => {
-      reject("失败");
+      reject('失败');
     }, 1000);
   });
 
   promise2
     .then((value) => {
-      console.log("Promise2 成功:", value);
+      console.log('Promise2 成功:', value);
     })
     .catch((reason) => {
-      console.log("Promise2 失败:", reason);
-      return "失败后继续";
+      console.log('Promise2 失败:', reason);
+      return '失败后继续';
     })
     .then((value) => {
-      console.log("Promise2 失败后继续:", value);
+      console.log('Promise2 失败后继续:', value);
     });
 }
 

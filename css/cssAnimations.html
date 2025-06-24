@@ -1,393 +1,423 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS动画实现方式</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    .container {
-      margin-bottom: 30px;
-      padding: 20px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-    }
-    
-    .box {
-      width: 100px;
-      height: 100px;
-      background-color: #3498db;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-    }
-    
-    /* 1. 过渡效果 (transition) */
-    .transition-demo {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    
-    .transition-box {
-      transition-property: all;
-      transition-duration: 0.5s;
-      transition-timing-function: ease;
-      transition-delay: 0s;
-      cursor: pointer;
-      margin: 10px;
-    }
-    
-    /* 简写形式 */
-    .transition-simple {
-      transition: all 0.5s ease 0s;
-    }
-    
-    .transition-box:hover {
-      background-color: #e74c3c;
-      transform: scale(1.2) rotate(10deg);
-    }
-    
-    /* 不同的timing-function */
-    .ease {
-      transition-timing-function: ease;
-    }
-    
-    .linear {
-      transition-timing-function: linear;
-    }
-    
-    .ease-in {
-      transition-timing-function: ease-in;
-    }
-    
-    .ease-out {
-      transition-timing-function: ease-out;
-    }
-    
-    .ease-in-out {
-      transition-timing-function: ease-in-out;
-    }
-    
-    .cubic-bezier {
-      transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    }
-    
-    /* 2. 关键帧动画 (animation & @keyframes) */
-    .animation-demo {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    
-    .animation-box {
-      margin: 10px;
-    }
-    
-    /* 脉动动画 */
-    .pulse {
-      animation-name: pulse;
-      animation-duration: 2s;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      animation-direction: normal;
-      animation-fill-mode: both;
-      animation-play-state: running;
-      animation-delay: 0s;
-    }
-    
-    /* 简写形式 */
-    .pulse-simple {
-      animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS动画实现方式</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      50% {
-        transform: scale(1.2);
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
       }
-      100% {
-        transform: scale(1);
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
       }
-    }
-    
-    /* 彩虹颜色变化 */
-    .rainbow {
-      animation: rainbow 5s linear infinite;
-    }
-    
-    @keyframes rainbow {
-      0% { background-color: #ff0000; }
-      17% { background-color: #ff8000; }
-      33% { background-color: #ffff00; }
-      50% { background-color: #00ff00; }
-      67% { background-color: #0000ff; }
-      83% { background-color: #8000ff; }
-      100% { background-color: #ff0000; }
-    }
-    
-    /* 旋转 */
-    .spin {
-      animation: spin 3s linear infinite;
-    }
-    
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
       }
-      to {
-        transform: rotate(360deg);
+
+      .container {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
       }
-    }
-    
-    /* 移动 */
-    .move {
-      animation: move 4s ease-in-out infinite alternate;
-      position: relative;
-    }
-    
-    @keyframes move {
-      0% {
-        left: 0;
+
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: #3498db;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
       }
-      100% {
-        left: calc(100% - 100px);
+
+      /* 1. 过渡效果 (transition) */
+      .transition-demo {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
       }
-    }
-    
-    /* 摇晃 */
-    .shake {
-      animation: shake 0.5s ease-in-out infinite;
-    }
-    
-    @keyframes shake {
-      0%, 100% {
-        transform: translateX(0);
+
+      .transition-box {
+        transition-property: all;
+        transition-duration: 0.5s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        cursor: pointer;
+        margin: 10px;
       }
-      25% {
-        transform: translateX(-10px);
+
+      /* 简写形式 */
+      .transition-simple {
+        transition: all 0.5s ease 0s;
       }
-      75% {
-        transform: translateX(10px);
+
+      .transition-box:hover {
+        background-color: #e74c3c;
+        transform: scale(1.2) rotate(10deg);
       }
-    }
-    
-    /* 3. 变换效果 (transform) */
-    .transform-demo {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    
-    .transform-box {
-      margin: 10px;
-      transition: transform 0.5s ease;
-    }
-    
-    .scale:hover {
-      transform: scale(1.5);
-    }
-    
-    .rotate:hover {
-      transform: rotate(45deg);
-    }
-    
-    .translate:hover {
-      transform: translate(20px, 20px);
-    }
-    
-    .skew:hover {
-      transform: skew(10deg, 10deg);
-    }
-    
-    .matrix:hover {
-      transform: matrix(1, 0.2, 0.2, 1, 20, 20);
-    }
-    
-    .multiple:hover {
-      transform: scale(1.2) rotate(15deg) translateX(10px);
-    }
-    
-    /* 4. 3D变换 */
-    .transform-3d-demo {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      perspective: 500px;
-    }
-    
-    .transform-3d-box {
-      margin: 10px;
-      transition: transform 0.5s ease;
-    }
-    
-    .rotate-x:hover {
-      transform: rotateX(45deg);
-    }
-    
-    .rotate-y:hover {
-      transform: rotateY(45deg);
-    }
-    
-    .rotate-z:hover {
-      transform: rotateZ(45deg);
-    }
-    
-    .translate-z:hover {
-      transform: translateZ(30px);
-    }
-    
-    .perspective-demo {
-      transform-style: preserve-3d;
-      animation: rotate3d 5s linear infinite;
-    }
-    
-    @keyframes rotate3d {
-      from {
-        transform: rotate3d(1, 1, 1, 0deg);
+
+      /* 不同的timing-function */
+      .ease {
+        transition-timing-function: ease;
       }
-      to {
-        transform: rotate3d(1, 1, 1, 360deg);
+
+      .linear {
+        transition-timing-function: linear;
       }
-    }
-  </style>
-</head>
-<body>
-  <h1>CSS动画实现方式</h1>
-  
-  <h2>1. 过渡效果 (transition)</h2>
-  <div class="container">
-    <p>悬停在下面的方块上查看效果：</p>
-    <div class="transition-demo">
-      <div>
-        <div class="box transition-box ease">ease</div>
-      </div>
-      <div>
-        <div class="box transition-box linear">linear</div>
-      </div>
-      <div>
-        <div class="box transition-box ease-in">ease-in</div>
-      </div>
-      <div>
-        <div class="box transition-box ease-out">ease-out</div>
-      </div>
-      <div>
-        <div class="box transition-box ease-in-out">ease-in-out</div>
-      </div>
-      <div>
-        <div class="box transition-box cubic-bezier">cubic-bezier</div>
+
+      .ease-in {
+        transition-timing-function: ease-in;
+      }
+
+      .ease-out {
+        transition-timing-function: ease-out;
+      }
+
+      .ease-in-out {
+        transition-timing-function: ease-in-out;
+      }
+
+      .cubic-bezier {
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+
+      /* 2. 关键帧动画 (animation & @keyframes) */
+      .animation-demo {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+      .animation-box {
+        margin: 10px;
+      }
+
+      /* 脉动动画 */
+      .pulse {
+        animation-name: pulse;
+        animation-duration: 2s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-fill-mode: both;
+        animation-play-state: running;
+        animation-delay: 0s;
+      }
+
+      /* 简写形式 */
+      .pulse-simple {
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* 彩虹颜色变化 */
+      .rainbow {
+        animation: rainbow 5s linear infinite;
+      }
+
+      @keyframes rainbow {
+        0% {
+          background-color: #ff0000;
+        }
+        17% {
+          background-color: #ff8000;
+        }
+        33% {
+          background-color: #ffff00;
+        }
+        50% {
+          background-color: #00ff00;
+        }
+        67% {
+          background-color: #0000ff;
+        }
+        83% {
+          background-color: #8000ff;
+        }
+        100% {
+          background-color: #ff0000;
+        }
+      }
+
+      /* 旋转 */
+      .spin {
+        animation: spin 3s linear infinite;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 移动 */
+      .move {
+        animation: move 4s ease-in-out infinite alternate;
+        position: relative;
+      }
+
+      @keyframes move {
+        0% {
+          left: 0;
+        }
+        100% {
+          left: calc(100% - 100px);
+        }
+      }
+
+      /* 摇晃 */
+      .shake {
+        animation: shake 0.5s ease-in-out infinite;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+
+      /* 3. 变换效果 (transform) */
+      .transform-demo {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+      .transform-box {
+        margin: 10px;
+        transition: transform 0.5s ease;
+      }
+
+      .scale:hover {
+        transform: scale(1.5);
+      }
+
+      .rotate:hover {
+        transform: rotate(45deg);
+      }
+
+      .translate:hover {
+        transform: translate(20px, 20px);
+      }
+
+      .skew:hover {
+        transform: skew(10deg, 10deg);
+      }
+
+      .matrix:hover {
+        transform: matrix(1, 0.2, 0.2, 1, 20, 20);
+      }
+
+      .multiple:hover {
+        transform: scale(1.2) rotate(15deg) translateX(10px);
+      }
+
+      /* 4. 3D变换 */
+      .transform-3d-demo {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        perspective: 500px;
+      }
+
+      .transform-3d-box {
+        margin: 10px;
+        transition: transform 0.5s ease;
+      }
+
+      .rotate-x:hover {
+        transform: rotateX(45deg);
+      }
+
+      .rotate-y:hover {
+        transform: rotateY(45deg);
+      }
+
+      .rotate-z:hover {
+        transform: rotateZ(45deg);
+      }
+
+      .translate-z:hover {
+        transform: translateZ(30px);
+      }
+
+      .perspective-demo {
+        transform-style: preserve-3d;
+        animation: rotate3d 5s linear infinite;
+      }
+
+      @keyframes rotate3d {
+        from {
+          transform: rotate3d(1, 1, 1, 0deg);
+        }
+        to {
+          transform: rotate3d(1, 1, 1, 360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS动画实现方式</h1>
+
+    <h2>1. 过渡效果 (transition)</h2>
+    <div class="container">
+      <p>悬停在下面的方块上查看效果：</p>
+      <div class="transition-demo">
+        <div>
+          <div class="box transition-box ease">ease</div>
+        </div>
+        <div>
+          <div class="box transition-box linear">linear</div>
+        </div>
+        <div>
+          <div class="box transition-box ease-in">ease-in</div>
+        </div>
+        <div>
+          <div class="box transition-box ease-out">ease-out</div>
+        </div>
+        <div>
+          <div class="box transition-box ease-in-out">ease-in-out</div>
+        </div>
+        <div>
+          <div class="box transition-box cubic-bezier">cubic-bezier</div>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <h2>2. 关键帧动画 (animation & @keyframes)</h2>
-  <div class="container">
-    <div class="animation-demo">
-      <div>
-        <div class="box animation-box pulse">脉动</div>
-      </div>
-      <div>
-        <div class="box animation-box rainbow">彩虹</div>
-      </div>
-      <div>
-        <div class="box animation-box spin">旋转</div>
-      </div>
-      <div>
-        <div class="box animation-box move">移动</div>
-      </div>
-      <div>
-        <div class="box animation-box shake">摇晃</div>
-      </div>
-    </div>
-  </div>
-  
-  <h2>3. 变换效果 (transform)</h2>
-  <div class="container">
-    <p>悬停在下面的方块上查看效果：</p>
-    <div class="transform-demo">
-      <div>
-        <div class="box transform-box scale">缩放</div>
-      </div>
-      <div>
-        <div class="box transform-box rotate">旋转</div>
-      </div>
-      <div>
-        <div class="box transform-box translate">平移</div>
-      </div>
-      <div>
-        <div class="box transform-box skew">倾斜</div>
-      </div>
-      <div>
-        <div class="box transform-box matrix">矩阵</div>
-      </div>
-      <div>
-        <div class="box transform-box multiple">组合</div>
+
+    <h2>2. 关键帧动画 (animation & @keyframes)</h2>
+    <div class="container">
+      <div class="animation-demo">
+        <div>
+          <div class="box animation-box pulse">脉动</div>
+        </div>
+        <div>
+          <div class="box animation-box rainbow">彩虹</div>
+        </div>
+        <div>
+          <div class="box animation-box spin">旋转</div>
+        </div>
+        <div>
+          <div class="box animation-box move">移动</div>
+        </div>
+        <div>
+          <div class="box animation-box shake">摇晃</div>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <h2>4. 3D变换 (transform)</h2>
-  <div class="container">
-    <p>悬停在下面的方块上查看效果：</p>
-    <div class="transform-3d-demo">
-      <div>
-        <div class="box transform-3d-box rotate-x">rotateX</div>
-      </div>
-      <div>
-        <div class="box transform-3d-box rotate-y">rotateY</div>
-      </div>
-      <div>
-        <div class="box transform-3d-box rotate-z">rotateZ</div>
-      </div>
-      <div>
-        <div class="box transform-3d-box translate-z">translateZ</div>
-      </div>
-      <div>
-        <div class="box transform-3d-box perspective-demo">3D旋转</div>
+
+    <h2>3. 变换效果 (transform)</h2>
+    <div class="container">
+      <p>悬停在下面的方块上查看效果：</p>
+      <div class="transform-demo">
+        <div>
+          <div class="box transform-box scale">缩放</div>
+        </div>
+        <div>
+          <div class="box transform-box rotate">旋转</div>
+        </div>
+        <div>
+          <div class="box transform-box translate">平移</div>
+        </div>
+        <div>
+          <div class="box transform-box skew">倾斜</div>
+        </div>
+        <div>
+          <div class="box transform-box matrix">矩阵</div>
+        </div>
+        <div>
+          <div class="box transform-box multiple">组合</div>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-    <h3>面试要点：</h3>
-    <ul>
-      <li>CSS动画主要有三种实现方式：transition、animation和transform</li>
-      <li>transition（过渡）：用于在状态改变时平滑过渡，需要触发事件</li>
-      <li>animation（动画）：使用@keyframes定义，可以自动运行，不需要触发事件</li>
-      <li>transform（变换）：改变元素的形状、大小和位置，常与transition和animation结合</li>
-      <li>timing-function控制动画的速度曲线，常见有ease、linear、ease-in、ease-out等</li>
-      <li>animation-fill-mode定义动画开始前和结束后的状态</li>
-      <li>GPU加速：transform和opacity的动画性能最好，会触发GPU硬件加速</li>
-      <li>requestAnimationFrame与CSS动画相比：JS动画可以提供更精细的控制，但CSS动画性能通常更好</li>
-    </ul>
-  </div>
-</body>
-</html> 
+
+    <h2>4. 3D变换 (transform)</h2>
+    <div class="container">
+      <p>悬停在下面的方块上查看效果：</p>
+      <div class="transform-3d-demo">
+        <div>
+          <div class="box transform-3d-box rotate-x">rotateX</div>
+        </div>
+        <div>
+          <div class="box transform-3d-box rotate-y">rotateY</div>
+        </div>
+        <div>
+          <div class="box transform-3d-box rotate-z">rotateZ</div>
+        </div>
+        <div>
+          <div class="box transform-3d-box translate-z">translateZ</div>
+        </div>
+        <div>
+          <div class="box transform-3d-box perspective-demo">3D旋转</div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      "
+    >
+      <h3>面试要点：</h3>
+      <ul>
+        <li>CSS动画主要有三种实现方式：transition、animation和transform</li>
+        <li>transition（过渡）：用于在状态改变时平滑过渡，需要触发事件</li>
+        <li>
+          animation（动画）：使用@keyframes定义，可以自动运行，不需要触发事件
+        </li>
+        <li>
+          transform（变换）：改变元素的形状、大小和位置，常与transition和animation结合
+        </li>
+        <li>
+          timing-function控制动画的速度曲线，常见有ease、linear、ease-in、ease-out等
+        </li>
+        <li>animation-fill-mode定义动画开始前和结束后的状态</li>
+        <li>GPU加速：transform和opacity的动画性能最好，会触发GPU硬件加速</li>
+        <li>
+          requestAnimationFrame与CSS动画相比：JS动画可以提供更精细的控制，但CSS动画性能通常更好
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

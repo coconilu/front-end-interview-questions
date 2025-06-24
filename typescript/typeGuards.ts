@@ -1,15 +1,15 @@
 /**
  * TypeScript 类型守卫面试题
- * 
+ *
  * 类型守卫允许你在运行时检查变量的类型，并在特定的代码块中缩小变量的类型范围
  */
 
 // 1. 基本类型守卫：typeof
 function padLeft(value: string, padding: string | number) {
   // 类型守卫：typeof
-  if (typeof padding === "number") {
+  if (typeof padding === 'number') {
     // 在这个分支中，TypeScript 知道 padding 是 number 类型
-    return Array(padding + 1).join(" ") + value;
+    return Array(padding + 1).join(' ') + value;
   }
   // 在这个分支中，TypeScript 知道 padding 是 string 类型
   return padding + value;
@@ -17,15 +17,21 @@ function padLeft(value: string, padding: string | number) {
 
 // 2. 类型守卫：instanceof
 class AnimalBase {
-  move() { console.log("Moving..."); }
+  move() {
+    console.log('Moving...');
+  }
 }
 
 class Dog extends AnimalBase {
-  bark() { console.log("Woof!"); }
+  bark() {
+    console.log('Woof!');
+  }
 }
 
 class Cat extends AnimalBase {
-  meow() { console.log("Meow!"); }
+  meow() {
+    console.log('Meow!');
+  }
 }
 
 function makeSound(animal: AnimalBase) {
@@ -54,14 +60,14 @@ interface Fish {
 
 function getSmallPet(): Fish | Bird {
   // 返回 Fish 或 Bird
-  return Math.random() > 0.5 
-    ? { swim: () => {}, layEggs: () => {} } 
+  return Math.random() > 0.5
+    ? { swim: () => {}, layEggs: () => {} }
     : { fly: () => {}, layEggs: () => {} };
 }
 
 function move(pet: Fish | Bird) {
   // 类型守卫：in 操作符
-  if ("swim" in pet) {
+  if ('swim' in pet) {
     // 在这个分支中，TypeScript 知道 pet 是 Fish 类型
     pet.swim();
   } else {
@@ -87,18 +93,18 @@ function move2(pet: Fish | Bird) {
 
 // 5. 可辨识联合类型
 interface Square {
-  kind: "square";
+  kind: 'square';
   size: number;
 }
 
 interface Rectangle {
-  kind: "rectangle";
+  kind: 'rectangle';
   width: number;
   height: number;
 }
 
 interface Circle {
-  kind: "circle";
+  kind: 'circle';
   radius: number;
 }
 
@@ -107,13 +113,13 @@ type Shape = Square | Rectangle | Circle;
 function area(shape: Shape): number {
   // 使用可辨识属性 kind 作为类型守卫
   switch (shape.kind) {
-    case "square":
+    case 'square':
       // 在这个分支中，TypeScript 知道 shape 是 Square 类型
       return shape.size * shape.size;
-    case "rectangle":
+    case 'rectangle':
       // 在这个分支中，TypeScript 知道 shape 是 Rectangle 类型
       return shape.width * shape.height;
-    case "circle":
+    case 'circle':
       // 在这个分支中，TypeScript 知道 shape 是 Circle 类型
       return Math.PI * shape.radius ** 2;
     default:
@@ -124,7 +130,10 @@ function area(shape: Shape): number {
 }
 
 // 面试题1：实现一个函数，安全地访问嵌套对象属性，避免空值错误
-function safeGet<T, K extends keyof T>(obj: T | null | undefined, key: K): T[K] | undefined {
+function safeGet<T, K extends keyof T>(
+  obj: T | null | undefined,
+  key: K
+): T[K] | undefined {
   return obj ? obj[key] : undefined;
 }
 
@@ -146,7 +155,7 @@ type EventMap = {
   login: { user: string; time: Date };
   logout: { user: string; time: Date };
   pageView: { page: string; time: Date };
-}
+};
 
 class TypedEventEmitter<T extends Record<string, any>> {
   private listeners: Partial<Record<keyof T, Array<(data: any) => void>>> = {};
@@ -163,7 +172,7 @@ class TypedEventEmitter<T extends Record<string, any>> {
     if (!this.listeners[event]) {
       return this;
     }
-    this.listeners[event]!.forEach(callback => callback(data));
+    this.listeners[event]!.forEach((callback) => callback(data));
     return this;
   }
 
@@ -172,10 +181,12 @@ class TypedEventEmitter<T extends Record<string, any>> {
       delete this.listeners[event];
       return this;
     }
-    
+
     const eventListeners = this.listeners[event];
     if (eventListeners) {
-      this.listeners[event] = eventListeners.filter(cb => cb !== callback) as any;
+      this.listeners[event] = eventListeners.filter(
+        (cb) => cb !== callback
+      ) as any;
     }
     return this;
   }
@@ -190,9 +201,9 @@ emitter.emit('login', { user: 'john', time: new Date() });
 
 // 面试题3：实现一个函数，确保对象拥有所有必需的属性
 function ensureRequired<T, K extends keyof T>(
-  obj: Partial<T>, 
+  obj: Partial<T>,
   requiredKeys: K[]
-): asserts obj is (Partial<T> & Required<Pick<T, K>>) {
+): asserts obj is Partial<T> & Required<Pick<T, K>> {
   for (const key of requiredKeys) {
     if (obj[key] === undefined) {
       throw new Error(`缺少必需的属性: ${String(key)}`);
@@ -210,12 +221,12 @@ interface Config {
 
 function initServer(config: Partial<Config>) {
   ensureRequired(config, ['host', 'port']);
-  
+
   // 现在 TypeScript 知道 config.host 和 config.port 一定存在
   console.log(`Server starting at ${config.host}:${config.port}`);
-  
+
   // 其他属性仍然是可选的
   if (config.debug) {
     console.log('Debug mode enabled');
   }
-} 
+}

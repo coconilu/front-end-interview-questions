@@ -99,7 +99,7 @@ function test() {
     values1.push(result1.val);
     result1 = result1.next;
   }
-  console.log("测试用例1结果:", values1); // 应该输出 [1,2,3,4]
+  console.log('测试用例1结果:', values1); // 应该输出 [1,2,3,4]
 
   // 测试用例2: [-1,5,3,4,0]
   const list2 = new ListNode(-1);
@@ -114,7 +114,7 @@ function test() {
     values2.push(result2.val);
     result2 = result2.next;
   }
-  console.log("测试用例2结果:", values2); // 应该输出 [-1,0,3,4,5]
+  console.log('测试用例2结果:', values2); // 应该输出 [-1,0,3,4,5]
 }
 
 // 运行测试

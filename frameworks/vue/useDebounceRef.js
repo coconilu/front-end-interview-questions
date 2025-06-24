@@ -15,14 +15,17 @@ import { customRef } from 'vue';
 function useDebouncedRef(value, delay = 500) {
   let timeout;
   return customRef((track, trigger) => ({
-    get() { track(); return value; },
+    get() {
+      track();
+      return value;
+    },
     set(newVal) {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         value = newVal;
         trigger(); // 延迟触发更新
       }, delay);
-    }
+    },
   }));
 }
 

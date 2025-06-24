@@ -7,7 +7,7 @@
 function promiseAll(promises) {
   return new Promise((resolve, reject) => {
     if (!Array.isArray(promises)) {
-      return reject(new TypeError("参数必须是数组"));
+      return reject(new TypeError('参数必须是数组'));
     }
     const results = [];
     let completed = 0;

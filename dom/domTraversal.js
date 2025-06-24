@@ -102,21 +102,21 @@ function findElementDepthFirst(root, predicate) {
  * @returns {string} - 所有文本内容
  */
 function getAllTextContent(root) {
-  if (!root) return "";
+  if (!root) return '';
 
   // 如果是script或style标签，忽略内容
-  if (root.tagName === "SCRIPT" || root.tagName === "STYLE") {
-    return "";
+  if (root.tagName === 'SCRIPT' || root.tagName === 'STYLE') {
+    return '';
   }
 
-  let text = "";
+  let text = '';
 
   // 处理文本节点
   for (let i = 0; i < root.childNodes.length; i++) {
     const node = root.childNodes[i];
 
     if (node.nodeType === Node.TEXT_NODE) {
-      text += node.textContent.trim() + " ";
+      text += node.textContent.trim() + ' ';
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       text += getAllTextContent(node);
     }
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 // 导出函数供其他模块使用
-if (typeof module !== "undefined" && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     traverseDOMDepthFirstRecursive,
     traverseDOMDepthFirst,

@@ -15,24 +15,20 @@ function createCustomContext(defaultValue) {
   const context = {
     Provider: null,
     Consumer: null,
-    _defaultValue: defaultValue
+    _defaultValue: defaultValue,
   };
 
   // 创建Provider组件
   context.Provider = function Provider({ value, children }) {
     const [state, setState] = useState(value);
-    
+
     // 提供value和setValue方法
     const contextValue = {
       value: state,
-      setValue: setState
+      setValue: setState,
     };
 
-    return (
-      <context.Provider value={contextValue}>
-        {children}
-      </context.Provider>
-    );
+    return <context.Provider value={contextValue}>{children}</context.Provider>;
   };
 
   // 创建Consumer组件
@@ -107,7 +103,4 @@ function App() {
 }
 */
 
-export {
-  createCustomContext,
-  useCustomContext
-}; 
+export { createCustomContext, useCustomContext };

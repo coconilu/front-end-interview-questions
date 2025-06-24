@@ -1,333 +1,358 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS响应式设计</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section {
-      margin-bottom: 40px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 5px;
-    }
-    
-    pre {
-      background-color: #f0f0f0;
-      padding: 15px;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-family: Consolas, Monaco, monospace;
-      margin: 15px 0;
-    }
-    
-    code {
-      background-color: #f0f0f0;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-family: Consolas, Monaco, monospace;
-    }
-    
-    /* 响应式设计的三大核心技术演示 */
-    
-    /* 1. 流式布局示例 */
-    .fluid-layout {
-      background-color: white;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    
-    .fluid-row {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -10px;
-    }
-    
-    .fluid-col {
-      flex: 1;
-      padding: 0 10px;
-      margin-bottom: 20px;
-      min-width: 200px;
-    }
-    
-    .fluid-box {
-      background-color: #3498db;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      border-radius: 5px;
-      height: 100%;
-    }
-    
-    /* 2. 媒体查询示例 */
-    .media-query-demo {
-      padding: 20px;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    
-    .responsive-box {
-      padding: 20px;
-      text-align: center;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    
-    @media (max-width: 576px) {
-      .responsive-box {
-        background-color: #e74c3c;
-        color: white;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS响应式设计</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      
-      .responsive-box::after {
-        content: "小屏幕 (< 576px)";
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
       }
-    }
-    
-    @media (min-width: 576px) and (max-width: 768px) {
-      .responsive-box {
-        background-color: #f39c12;
-        color: white;
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
       }
-      
-      .responsive-box::after {
-        content: "中小屏幕 (576px - 768px)";
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
       }
-    }
-    
-    @media (min-width: 768px) and (max-width: 992px) {
-      .responsive-box {
-        background-color: #2ecc71;
-        color: white;
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
       }
-      
-      .responsive-box::after {
-        content: "中屏幕 (768px - 992px)";
+
+      .section {
+        margin-bottom: 40px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
       }
-    }
-    
-    @media (min-width: 992px) and (max-width: 1200px) {
-      .responsive-box {
-        background-color: #3498db;
-        color: white;
+
+      pre {
+        background-color: #f0f0f0;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-family: Consolas, Monaco, monospace;
+        margin: 15px 0;
       }
-      
-      .responsive-box::after {
-        content: "大屏幕 (992px - 1200px)";
+
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: Consolas, Monaco, monospace;
       }
-    }
-    
-    @media (min-width: 1200px) {
-      .responsive-box {
-        background-color: #9b59b6;
-        color: white;
-      }
-      
-      .responsive-box::after {
-        content: "超大屏幕 (> 1200px)";
-      }
-    }
-    
-    /* 3. 响应式图片示例 */
-    .responsive-image {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-    
-    /* 响应式布局实例 */
-    .responsive-layout {
-      margin-top: 30px;
-    }
-    
-    .responsive-header {
-      background-color: #34495e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    .responsive-nav {
-      background-color: #2c3e50;
-      margin-bottom: 20px;
-    }
-    
-    .nav-menu {
-      display: flex;
-      list-style: none;
-    }
-    
-    .nav-menu li {
-      padding: 15px 20px;
-    }
-    
-    .nav-menu li a {
-      color: white;
-      text-decoration: none;
-    }
-    
-    .nav-toggle {
-      display: none;
-      color: white;
-      background: none;
-      border: none;
-      font-size: 20px;
-      padding: 15px;
-      cursor: pointer;
-    }
-    
-    .responsive-main {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    
-    .responsive-content {
-      flex: 3;
-      background-color: white;
-      padding: 20px;
-      margin-right: 20px;
-      min-width: 300px;
-    }
-    
-    .responsive-sidebar {
-      flex: 1;
-      background-color: #ecf0f1;
-      padding: 20px;
-      min-width: 200px;
-    }
-    
-    .responsive-footer {
-      background-color: #34495e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    /* 响应式布局的媒体查询 */
-    @media (max-width: 768px) {
-      .responsive-main {
-        flex-direction: column;
-      }
-      
-      .responsive-content {
-        margin-right: 0;
+
+      /* 响应式设计的三大核心技术演示 */
+
+      /* 1. 流式布局示例 */
+      .fluid-layout {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
         margin-bottom: 20px;
       }
-      
-      .nav-menu {
-        display: none;
-        flex-direction: column;
-      }
-      
-      .nav-menu.active {
+
+      .fluid-row {
         display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
       }
-      
-      .nav-toggle {
+
+      .fluid-col {
+        flex: 1;
+        padding: 0 10px;
+        margin-bottom: 20px;
+        min-width: 200px;
+      }
+
+      .fluid-box {
+        background-color: #3498db;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+        height: 100%;
+      }
+
+      /* 2. 媒体查询示例 */
+      .media-query-demo {
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+
+      .responsive-box {
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      @media (max-width: 576px) {
+        .responsive-box {
+          background-color: #e74c3c;
+          color: white;
+        }
+
+        .responsive-box::after {
+          content: '小屏幕 (< 576px)';
+        }
+      }
+
+      @media (min-width: 576px) and (max-width: 768px) {
+        .responsive-box {
+          background-color: #f39c12;
+          color: white;
+        }
+
+        .responsive-box::after {
+          content: '中小屏幕 (576px - 768px)';
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 992px) {
+        .responsive-box {
+          background-color: #2ecc71;
+          color: white;
+        }
+
+        .responsive-box::after {
+          content: '中屏幕 (768px - 992px)';
+        }
+      }
+
+      @media (min-width: 992px) and (max-width: 1200px) {
+        .responsive-box {
+          background-color: #3498db;
+          color: white;
+        }
+
+        .responsive-box::after {
+          content: '大屏幕 (992px - 1200px)';
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .responsive-box {
+          background-color: #9b59b6;
+          color: white;
+        }
+
+        .responsive-box::after {
+          content: '超大屏幕 (> 1200px)';
+        }
+      }
+
+      /* 3. 响应式图片示例 */
+      .responsive-image {
+        max-width: 100%;
+        height: auto;
         display: block;
+        margin: 0 auto;
       }
-    }
-    
-    /* 响应式网格系统 */
-    .grid-demo {
-      padding: 20px;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    
-    .grid-row {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -10px;
-    }
-    
-    .grid-col {
-      padding: 0 10px;
-      margin-bottom: 20px;
-    }
-    
-    .col-1 { width: 8.33%; }
-    .col-2 { width: 16.66%; }
-    .col-3 { width: 25%; }
-    .col-4 { width: 33.33%; }
-    .col-6 { width: 50%; }
-    .col-12 { width: 100%; }
-    
-    .grid-box {
-      background-color: #3498db;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      border-radius: 5px;
-    }
-    
-    @media (max-width: 768px) {
-      .col-md-6 { width: 50%; }
-      .col-md-12 { width: 100%; }
-    }
-    
-    @media (max-width: 576px) {
-      .col-sm-12 { width: 100%; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>CSS响应式设计</h1>
-    
-    <div class="section">
-      <h2>响应式设计的概念</h2>
-      <p>响应式网页设计（Responsive Web Design，RWD）是一种网页设计方法，它使网页能够自动适应不同设备和屏幕尺寸，提供最佳的浏览体验。</p>
-      <p>响应式设计的核心理念是：同一个网站在不同的设备上（桌面电脑、平板、手机等）都能够自动调整布局，无需为每种设备单独设计。</p>
-    </div>
-    
-    <div class="section">
-      <h2>响应式设计的三大核心技术</h2>
-      
-      <h3>1. 流式布局（Fluid Grid）</h3>
-      <p>使用相对单位（如百分比、em、rem、vw/vh）而不是固定像素值，使布局能够根据视口大小自动调整。</p>
-      
-      <pre>
+
+      /* 响应式布局实例 */
+      .responsive-layout {
+        margin-top: 30px;
+      }
+
+      .responsive-header {
+        background-color: #34495e;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .responsive-nav {
+        background-color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-menu li {
+        padding: 15px 20px;
+      }
+
+      .nav-menu li a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .nav-toggle {
+        display: none;
+        color: white;
+        background: none;
+        border: none;
+        font-size: 20px;
+        padding: 15px;
+        cursor: pointer;
+      }
+
+      .responsive-main {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .responsive-content {
+        flex: 3;
+        background-color: white;
+        padding: 20px;
+        margin-right: 20px;
+        min-width: 300px;
+      }
+
+      .responsive-sidebar {
+        flex: 1;
+        background-color: #ecf0f1;
+        padding: 20px;
+        min-width: 200px;
+      }
+
+      .responsive-footer {
+        background-color: #34495e;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* 响应式布局的媒体查询 */
+      @media (max-width: 768px) {
+        .responsive-main {
+          flex-direction: column;
+        }
+
+        .responsive-content {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+
+        .nav-toggle {
+          display: block;
+        }
+      }
+
+      /* 响应式网格系统 */
+      .grid-demo {
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+
+      .grid-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+      }
+
+      .grid-col {
+        padding: 0 10px;
+        margin-bottom: 20px;
+      }
+
+      .col-1 {
+        width: 8.33%;
+      }
+      .col-2 {
+        width: 16.66%;
+      }
+      .col-3 {
+        width: 25%;
+      }
+      .col-4 {
+        width: 33.33%;
+      }
+      .col-6 {
+        width: 50%;
+      }
+      .col-12 {
+        width: 100%;
+      }
+
+      .grid-box {
+        background-color: #3498db;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      @media (max-width: 768px) {
+        .col-md-6 {
+          width: 50%;
+        }
+        .col-md-12 {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .col-sm-12 {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSS响应式设计</h1>
+
+      <div class="section">
+        <h2>响应式设计的概念</h2>
+        <p>
+          响应式网页设计（Responsive Web
+          Design，RWD）是一种网页设计方法，它使网页能够自动适应不同设备和屏幕尺寸，提供最佳的浏览体验。
+        </p>
+        <p>
+          响应式设计的核心理念是：同一个网站在不同的设备上（桌面电脑、平板、手机等）都能够自动调整布局，无需为每种设备单独设计。
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>响应式设计的三大核心技术</h2>
+
+        <h3>1. 流式布局（Fluid Grid）</h3>
+        <p>
+          使用相对单位（如百分比、em、rem、vw/vh）而不是固定像素值，使布局能够根据视口大小自动调整。
+        </p>
+
+        <pre>
 .container {
   width: 100%;
   max-width: 1200px;
@@ -339,32 +364,27 @@
   width: 33.33%; /* 使用百分比而不是固定像素 */
   padding: 0 15px;
 }
-      </pre>
-      
-      <div class="fluid-layout">
-        <div class="fluid-row">
-          <div class="fluid-col">
-            <div class="fluid-box">
-              弹性列 1
+      </pre
+        >
+
+        <div class="fluid-layout">
+          <div class="fluid-row">
+            <div class="fluid-col">
+              <div class="fluid-box">弹性列 1</div>
             </div>
-          </div>
-          <div class="fluid-col">
-            <div class="fluid-box">
-              弹性列 2
+            <div class="fluid-col">
+              <div class="fluid-box">弹性列 2</div>
             </div>
-          </div>
-          <div class="fluid-col">
-            <div class="fluid-box">
-              弹性列 3
+            <div class="fluid-col">
+              <div class="fluid-box">弹性列 3</div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <h3>2. 媒体查询（Media Queries）</h3>
-      <p>使用CSS3媒体查询来为不同的屏幕尺寸应用不同的样式规则。</p>
-      
-      <pre>
+
+        <h3>2. 媒体查询（Media Queries）</h3>
+        <p>使用CSS3媒体查询来为不同的屏幕尺寸应用不同的样式规则。</p>
+
+        <pre>
 /* 默认样式适用于所有设备 */
 .container {
   width: 100%;
@@ -391,137 +411,181 @@
     max-width: 1170px;
   }
 }
-      </pre>
-      
-      <div class="media-query-demo">
-        <p>调整浏览器大小，观察以下元素的变化：</p>
-        <div class="responsive-box"></div>
-      </div>
-      
-      <h3>3. 响应式图片（Responsive Images）</h3>
-      <p>使图片能够自动适应容器大小，防止在小屏幕设备上溢出容器。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <div class="media-query-demo">
+          <p>调整浏览器大小，观察以下元素的变化：</p>
+          <div class="responsive-box"></div>
+        </div>
+
+        <h3>3. 响应式图片（Responsive Images）</h3>
+        <p>使图片能够自动适应容器大小，防止在小屏幕设备上溢出容器。</p>
+
+        <pre>
 img {
   max-width: 100%;
   height: auto;
 }
-      </pre>
-      
-      <div style="padding: 20px; background-color: white; border: 1px solid #ddd; border-radius: 5px; text-align: center;">
-        <p>调整浏览器窗口大小，观察图片如何自动调整：</p>
-        <img src="https://via.placeholder.com/800x400" alt="响应式图片示例" class="responsive-image">
-      </div>
-    </div>
-    
-    <div class="section">
-      <h2>响应式布局实例</h2>
-      
-      <div class="responsive-layout">
-        <header class="responsive-header">
-          <h2>响应式网站示例</h2>
-        </header>
-        
-        <nav class="responsive-nav">
-          <button class="nav-toggle">☰ 菜单</button>
-          <ul class="nav-menu">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">关于</a></li>
-            <li><a href="#">服务</a></li>
-            <li><a href="#">产品</a></li>
-            <li><a href="#">联系</a></li>
-          </ul>
-        </nav>
-        
-        <div class="responsive-main">
-          <main class="responsive-content">
-            <h3>主要内容区域</h3>
-            <p>这是一个响应式布局示例。在大屏幕上，内容区域和侧边栏并排显示；在小屏幕上，它们会上下堆叠。菜单在小屏幕上会变成汉堡菜单。</p>
-            <p>调整浏览器窗口大小以查看变化。</p>
-          </main>
-          
-          <aside class="responsive-sidebar">
-            <h3>侧边栏</h3>
-            <p>这是侧边栏内容。在小屏幕上，它会移到主内容区域下方。</p>
-          </aside>
-        </div>
-        
-        <footer class="responsive-footer">
-          <p>响应式布局示例 &copy; 2023</p>
-        </footer>
-      </div>
-    </div>
-    
-    <div class="section">
-      <h2>响应式网格系统</h2>
-      <p>许多CSS框架（如Bootstrap、Foundation）都提供了响应式网格系统，方便开发者快速创建响应式布局。</p>
-      
-      <div class="grid-demo">
-        <div class="grid-row">
-          <div class="grid-col col-12 col-md-6 col-sm-12">
-            <div class="grid-box">
-              1/2 (在中屏幕), 全宽 (在小屏幕)
-            </div>
-          </div>
-          <div class="grid-col col-12 col-md-6 col-sm-12">
-            <div class="grid-box">
-              1/2 (在中屏幕), 全宽 (在小屏幕)
-            </div>
-          </div>
-        </div>
-        
-        <div class="grid-row">
-          <div class="grid-col col-4 col-md-6 col-sm-12">
-            <div class="grid-box">
-              1/3 (在大屏幕), 1/2 (在中屏幕), 全宽 (在小屏幕)
-            </div>
-          </div>
-          <div class="grid-col col-4 col-md-6 col-sm-12">
-            <div class="grid-box">
-              1/3 (在大屏幕), 1/2 (在中屏幕), 全宽 (在小屏幕)
-            </div>
-          </div>
-          <div class="grid-col col-4 col-md-12 col-sm-12">
-            <div class="grid-box">
-              1/3 (在大屏幕), 全宽 (在中、小屏幕)
-            </div>
-          </div>
+      </pre
+        >
+
+        <div
+          style="
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+          "
+        >
+          <p>调整浏览器窗口大小，观察图片如何自动调整：</p>
+          <img
+            src="https://via.placeholder.com/800x400"
+            alt="响应式图片示例"
+            class="responsive-image"
+          />
         </div>
       </div>
+
+      <div class="section">
+        <h2>响应式布局实例</h2>
+
+        <div class="responsive-layout">
+          <header class="responsive-header">
+            <h2>响应式网站示例</h2>
+          </header>
+
+          <nav class="responsive-nav">
+            <button class="nav-toggle">☰ 菜单</button>
+            <ul class="nav-menu">
+              <li><a href="#">首页</a></li>
+              <li><a href="#">关于</a></li>
+              <li><a href="#">服务</a></li>
+              <li><a href="#">产品</a></li>
+              <li><a href="#">联系</a></li>
+            </ul>
+          </nav>
+
+          <div class="responsive-main">
+            <main class="responsive-content">
+              <h3>主要内容区域</h3>
+              <p>
+                这是一个响应式布局示例。在大屏幕上，内容区域和侧边栏并排显示；在小屏幕上，它们会上下堆叠。菜单在小屏幕上会变成汉堡菜单。
+              </p>
+              <p>调整浏览器窗口大小以查看变化。</p>
+            </main>
+
+            <aside class="responsive-sidebar">
+              <h3>侧边栏</h3>
+              <p>这是侧边栏内容。在小屏幕上，它会移到主内容区域下方。</p>
+            </aside>
+          </div>
+
+          <footer class="responsive-footer">
+            <p>响应式布局示例 &copy; 2023</p>
+          </footer>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>响应式网格系统</h2>
+        <p>
+          许多CSS框架（如Bootstrap、Foundation）都提供了响应式网格系统，方便开发者快速创建响应式布局。
+        </p>
+
+        <div class="grid-demo">
+          <div class="grid-row">
+            <div class="grid-col col-12 col-md-6 col-sm-12">
+              <div class="grid-box">1/2 (在中屏幕), 全宽 (在小屏幕)</div>
+            </div>
+            <div class="grid-col col-12 col-md-6 col-sm-12">
+              <div class="grid-box">1/2 (在中屏幕), 全宽 (在小屏幕)</div>
+            </div>
+          </div>
+
+          <div class="grid-row">
+            <div class="grid-col col-4 col-md-6 col-sm-12">
+              <div class="grid-box">
+                1/3 (在大屏幕), 1/2 (在中屏幕), 全宽 (在小屏幕)
+              </div>
+            </div>
+            <div class="grid-col col-4 col-md-6 col-sm-12">
+              <div class="grid-box">
+                1/3 (在大屏幕), 1/2 (在中屏幕), 全宽 (在小屏幕)
+              </div>
+            </div>
+            <div class="grid-col col-4 col-md-12 col-sm-12">
+              <div class="grid-box">1/3 (在大屏幕), 全宽 (在中、小屏幕)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>响应式设计最佳实践</h2>
+        <ol>
+          <li>
+            <strong>移动优先设计</strong
+            >：先为移动设备设计，然后逐步增强到大屏幕
+          </li>
+          <li>
+            <strong>使用视口元标签</strong>：<code
+              >&lt;meta name="viewport" content="width=device-width,
+              initial-scale=1.0"&gt;</code
+            >
+          </li>
+          <li>
+            <strong>使用相对单位</strong
+            >：尽量使用百分比、em、rem、vw/vh而非固定像素
+          </li>
+          <li><strong>断点的选择</strong>：基于内容而非特定设备选择断点</li>
+          <li>
+            <strong>灵活的图片和媒体</strong>：使用max-width:
+            100%确保媒体内容不会溢出
+          </li>
+          <li>
+            <strong>考虑高分辨率屏幕</strong>：为Retina等高清屏提供2x或3x图像
+          </li>
+          <li>
+            <strong>测试多种设备</strong
+            >：在各种真实设备上测试，不仅仅是浏览器窗口缩放
+          </li>
+        </ol>
+      </div>
     </div>
-    
-    <div class="section">
-      <h2>响应式设计最佳实践</h2>
-      <ol>
-        <li><strong>移动优先设计</strong>：先为移动设备设计，然后逐步增强到大屏幕</li>
-        <li><strong>使用视口元标签</strong>：<code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></li>
-        <li><strong>使用相对单位</strong>：尽量使用百分比、em、rem、vw/vh而非固定像素</li>
-        <li><strong>断点的选择</strong>：基于内容而非特定设备选择断点</li>
-        <li><strong>灵活的图片和媒体</strong>：使用max-width: 100%确保媒体内容不会溢出</li>
-        <li><strong>考虑高分辨率屏幕</strong>：为Retina等高清屏提供2x或3x图像</li>
-        <li><strong>测试多种设备</strong>：在各种真实设备上测试，不仅仅是浏览器窗口缩放</li>
-      </ol>
+
+    <div
+      style="
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      "
+    >
+      <h3>面试要点：</h3>
+      <ul>
+        <li>响应式设计的三大核心：流式栅格布局、弹性图片、媒体查询</li>
+        <li>
+          响应式设计与自适应设计的区别：响应式是渐进式调整布局；自适应是为不同设备提供不同布局
+        </li>
+        <li>移动优先设计的优势：更快的性能、更简洁的代码、更好的用户体验</li>
+        <li>
+          常见的CSS单位：px（固定）、%（相对父元素）、em（相对父元素字体大小）、rem（相对根元素字体大小）、vw/vh（相对视口）
+        </li>
+        <li>常见的断点值：576px、768px、992px、1200px（Bootstrap 4断点）</li>
+        <li>响应式图片技术：不仅是max-width: 100%，还有srcset和picture元素</li>
+        <li>响应式设计的挑战：表格内容、复杂图表、第三方嵌入内容</li>
+      </ul>
     </div>
-  </div>
-  
-  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-    <h3>面试要点：</h3>
-    <ul>
-      <li>响应式设计的三大核心：流式栅格布局、弹性图片、媒体查询</li>
-      <li>响应式设计与自适应设计的区别：响应式是渐进式调整布局；自适应是为不同设备提供不同布局</li>
-      <li>移动优先设计的优势：更快的性能、更简洁的代码、更好的用户体验</li>
-      <li>常见的CSS单位：px（固定）、%（相对父元素）、em（相对父元素字体大小）、rem（相对根元素字体大小）、vw/vh（相对视口）</li>
-      <li>常见的断点值：576px、768px、992px、1200px（Bootstrap 4断点）</li>
-      <li>响应式图片技术：不仅是max-width: 100%，还有srcset和picture元素</li>
-      <li>响应式设计的挑战：表格内容、复杂图表、第三方嵌入内容</li>
-    </ul>
-  </div>
-  
-  <script>
-    // 简单的菜单切换功能，用于响应式布局示例
-    document.querySelector('.nav-toggle').addEventListener('click', function() {
-      document.querySelector('.nav-menu').classList.toggle('active');
-    });
-  </script>
-</body>
-</html> 
+
+    <script>
+      // 简单的菜单切换功能，用于响应式布局示例
+      document
+        .querySelector('.nav-toggle')
+        .addEventListener('click', function () {
+          document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+  </body>
+</html>

@@ -7,11 +7,11 @@
 function promiseRace(promises) {
   return new Promise((resolve, reject) => {
     if (!Array.isArray(promises)) {
-      return reject(new TypeError("参数必须是数组"));
+      return reject(new TypeError('参数必须是数组'));
     }
 
     if (promises.length === 0) {
-      return reject(new Error("数组不能为空"));
+      return reject(new Error('数组不能为空'));
     }
 
     promises.forEach((promise) => {

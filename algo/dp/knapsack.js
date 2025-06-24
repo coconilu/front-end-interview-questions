@@ -40,7 +40,7 @@ function knapsack(weights, values, capacity) {
         // 2. 装入当前物品，价值为dp[i-1][j-weights[i-1]] + values[i-1]
         dp[i][j] = Math.max(
           dp[i - 1][j],
-          dp[i - 1][j - weights[i - 1]] + values[i - 1],
+          dp[i - 1][j - weights[i - 1]] + values[i - 1]
         );
       }
     }
@@ -96,7 +96,7 @@ function knapsackWithItems(weights, values, capacity) {
       } else {
         dp[i][j] = Math.max(
           dp[i - 1][j],
-          dp[i - 1][j - weights[i - 1]] + values[i - 1],
+          dp[i - 1][j - weights[i - 1]] + values[i - 1]
         );
       }
     }
@@ -150,24 +150,24 @@ function test() {
 
     const value1 = knapsack(weights, values, capacity);
     console.log(
-      `二维DP结果: ${value1}, 期望: ${expected}, 正确: ${value1 === expected}`,
+      `二维DP结果: ${value1}, 期望: ${expected}, 正确: ${value1 === expected}`
     );
 
     const value2 = knapsackOptimized(weights, values, capacity);
     console.log(
-      `一维DP结果: ${value2}, 期望: ${expected}, 正确: ${value2 === expected}`,
+      `一维DP结果: ${value2}, 期望: ${expected}, 正确: ${value2 === expected}`
     );
 
     const result = knapsackWithItems(weights, values, capacity);
     console.log(
-      `选择的物品索引: [${result.selectedItems}], 总价值: ${result.maxValue}`,
+      `选择的物品索引: [${result.selectedItems}], 总价值: ${result.maxValue}`
     );
 
-    console.log("---");
+    console.log('---');
   }
 
   // 性能测试
-  console.log("\n性能测试（大规模数据）:");
+  console.log('\n性能测试（大规模数据）:');
   const n = 200;
   const largeWeights = Array(n)
     .fill()
@@ -177,9 +177,9 @@ function test() {
     .map(() => Math.floor(Math.random() * 100) + 1);
   const largeCapacity = 1000;
 
-  console.time("一维DP");
+  console.time('一维DP');
   knapsackOptimized(largeWeights, largeValues, largeCapacity);
-  console.timeEnd("一维DP");
+  console.timeEnd('一维DP');
 
   // 二维DP对于大数据来说会很慢，可以注释掉
   // console.time('二维DP');

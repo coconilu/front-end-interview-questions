@@ -77,15 +77,15 @@ function test() {
   console.log(`动态规划解法：F(${n}) =`, fibDP(n));
   console.log(`优化空间复杂度解法：F(${n}) =`, fibOptimized(n));
 
-  console.log("\n性能测试（n = 40）：");
+  console.log('\n性能测试（n = 40）：');
 
-  console.time("优化解法");
+  console.time('优化解法');
   fibOptimized(40);
-  console.timeEnd("优化解法");
+  console.timeEnd('优化解法');
 
-  console.time("DP解法");
+  console.time('DP解法');
   fibDP(40);
-  console.timeEnd("DP解法");
+  console.timeEnd('DP解法');
 
   // 递归解法对于大数会非常慢，不建议测试大于30的数
   // console.time('递归解法');

@@ -1,6 +1,6 @@
 /**
  * TypeScript 泛型约束面试题
- * 
+ *
  * 泛型约束允许你限制泛型类型参数必须满足的条件，增强类型安全性
  */
 
@@ -15,7 +15,7 @@ function printLength<T extends HasLength>(arg: T): number {
 }
 
 // 使用示例
-printLength("Hello"); // 正确，字符串有length属性
+printLength('Hello'); // 正确，字符串有length属性
 printLength([1, 2, 3]); // 正确，数组有length属性
 printLength({ length: 10 }); // 正确，对象有length属性
 // printLength(123); // 错误，数字没有length属性
@@ -27,13 +27,13 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 
 // 使用示例
 const person = {
-  name: "Alice",
+  name: 'Alice',
   age: 30,
-  address: "Wonderland"
+  address: 'Wonderland',
 };
 
-const name = getProperty(person, "name"); // 正确，返回string
-const age = getProperty(person, "age"); // 正确，返回number
+const name = getProperty(person, 'name'); // 正确，返回string
+const age = getProperty(person, 'age'); // 正确，返回number
 // const invalid = getProperty(person, "job"); // 错误，"job"不是person的属性
 
 // 3. 泛型约束中使用类型参数
@@ -59,11 +59,11 @@ interface DefaultGeneric<T = string> {
 
 class StringContainer implements DefaultGeneric {
   value: string;
-  
+
   constructor(value: string) {
     this.value = value;
   }
-  
+
   getValue(): string {
     return this.value;
   }
@@ -71,18 +71,20 @@ class StringContainer implements DefaultGeneric {
 
 class NumberContainer implements DefaultGeneric<number> {
   value: number;
-  
+
   constructor(value: number) {
     this.value = value;
   }
-  
+
   getValue(): number {
     return this.value;
   }
 }
 
 // 5. 条件类型与泛型约束结合
-type NonNullableField<T, K extends keyof T> = T[K] extends null | undefined ? never : T[K];
+type NonNullableField<T, K extends keyof T> = T[K] extends null | undefined
+  ? never
+  : T[K];
 
 // 使用示例
 interface UserProfile {
@@ -92,8 +94,8 @@ interface UserProfile {
   phone: string | undefined;
 }
 
-type EmailType = NonNullableField<UserProfile, "email">; // never，因为email可能为null
-type NameType = NonNullableField<UserProfile, "name">; // string
+type EmailType = NonNullableField<UserProfile, 'email'>; // never，因为email可能为null
+type NameType = NonNullableField<UserProfile, 'name'>; // string
 
 // 面试题1: 实现一个函数，确保对象包含特定的属性
 function ensureProperty<T, K extends string>(
@@ -104,7 +106,7 @@ function ensureProperty<T, K extends string>(
   if (!(propName in obj)) {
     return {
       ...obj,
-      [propName]: defaultValue
+      [propName]: defaultValue,
     };
   }
   return obj as T & Record<K, any>;
@@ -112,35 +114,45 @@ function ensureProperty<T, K extends string>(
 
 // 使用示例
 const config = { debug: true };
-const configWithHost = ensureProperty(config, "host", "localhost");
+const configWithHost = ensureProperty(config, 'host', 'localhost');
 console.log(configWithHost.host); // "localhost"
 
 // 面试题2: 实现一个类型安全的深度比较函数
 function deepEquals<T extends object>(a: T, b: T): boolean {
   if (a === b) return true;
-  
-  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+
+  if (
+    typeof a !== 'object' ||
+    typeof b !== 'object' ||
+    a === null ||
+    b === null
+  ) {
     return false;
   }
-  
+
   const keysA = Object.keys(a);
   const keysB = Object.keys(b);
-  
+
   if (keysA.length !== keysB.length) return false;
-  
+
   for (const key of keysA) {
     if (!keysB.includes(key)) return false;
-    
+
     const valA = a[key as keyof T];
     const valB = b[key as keyof T];
-    
-    if (typeof valA === 'object' && valA !== null && typeof valB === 'object' && valB !== null) {
+
+    if (
+      typeof valA === 'object' &&
+      valA !== null &&
+      typeof valB === 'object' &&
+      valB !== null
+    ) {
       if (!deepEquals(valA as object, valB as object)) return false;
     } else if (valA !== valB) {
       return false;
     }
   }
-  
+
   return true;
 }
 
@@ -157,13 +169,13 @@ function mapObject<T extends object, U>(
   transformFn: <K extends keyof T>(value: T[K], key: K) => U
 ): Record<keyof T, U> {
   const result = {} as Record<keyof T, U>;
-  
+
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
       result[key] = transformFn(obj[key], key as keyof T);
     }
   }
-  
+
   return result;
 }
 
@@ -179,7 +191,7 @@ type DeepReadonly<T> = {
 
 function makeReadonly<T extends object>(obj: T): DeepReadonly<T> {
   const result = {} as DeepReadonly<T>;
-  
+
   for (const key in obj) {
     const value = obj[key];
     if (value && typeof value === 'object' && !Array.isArray(value)) {
@@ -188,20 +200,20 @@ function makeReadonly<T extends object>(obj: T): DeepReadonly<T> {
       result[key as keyof T] = value as any;
     }
   }
-  
+
   return Object.freeze(result);
 }
 
 // 使用示例
 const mutableObj = {
-  name: "John",
+  name: 'John',
   settings: {
     darkMode: true,
     notifications: {
       email: true,
-      sms: false
-    }
-  }
+      sms: false,
+    },
+  },
 };
 
 const readonlyObj = makeReadonly(mutableObj);
@@ -214,7 +226,7 @@ function filterObject<T extends object, K extends keyof T>(
   predicate: (value: T[K], key: K) => boolean
 ): Partial<T> {
   const result = {} as Partial<T>;
-  
+
   for (const key in obj) {
     if (
       Object.prototype.hasOwnProperty.call(obj, key) &&
@@ -223,18 +235,18 @@ function filterObject<T extends object, K extends keyof T>(
       result[key as keyof T] = obj[key as keyof T];
     }
   }
-  
+
   return result;
 }
 
 // 使用示例
 const user = {
   id: 1,
-  name: "John",
+  name: 'John',
   age: 30,
-  email: "john@example.com",
-  isAdmin: false
+  email: 'john@example.com',
+  isAdmin: false,
 };
 
 const stringFields = filterObject(user, (value) => typeof value === 'string');
-console.log(stringFields); // { name: "John", email: "john@example.com" } 
+console.log(stringFields); // { name: "John", email: "john@example.com" }

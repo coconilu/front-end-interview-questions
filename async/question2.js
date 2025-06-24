@@ -44,9 +44,9 @@ async function test() {
     createTask(5, 200),
   ];
 
-  console.log("开始测试，并行数为2");
+  console.log('开始测试，并行数为2');
   const results = await parallelLimit(tasks, 2);
-  console.log("所有任务完成，结果:", results);
+  console.log('所有任务完成，结果:', results);
   // 预期输出: [1, 2, 3, 4, 5]
 }
 

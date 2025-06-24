@@ -1,6 +1,6 @@
 /**
  * Vue3 数组响应式原理实现
- * 
+ *
  * 面试题：Vue3 相比 Vue2，在数组响应式处理上有哪些改进？
  * 答案要点：
  * 1. Vue3 使用 Proxy 可以直接监听整个对象，包括数组
@@ -14,67 +14,67 @@ function reactive(target) {
   if (typeof target !== 'object' || target === null) {
     return target;
   }
-  
+
   return new Proxy(target, {
     get(target, key, receiver) {
       console.log(`获取 ${key}`);
-      
+
       // 获取属性值
       const result = Reflect.get(target, key, receiver);
-      
+
       // 如果属性值是对象，递归设置响应式
       if (typeof result === 'object' && result !== null) {
         return reactive(result);
       }
-      
+
       // 在这里收集依赖
       track(target, key);
-      
+
       return result;
     },
-    
+
     set(target, key, value, receiver) {
       console.log(`设置 ${key}: ${value}`);
-      
+
       // 获取旧值
       const oldValue = target[key];
-      
+
       // 设置新值
       const result = Reflect.set(target, key, value, receiver);
-      
+
       // 如果是数组且修改了 length 属性
       if (Array.isArray(target) && key === 'length') {
         console.log(`数组长度被修改为 ${value}`);
       }
-      
+
       // 如果是数组索引且索引有效
       if (Array.isArray(target) && isIntegerKey(key)) {
         console.log(`数组索引 ${key} 被修改`);
       }
-      
+
       // 值变化时触发更新
       if (oldValue !== value) {
         // 在这里触发更新
         trigger(target, key);
       }
-      
+
       return result;
     },
-    
+
     deleteProperty(target, key) {
       console.log(`删除属性 ${key}`);
-      
+
       const hadKey = key in target;
       const result = Reflect.deleteProperty(target, key);
-      
+
       // 如果删除成功且是自身属性，触发更新
       if (hadKey && result) {
         // 在这里触发更新
         trigger(target, key);
       }
-      
+
       return result;
-    }
+    },
   });
 }
 
@@ -99,10 +99,10 @@ function trigger(target, key) {
 const arr = reactive(['a', 'b', 'c']);
 
 // 以下操作都会触发更新
-arr.push('d');        // 触发更新
-arr.pop();            // 触发更新
-arr[0] = 'x';         // 触发更新 (Vue2 无法实现)
-arr.length = 1;       // 触发更新 (Vue2 无法实现)
+arr.push('d'); // 触发更新
+arr.pop(); // 触发更新
+arr[0] = 'x'; // 触发更新 (Vue2 无法实现)
+arr.length = 1; // 触发更新 (Vue2 无法实现)
 
 // 对比 Vue2 和 Vue3 在处理数组响应式上的区别
 console.log('Vue3 优势：');

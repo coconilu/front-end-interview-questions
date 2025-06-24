@@ -220,7 +220,7 @@ class MinHeap {
 }
 
 // 测试最大堆
-console.log("=== 最大堆测试 ===");
+console.log('=== 最大堆测试 ===');
 const maxHeap = new MaxHeap();
 
 // 插入元素
@@ -238,7 +238,7 @@ while (!maxHeap.isEmpty()) {
   console.log(`删除最大值: ${max}，剩余堆: [${maxHeap.getHeap()}]`);
 }
 
-console.log("\n=== 最小堆测试 ===");
+console.log('\n=== 最小堆测试 ===');
 const minHeap = new MinHeap();
 
 // 插入元素

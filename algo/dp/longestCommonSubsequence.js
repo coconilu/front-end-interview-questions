@@ -114,7 +114,7 @@ function getLCS(text1, text2) {
   }
 
   // 回溯找出LCS内容
-  let lcs = "";
+  let lcs = '';
   let i = m,
     j = n;
 
@@ -136,11 +136,11 @@ function getLCS(text1, text2) {
 // 测试
 function test() {
   const testCases = [
-    { text1: "abcde", text2: "ace", expected: 3, expectedLCS: "ace" },
-    { text1: "abc", text2: "abc", expected: 3, expectedLCS: "abc" },
-    { text1: "abc", text2: "def", expected: 0, expectedLCS: "" },
-    { text1: "ABCBDAB", text2: "BDCABA", expected: 4, expectedLCS: "BCBA" },
-    { text1: "AGGTAB", text2: "GXTXAYB", expected: 4, expectedLCS: "GTAB" },
+    { text1: 'abcde', text2: 'ace', expected: 3, expectedLCS: 'ace' },
+    { text1: 'abc', text2: 'abc', expected: 3, expectedLCS: 'abc' },
+    { text1: 'abc', text2: 'def', expected: 0, expectedLCS: '' },
+    { text1: 'ABCBDAB', text2: 'BDCABA', expected: 4, expectedLCS: 'BCBA' },
+    { text1: 'AGGTAB', text2: 'GXTXAYB', expected: 4, expectedLCS: 'GTAB' },
   ];
 
   for (const { text1, text2, expected, expectedLCS } of testCases) {
@@ -151,23 +151,23 @@ function test() {
     console.log(`字符串1: "${text1}"`);
     console.log(`字符串2: "${text2}"`);
     console.log(
-      `LCS长度: ${length}, 期望: ${expected}, 正确: ${length === expected}`,
+      `LCS长度: ${length}, 期望: ${expected}, 正确: ${length === expected}`
     );
     console.log(
-      `优化空间后LCS长度: ${optimizedLength}, 期望: ${expected}, 正确: ${optimizedLength === expected}`,
+      `优化空间后LCS长度: ${optimizedLength}, 期望: ${expected}, 正确: ${optimizedLength === expected}`
     );
     console.log(
-      `LCS内容: "${lcs}", 期望: "${expectedLCS}", 正确: ${lcs === expectedLCS}`,
+      `LCS内容: "${lcs}", 期望: "${expectedLCS}", 正确: ${lcs === expectedLCS}`
     );
-    console.log("---");
+    console.log('---');
   }
 
   // 性能测试
-  console.log("\n性能测试（较长字符串）:");
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  console.log('\n性能测试（较长字符串）:');
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   function generateRandomString(length) {
-    let result = "";
+    let result = '';
     for (let i = 0; i < length; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -177,13 +177,13 @@ function test() {
   const longText1 = generateRandomString(1000);
   const longText2 = generateRandomString(1000);
 
-  console.time("标准DP");
+  console.time('标准DP');
   longestCommonSubsequence(longText1, longText2);
-  console.timeEnd("标准DP");
+  console.timeEnd('标准DP');
 
-  console.time("空间优化DP");
+  console.time('空间优化DP');
   longestCommonSubsequenceOptimized(longText1, longText2);
-  console.timeEnd("空间优化DP");
+  console.timeEnd('空间优化DP');
 }
 
 test();

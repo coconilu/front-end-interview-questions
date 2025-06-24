@@ -1,185 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>移动端设备适配方案</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    h3 {
-      margin: 20px 0 10px;
-    }
-    
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .section {
-      margin-bottom: 40px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 5px;
-    }
-    
-    pre {
-      background-color: #f0f0f0;
-      padding: 15px;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-family: Consolas, Monaco, monospace;
-      margin: 15px 0;
-    }
-    
-    code {
-      background-color: #f0f0f0;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-family: Consolas, Monaco, monospace;
-    }
-    
-    ul, ol {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-    
-    li {
-      margin-bottom: 8px;
-    }
-    
-    .tip {
-      background-color: #e8f4fd;
-      border-left: 4px solid #3498db;
-      padding: 10px 15px;
-      margin: 15px 0;
-    }
-    
-    .warning {
-      background-color: #fff5e6;
-      border-left: 4px solid #f39c12;
-      padding: 10px 15px;
-      margin: 15px 0;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      text-align: left;
-    }
-    
-    table th {
-      background-color: #f0f0f0;
-    }
-    
-    table tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-    
-    .comparison {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 20px 0;
-    }
-    
-    .comparison-item {
-      flex: 1;
-      min-width: 250px;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 15px;
-    }
-    
-    .comparison-title {
-      font-weight: bold;
-      margin-bottom: 10px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #eee;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>移动端设备适配方案</h1>
-    
-    <div class="section">
-      <h2>1. 移动端适配基础概念</h2>
-      
-      <h3>1.1 像素相关概念</h3>
-      <ul>
-        <li><strong>物理像素(Physical Pixel)</strong>：设备屏幕实际的物理像素点</li>
-        <li><strong>CSS像素(CSS Pixel)</strong>：CSS中使用的逻辑像素单位</li>
-        <li><strong>设备像素比(DPR)</strong>：物理像素与CSS像素的比值，如iPhone的Retina屏幕DPR=2或3</li>
-        <li><strong>分辨率</strong>：屏幕的物理像素数量，如1920×1080</li>
-        <li><strong>视口(Viewport)</strong>：浏览器中用于显示网页的区域</li>
-      </ul>
-      
-      <div class="tip">
-        <p><strong>DPR计算公式：</strong> DPR = 物理像素 / CSS像素</p>
-        <p>例如：iPhone 12 的物理分辨率是1170×2532，但CSS像素是390×844，所以DPR = 3</p>
-      </div>
-      
-      <h3>1.2 视口(Viewport)类型</h3>
-      <ul>
-        <li><strong>布局视口(Layout Viewport)</strong>：网页布局区域，默认宽度通常为980px</li>
-        <li><strong>视觉视口(Visual Viewport)</strong>：用户当前看到的网页区域</li>
-        <li><strong>理想视口(Ideal Viewport)</strong>：网页在移动设备上的理想显示区域，宽度等于设备屏幕宽度</li>
-      </ul>
-      
-      <pre>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>移动端设备适配方案</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        margin: 20px 0 10px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      pre {
+        background-color: #f0f0f0;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-family: Consolas, Monaco, monospace;
+        margin: 15px 0;
+      }
+
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: Consolas, Monaco, monospace;
+      }
+
+      ul,
+      ol {
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .tip {
+        background-color: #e8f4fd;
+        border-left: 4px solid #3498db;
+        padding: 10px 15px;
+        margin: 15px 0;
+      }
+
+      .warning {
+        background-color: #fff5e6;
+        border-left: 4px solid #f39c12;
+        padding: 10px 15px;
+        margin: 15px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #f0f0f0;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .comparison {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .comparison-item {
+        flex: 1;
+        min-width: 250px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+      }
+
+      .comparison-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>移动端设备适配方案</h1>
+
+      <div class="section">
+        <h2>1. 移动端适配基础概念</h2>
+
+        <h3>1.1 像素相关概念</h3>
+        <ul>
+          <li>
+            <strong>物理像素(Physical Pixel)</strong>：设备屏幕实际的物理像素点
+          </li>
+          <li><strong>CSS像素(CSS Pixel)</strong>：CSS中使用的逻辑像素单位</li>
+          <li>
+            <strong>设备像素比(DPR)</strong
+            >：物理像素与CSS像素的比值，如iPhone的Retina屏幕DPR=2或3
+          </li>
+          <li><strong>分辨率</strong>：屏幕的物理像素数量，如1920×1080</li>
+          <li><strong>视口(Viewport)</strong>：浏览器中用于显示网页的区域</li>
+        </ul>
+
+        <div class="tip">
+          <p><strong>DPR计算公式：</strong> DPR = 物理像素 / CSS像素</p>
+          <p>
+            例如：iPhone 12 的物理分辨率是1170×2532，但CSS像素是390×844，所以DPR
+            = 3
+          </p>
+        </div>
+
+        <h3>1.2 视口(Viewport)类型</h3>
+        <ul>
+          <li>
+            <strong>布局视口(Layout Viewport)</strong
+            >：网页布局区域，默认宽度通常为980px
+          </li>
+          <li>
+            <strong>视觉视口(Visual Viewport)</strong>：用户当前看到的网页区域
+          </li>
+          <li>
+            <strong>理想视口(Ideal Viewport)</strong
+            >：网页在移动设备上的理想显示区域，宽度等于设备屏幕宽度
+          </li>
+        </ul>
+
+        <pre>
 &lt;!-- 设置视口为理想视口 --&gt;
 &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-      </pre>
-      
-      <h3>1.3 常见移动端适配问题</h3>
-      <ul>
-        <li><strong>屏幕尺寸多样化</strong>：从小型手机到大型平板，尺寸差异大</li>
-        <li><strong>分辨率差异</strong>：低端设备到高清屏幕，DPR从1到4不等</li>
-        <li><strong>横竖屏切换</strong>：需要适应不同的屏幕方向</li>
-        <li><strong>交互方式差异</strong>：触摸操作与鼠标操作的不同</li>
-        <li><strong>设备性能差异</strong>：从低端到高端设备性能差异大</li>
-      </ul>
-    </div>
-    
-    <div class="section">
-      <h2>2. 主流适配方案</h2>
-      
-      <h3>2.1 百分比布局</h3>
-      <p>使用百分比定义宽度，使元素相对于父元素进行缩放。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>1.3 常见移动端适配问题</h3>
+        <ul>
+          <li>
+            <strong>屏幕尺寸多样化</strong>：从小型手机到大型平板，尺寸差异大
+          </li>
+          <li>
+            <strong>分辨率差异</strong>：低端设备到高清屏幕，DPR从1到4不等
+          </li>
+          <li><strong>横竖屏切换</strong>：需要适应不同的屏幕方向</li>
+          <li><strong>交互方式差异</strong>：触摸操作与鼠标操作的不同</li>
+          <li><strong>设备性能差异</strong>：从低端到高端设备性能差异大</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>2. 主流适配方案</h2>
+
+        <h3>2.1 百分比布局</h3>
+        <p>使用百分比定义宽度，使元素相对于父元素进行缩放。</p>
+
+        <pre>
 .container {
   width: 100%;
   max-width: 1200px;
@@ -203,21 +226,25 @@
     width: 100%;
   }
 }
-      </pre>
-      
-      <div class="warning">
-        <p><strong>注意：</strong> 百分比布局的局限性</p>
-        <ul>
-          <li>高度百分比需要父元素有明确高度</li>
-          <li>padding和margin的百分比是相对于父元素宽度</li>
-          <li>不同属性的百分比参照物可能不同</li>
-        </ul>
-      </div>
-      
-      <h3>2.2 rem适配方案</h3>
-      <p>rem(root em)是相对于根元素(html)的字体大小的单位，可以通过调整根元素字体大小实现整体缩放。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <div class="warning">
+          <p><strong>注意：</strong> 百分比布局的局限性</p>
+          <ul>
+            <li>高度百分比需要父元素有明确高度</li>
+            <li>padding和margin的百分比是相对于父元素宽度</li>
+            <li>不同属性的百分比参照物可能不同</li>
+          </ul>
+        </div>
+
+        <h3>2.2 rem适配方案</h3>
+        <p>
+          rem(root
+          em)是相对于根元素(html)的字体大小的单位，可以通过调整根元素字体大小实现整体缩放。
+        </p>
+
+        <pre>
 /* 基于设计稿宽度为750px(iPhone 6/7/8 Plus的物理像素)的情况 */
 /* 将html的font-size设为设备宽度的1/10 */
 
@@ -248,16 +275,22 @@
   font-size: 0.32rem;  /* 32px / (750px/10) = 0.32rem */
   margin: 0.2rem 0;
 }
-      </pre>
-      
-      <div class="tip">
-        <p><strong>提示：</strong> 可以使用PostCSS插件(如postcss-pxtorem)自动将px转换为rem。</p>
-      </div>
-      
-      <h3>2.3 vw/vh适配方案</h3>
-      <p>vw和vh是视口相关的单位，1vw等于视口宽度的1%，1vh等于视口高度的1%。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <div class="tip">
+          <p>
+            <strong>提示：</strong>
+            可以使用PostCSS插件(如postcss-pxtorem)自动将px转换为rem。
+          </p>
+        </div>
+
+        <h3>2.3 vw/vh适配方案</h3>
+        <p>
+          vw和vh是视口相关的单位，1vw等于视口宽度的1%，1vh等于视口高度的1%。
+        </p>
+
+        <pre>
 /* 基于设计稿宽度为750px的情况 */
 /* 1vw = 视口宽度的1% */
 
@@ -280,16 +313,20 @@
   width: 50vmin;  /* 取视口宽高中的较小值的50% */
   height: 50vmin;
 }
-      </pre>
-      
-      <div class="tip">
-        <p><strong>提示：</strong> 可以使用PostCSS插件(如postcss-px-to-viewport)自动将px转换为vw。</p>
-      </div>
-      
-      <h3>2.4 flexbox和grid布局</h3>
-      <p>使用现代CSS布局技术，更容易创建响应式和自适应的布局。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <div class="tip">
+          <p>
+            <strong>提示：</strong>
+            可以使用PostCSS插件(如postcss-px-to-viewport)自动将px转换为vw。
+          </p>
+        </div>
+
+        <h3>2.4 flexbox和grid布局</h3>
+        <p>使用现代CSS布局技术，更容易创建响应式和自适应的布局。</p>
+
+        <pre>
 /* Flexbox布局示例 */
 .container {
   display: flex;
@@ -333,19 +370,22 @@
     grid-column: span 12;
   }
 }
-      </pre>
-    </div>
-    
-    <div class="section">
-      <h2>3. 高级适配技巧</h2>
-      
-      <h3>3.1 1px边框问题</h3>
-      <p>在高DPR设备上，1px的CSS边框会显示得比较粗，有多种方法可以实现真正的物理1px边框。</p>
-      
-      <div class="comparison">
-        <div class="comparison-item">
-          <div class="comparison-title">方法1: transform缩放</div>
-          <pre>
+      </pre
+        >
+      </div>
+
+      <div class="section">
+        <h2>3. 高级适配技巧</h2>
+
+        <h3>3.1 1px边框问题</h3>
+        <p>
+          在高DPR设备上，1px的CSS边框会显示得比较粗，有多种方法可以实现真正的物理1px边框。
+        </p>
+
+        <div class="comparison">
+          <div class="comparison-item">
+            <div class="comparison-title">方法1: transform缩放</div>
+            <pre>
 .border-1px {
   position: relative;
 }
@@ -374,35 +414,38 @@
     transform: scaleY(0.33);
   }
 }
-          </pre>
-        </div>
-        
-        <div class="comparison-item">
-          <div class="comparison-title">方法2: box-shadow模拟</div>
-          <pre>
+          </pre
+            >
+          </div>
+
+          <div class="comparison-item">
+            <div class="comparison-title">方法2: box-shadow模拟</div>
+            <pre>
 .border-1px {
   box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.5);
 }
-          </pre>
-        </div>
-        
-        <div class="comparison-item">
-          <div class="comparison-title">方法3: 使用SVG背景</div>
-          <pre>
+          </pre
+            >
+          </div>
+
+          <div class="comparison-item">
+            <div class="comparison-title">方法3: 使用SVG背景</div>
+            <pre>
 .border-1px {
   border: none;
   background-image: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='100%' height='1'&gt;&lt;line x1='0' y1='0' x2='100%' y2='0' stroke='#000' stroke-width='1'/&gt;&lt;/svg&gt;");
   background-repeat: no-repeat;
   background-position: left bottom;
 }
-          </pre>
+          </pre
+            >
+          </div>
         </div>
-      </div>
-      
-      <h3>3.2 图片适配</h3>
-      <p>针对不同DPR的设备提供不同分辨率的图片，确保清晰度和加载性能。</p>
-      
-      <pre>
+
+        <h3>3.2 图片适配</h3>
+        <p>针对不同DPR的设备提供不同分辨率的图片，确保清晰度和加载性能。</p>
+
+        <pre>
 /* 使用媒体查询根据DPR提供不同图片 */
 .bg-image {
   background-image: url('image.png');
@@ -436,12 +479,13 @@
   &lt;source media="(min-width: 640px)" srcset="medium.jpg"&gt;
   &lt;img src="small.jpg" alt="响应式图片"&gt;
 &lt;/picture&gt;
-      </pre>
-      
-      <h3>3.3 横竖屏适配</h3>
-      <p>根据设备方向提供不同的布局和样式。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>3.3 横竖屏适配</h3>
+        <p>根据设备方向提供不同的布局和样式。</p>
+
+        <pre>
 /* 使用媒体查询检测横竖屏 */
 @media (orientation: portrait) {
   /* 竖屏样式 */
@@ -476,12 +520,13 @@ screen.orientation.addEventListener('change', function() {
   // screen.orientation.type可能的值:
   // portrait-primary, portrait-secondary, landscape-primary, landscape-secondary
 });
-      </pre>
-      
-      <h3>3.4 安全区域适配</h3>
-      <p>适配全面屏手机的刘海、底部操作条等特殊区域。</p>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>3.4 安全区域适配</h3>
+        <p>适配全面屏手机的刘海、底部操作条等特殊区域。</p>
+
+        <pre>
 /* 使用CSS环境变量适配安全区域 */
 .container {
   padding-top: env(safe-area-inset-top);
@@ -503,115 +548,121 @@ screen.orientation.addEventListener('change', function() {
   padding-bottom: env(safe-area-inset-bottom);
   background-color: #fff;
 }
-      </pre>
-    </div>
-    
-    <div class="section">
-      <h2>4. 适配方案对比与选择</h2>
-      
-      <table>
-        <tr>
-          <th>适配方案</th>
-          <th>优点</th>
-          <th>缺点</th>
-          <th>适用场景</th>
-        </tr>
-        <tr>
-          <td>百分比布局</td>
-          <td>
-            <ul>
-              <li>实现简单</li>
-              <li>浏览器兼容性好</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li>不同属性参照物不同</li>
-              <li>无法处理字体等属性</li>
-            </ul>
-          </td>
-          <td>简单的流式布局，配合媒体查询使用</td>
-        </tr>
-        <tr>
-          <td>rem适配</td>
-          <td>
-            <ul>
-              <li>可以等比例缩放所有元素</li>
-              <li>兼容性较好</li>
-              <li>可以处理字体大小</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li>需要JavaScript设置根字体大小</li>
-              <li>计算复杂度高</li>
-            </ul>
-          </td>
-          <td>需要整体等比例缩放的页面，如电商、活动页面</td>
-        </tr>
-        <tr>
-          <td>vw/vh适配</td>
-          <td>
-            <ul>
-              <li>原生CSS支持，无需JS</li>
-              <li>相对视口计算简单</li>
-              <li>可以处理任何属性</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li>老旧浏览器兼容性问题</li>
-              <li>无法处理最小/最大限制</li>
-            </ul>
-          </td>
-          <td>现代移动端页面，对老旧设备要求不高的场景</td>
-        </tr>
-        <tr>
-          <td>flexbox/grid</td>
-          <td>
-            <ul>
-              <li>强大的布局能力</li>
-              <li>自适应内容大小</li>
-              <li>简化复杂布局</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li>IE兼容性问题(主要是grid)</li>
-              <li>学习曲线较陡</li>
-            </ul>
-          </td>
-          <td>复杂的响应式布局，现代Web应用</td>
-        </tr>
-        <tr>
-          <td>媒体查询</td>
-          <td>
-            <ul>
-              <li>精确控制不同设备样式</li>
-              <li>可以针对设备特性定制</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li>需要维护多套样式</li>
-              <li>断点选择困难</li>
-            </ul>
-          </td>
-          <td>与其他方案结合使用，处理特定设备差异</td>
-        </tr>
-      </table>
-      
-      <h3>4.1 推荐的混合适配方案</h3>
-      <p>在实际项目中，通常会结合多种适配方案：</p>
-      <ol>
-        <li><strong>布局方面</strong>：使用flexbox/grid进行整体布局</li>
-        <li><strong>尺寸适配</strong>：使用vw/vh或rem进行尺寸和字体适配</li>
-        <li><strong>特殊处理</strong>：使用媒体查询处理特定设备或方向的差异</li>
-        <li><strong>1px问题</strong>：使用transform或其他技术处理细节问题</li>
-        <li><strong>图片适配</strong>：使用srcset/sizes或媒体查询提供不同分辨率图片</li>
-      </ol>
-      
-      <pre>
+      </pre
+        >
+      </div>
+
+      <div class="section">
+        <h2>4. 适配方案对比与选择</h2>
+
+        <table>
+          <tr>
+            <th>适配方案</th>
+            <th>优点</th>
+            <th>缺点</th>
+            <th>适用场景</th>
+          </tr>
+          <tr>
+            <td>百分比布局</td>
+            <td>
+              <ul>
+                <li>实现简单</li>
+                <li>浏览器兼容性好</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>不同属性参照物不同</li>
+                <li>无法处理字体等属性</li>
+              </ul>
+            </td>
+            <td>简单的流式布局，配合媒体查询使用</td>
+          </tr>
+          <tr>
+            <td>rem适配</td>
+            <td>
+              <ul>
+                <li>可以等比例缩放所有元素</li>
+                <li>兼容性较好</li>
+                <li>可以处理字体大小</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>需要JavaScript设置根字体大小</li>
+                <li>计算复杂度高</li>
+              </ul>
+            </td>
+            <td>需要整体等比例缩放的页面，如电商、活动页面</td>
+          </tr>
+          <tr>
+            <td>vw/vh适配</td>
+            <td>
+              <ul>
+                <li>原生CSS支持，无需JS</li>
+                <li>相对视口计算简单</li>
+                <li>可以处理任何属性</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>老旧浏览器兼容性问题</li>
+                <li>无法处理最小/最大限制</li>
+              </ul>
+            </td>
+            <td>现代移动端页面，对老旧设备要求不高的场景</td>
+          </tr>
+          <tr>
+            <td>flexbox/grid</td>
+            <td>
+              <ul>
+                <li>强大的布局能力</li>
+                <li>自适应内容大小</li>
+                <li>简化复杂布局</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>IE兼容性问题(主要是grid)</li>
+                <li>学习曲线较陡</li>
+              </ul>
+            </td>
+            <td>复杂的响应式布局，现代Web应用</td>
+          </tr>
+          <tr>
+            <td>媒体查询</td>
+            <td>
+              <ul>
+                <li>精确控制不同设备样式</li>
+                <li>可以针对设备特性定制</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>需要维护多套样式</li>
+                <li>断点选择困难</li>
+              </ul>
+            </td>
+            <td>与其他方案结合使用，处理特定设备差异</td>
+          </tr>
+        </table>
+
+        <h3>4.1 推荐的混合适配方案</h3>
+        <p>在实际项目中，通常会结合多种适配方案：</p>
+        <ol>
+          <li><strong>布局方面</strong>：使用flexbox/grid进行整体布局</li>
+          <li><strong>尺寸适配</strong>：使用vw/vh或rem进行尺寸和字体适配</li>
+          <li>
+            <strong>特殊处理</strong>：使用媒体查询处理特定设备或方向的差异
+          </li>
+          <li><strong>1px问题</strong>：使用transform或其他技术处理细节问题</li>
+          <li>
+            <strong>图片适配</strong
+            >：使用srcset/sizes或媒体查询提供不同分辨率图片
+          </li>
+        </ol>
+
+        <pre>
 /* 混合适配方案示例 */
 
 /* 1. 设置基础字体大小 */
@@ -684,22 +735,34 @@ html {
   right: 0;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
-      </pre>
+      </pre
+        >
+      </div>
+
+      <div
+        style="
+          margin-top: 30px;
+          padding: 15px;
+          background-color: #f8f9fa;
+          border-radius: 5px;
+        "
+      >
+        <h3>面试要点：</h3>
+        <ul>
+          <li>理解像素相关概念：物理像素、CSS像素、设备像素比(DPR)、视口等</li>
+          <li>
+            掌握主流适配方案：百分比布局、rem适配、vw/vh适配、flexbox/grid布局
+          </li>
+          <li>
+            熟悉特殊问题处理：1px边框问题、图片适配、横竖屏适配、安全区域适配
+          </li>
+          <li>能够比较不同适配方案的优缺点，并根据具体场景选择合适的方案</li>
+          <li>了解混合适配方案的实现方式，能够在实际项目中灵活应用</li>
+          <li>掌握媒体查询的使用，能够针对不同设备特性定制样式</li>
+          <li>了解现代CSS布局技术(flexbox/grid)在移动端适配中的应用</li>
+          <li>能够处理全面屏、刘海屏等新型设备的适配问题</li>
+        </ul>
+      </div>
     </div>
-    
-    <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-      <h3>面试要点：</h3>
-      <ul>
-        <li>理解像素相关概念：物理像素、CSS像素、设备像素比(DPR)、视口等</li>
-        <li>掌握主流适配方案：百分比布局、rem适配、vw/vh适配、flexbox/grid布局</li>
-        <li>熟悉特殊问题处理：1px边框问题、图片适配、横竖屏适配、安全区域适配</li>
-        <li>能够比较不同适配方案的优缺点，并根据具体场景选择合适的方案</li>
-        <li>了解混合适配方案的实现方式，能够在实际项目中灵活应用</li>
-        <li>掌握媒体查询的使用，能够针对不同设备特性定制样式</li>
-        <li>了解现代CSS布局技术(flexbox/grid)在移动端适配中的应用</li>
-        <li>能够处理全面屏、刘海屏等新型设备的适配问题</li>
-      </ul>
-    </div>
-  </div>
-</body>
-</html> 
+  </body>
+</html>

@@ -7,7 +7,7 @@
  */
 function myInstanceOf(obj, constructor) {
   // 基本类型直接返回false
-  if (obj === null || typeof obj !== "object") return false;
+  if (obj === null || typeof obj !== 'object') return false;
 
   // 获取对象的原型
   let proto = Object.getPrototypeOf(obj);

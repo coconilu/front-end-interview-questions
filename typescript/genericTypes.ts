@@ -1,6 +1,6 @@
 /**
  * TypeScript 泛型使用示例
- * 
+ *
  * 泛型是 TypeScript 中最强大的特性之一，允许我们创建可重用的组件，
  * 这些组件可以处理多种类型而不是单一类型。
  */
@@ -11,8 +11,8 @@ function identity<T>(arg: T): T {
 }
 
 // 使用方式
-const num = identity<number>(42);  // 显式指定类型
-const str = identity("Hello");     // 类型推断
+const num = identity<number>(42); // 显式指定类型
+const str = identity('Hello'); // 类型推断
 
 // 2. 泛型接口
 interface GenericIdentityFn<T> {
@@ -35,7 +35,7 @@ class GenericBox<T> {
 }
 
 const numberBox = new GenericBox<number>(123);
-const stringBox = new GenericBox("TypeScript");  // 类型推断
+const stringBox = new GenericBox('TypeScript'); // 类型推断
 
 // 4. 泛型约束
 interface Lengthwise {
@@ -43,13 +43,13 @@ interface Lengthwise {
 }
 
 function loggingIdentity<T extends Lengthwise>(arg: T): T {
-  console.log(arg.length);  // 现在我们知道arg有length属性
+  console.log(arg.length); // 现在我们知道arg有length属性
   return arg;
 }
 
 // 有效调用
-loggingIdentity("Hello");  // 字符串有length属性
-loggingIdentity([1, 2, 3]);  // 数组有length属性
+loggingIdentity('Hello'); // 字符串有length属性
+loggingIdentity([1, 2, 3]); // 数组有length属性
 // loggingIdentity(3);  // 错误：数字没有length属性
 
 // 5. 在泛型中使用类型参数
@@ -57,13 +57,13 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }
 
-const person = { name: "Alice", age: 25 };
-const personName = getProperty(person, "name");  // 返回string类型
-const age = getProperty(person, "age");    // 返回number类型
+const person = { name: 'Alice', age: 25 };
+const personName = getProperty(person, 'name'); // 返回string类型
+const age = getProperty(person, 'age'); // 返回number类型
 // const gender = getProperty(person, "gender");  // 错误：person没有gender属性
 
 // 6. 泛型工厂函数
-function create<T>(c: { new(): T }): T {
+function create<T>(c: { new (): T }): T {
   return new c();
 }
 
@@ -72,7 +72,7 @@ class BeeKeeper {
 }
 
 class ZooKeeper {
-  nametag: string = "Zookeeper";
+  nametag: string = 'Zookeeper';
 }
 
 class Animal {
@@ -105,7 +105,7 @@ interface Todo {
   completed: boolean;
 }
 
-type TodoPreview = MyPick<Todo, "title" | "completed">;
+type TodoPreview = MyPick<Todo, 'title' | 'completed'>;
 // 等价于: { title: string; completed: boolean; }
 
 // 面试题：实现泛型版本的函数组合（Function Composition）
@@ -124,19 +124,26 @@ function compose<T1, T2, T3, R>(
 ): Func<[T1], R>;
 function compose(...fns: Function[]): Function {
   return fns.reduce(
-    (prevFn, nextFn) => 
-      (...args: any) => prevFn(nextFn(...args)),
+    (prevFn, nextFn) =>
+      (...args: any) =>
+        prevFn(nextFn(...args)),
     (value: any) => value
   );
 }
 
 // 使用示例
-function addOne(x: number) { return x + 1; }
-function multiplyByTwo(x: number) { return x * 2; }
-function toString(x: number) { return x.toString(); }
+function addOne(x: number) {
+  return x + 1;
+}
+function multiplyByTwo(x: number) {
+  return x * 2;
+}
+function toString(x: number) {
+  return x.toString();
+}
 
 const addThenMultiply = compose(multiplyByTwo, addOne);
-console.log(addThenMultiply(3));  // 8
+console.log(addThenMultiply(3)); // 8
 
 const addThenMultiplyThenToString = compose(toString, multiplyByTwo, addOne);
-console.log(addThenMultiplyThenToString(3));  // "8" 
+console.log(addThenMultiplyThenToString(3)); // "8"

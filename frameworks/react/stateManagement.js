@@ -13,31 +13,31 @@
 function createStore(reducer, initialState) {
   let state = initialState;
   let listeners = [];
-  
+
   // 获取当前状态
   const getState = () => state;
-  
+
   // 分发action
   const dispatch = (action) => {
     // 更新状态
     state = reducer(state, action);
     // 通知所有监听器
-    listeners.forEach(listener => listener());
+    listeners.forEach((listener) => listener());
   };
-  
+
   // 订阅状态变化
   const subscribe = (listener) => {
     listeners.push(listener);
     // 返回取消订阅的函数
     return () => {
-      listeners = listeners.filter(l => l !== listener);
+      listeners = listeners.filter((l) => l !== listener);
     };
   };
-  
+
   return {
     getState,
     dispatch,
-    subscribe
+    subscribe,
   };
 }
 
@@ -66,7 +66,7 @@ function applyMiddleware(middleware) {
     const dispatch = middleware(store)(store.dispatch);
     return {
       ...store,
-      dispatch
+      dispatch,
     };
   };
 }
@@ -113,9 +113,4 @@ store.dispatch({ type: 'DECREMENT' });
 unsubscribe();
 */
 
-export {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-  loggerMiddleware
-}; 
+export { createStore, combineReducers, applyMiddleware, loggerMiddleware };

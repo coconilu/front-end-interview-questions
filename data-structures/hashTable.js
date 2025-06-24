@@ -12,7 +12,7 @@ class HashTable {
 
   // 哈希函数
   hash(key) {
-    if (typeof key !== "string") {
+    if (typeof key !== 'string') {
       key = String(key);
     }
 
@@ -141,27 +141,27 @@ class HashTable {
 const hashTable = new HashTable();
 
 // 添加键值对
-hashTable.set("name", "John");
-hashTable.set("age", 30);
-hashTable.set("city", "New York");
-hashTable.set("job", "Developer");
+hashTable.set('name', 'John');
+hashTable.set('age', 30);
+hashTable.set('city', 'New York');
+hashTable.set('job', 'Developer');
 
 // 获取值
-console.log(hashTable.get("name")); // John
-console.log(hashTable.get("age")); // 30
-console.log(hashTable.get("city")); // New York
+console.log(hashTable.get('name')); // John
+console.log(hashTable.get('age')); // 30
+console.log(hashTable.get('city')); // New York
 
 // 检查键是否存在
-console.log(hashTable.has("job")); // true
-console.log(hashTable.has("email")); // false
+console.log(hashTable.has('job')); // true
+console.log(hashTable.has('email')); // false
 
 // 更新值
-hashTable.set("age", 31);
-console.log(hashTable.get("age")); // 31
+hashTable.set('age', 31);
+console.log(hashTable.get('age')); // 31
 
 // 删除键值对
-console.log(hashTable.delete("city")); // true
-console.log(hashTable.has("city")); // false
+console.log(hashTable.delete('city')); // true
+console.log(hashTable.has('city')); // false
 
 // 获取所有键
 console.log(hashTable.keys()); // ['name', 'age', 'job']
@@ -174,10 +174,10 @@ console.log(hashTable.entries()); // [['name', 'John'], ['age', 31], ['job', 'De
 
 // 测试哈希冲突
 const collisionTest = new HashTable(3); // 故意使用小容量增加冲突概率
-collisionTest.set("a", 1);
-collisionTest.set("d", 2); // 可能与'a'冲突
-collisionTest.set("g", 3); // 可能与'a'和'd'冲突
+collisionTest.set('a', 1);
+collisionTest.set('d', 2); // 可能与'a'冲突
+collisionTest.set('g', 3); // 可能与'a'和'd'冲突
 
-console.log(collisionTest.get("a")); // 1
-console.log(collisionTest.get("d")); // 2
-console.log(collisionTest.get("g")); // 3
+console.log(collisionTest.get('a')); // 1
+console.log(collisionTest.get('d')); // 2
+console.log(collisionTest.get('g')); // 3

@@ -1,129 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>移动端性能优化</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    h3 {
-      margin: 20px 0 10px;
-    }
-    
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .section {
-      margin-bottom: 40px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 5px;
-    }
-    
-    pre {
-      background-color: #f0f0f0;
-      padding: 15px;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-family: Consolas, Monaco, monospace;
-      margin: 15px 0;
-    }
-    
-    code {
-      background-color: #f0f0f0;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-family: Consolas, Monaco, monospace;
-    }
-    
-    ul, ol {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-    
-    li {
-      margin-bottom: 8px;
-    }
-    
-    .tip {
-      background-color: #e8f4fd;
-      border-left: 4px solid #3498db;
-      padding: 10px 15px;
-      margin: 15px 0;
-    }
-    
-    .warning {
-      background-color: #fff5e6;
-      border-left: 4px solid #f39c12;
-      padding: 10px 15px;
-      margin: 15px 0;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      text-align: left;
-    }
-    
-    table th {
-      background-color: #f0f0f0;
-    }
-    
-    table tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>移动端性能优化</h1>
-    
-    <div class="section">
-      <h2>1. 网络优化</h2>
-      
-      <h3>1.1 减少HTTP请求</h3>
-      <p>移动网络环境下，每个HTTP请求都会增加额外的延迟。减少请求数量是提高性能的关键。</p>
-      <ul>
-        <li><strong>合并资源文件</strong>：将多个CSS或JavaScript文件合并为一个</li>
-        <li><strong>使用CSS Sprites</strong>：将多个小图标合并为一张大图</li>
-        <li><strong>内联小资源</strong>：将小型CSS、JavaScript或图片直接嵌入HTML中</li>
-        <li><strong>使用字体图标</strong>：用字体图标代替图片图标</li>
-      </ul>
-      
-      <pre>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>移动端性能优化</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        margin: 20px 0 10px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      pre {
+        background-color: #f0f0f0;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-family: Consolas, Monaco, monospace;
+        margin: 15px 0;
+      }
+
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: Consolas, Monaco, monospace;
+      }
+
+      ul,
+      ol {
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .tip {
+        background-color: #e8f4fd;
+        border-left: 4px solid #3498db;
+        padding: 10px 15px;
+        margin: 15px 0;
+      }
+
+      .warning {
+        background-color: #fff5e6;
+        border-left: 4px solid #f39c12;
+        padding: 10px 15px;
+        margin: 15px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #f0f0f0;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>移动端性能优化</h1>
+
+      <div class="section">
+        <h2>1. 网络优化</h2>
+
+        <h3>1.1 减少HTTP请求</h3>
+        <p>
+          移动网络环境下，每个HTTP请求都会增加额外的延迟。减少请求数量是提高性能的关键。
+        </p>
+        <ul>
+          <li>
+            <strong>合并资源文件</strong>：将多个CSS或JavaScript文件合并为一个
+          </li>
+          <li><strong>使用CSS Sprites</strong>：将多个小图标合并为一张大图</li>
+          <li>
+            <strong>内联小资源</strong
+            >：将小型CSS、JavaScript或图片直接嵌入HTML中
+          </li>
+          <li><strong>使用字体图标</strong>：用字体图标代替图片图标</li>
+        </ul>
+
+        <pre>
 // CSS Sprites示例
 .icon {
   background-image: url('sprites.png');
@@ -143,38 +155,50 @@
 .small-icon {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAA...');
 }
-      </pre>
-      
-      <h3>1.2 资源压缩</h3>
-      <p>移动网络带宽有限，压缩传输资源可以显著提高加载速度。</p>
-      <ul>
-        <li><strong>压缩HTML、CSS和JavaScript</strong>：使用工具如UglifyJS、CSSNano等</li>
-        <li><strong>优化图片</strong>：使用WebP格式，或使用工具如ImageOptim压缩</li>
-        <li><strong>启用GZIP/Brotli压缩</strong>：服务器端配置压缩传输</li>
-        <li><strong>使用适当的图片尺寸</strong>：不要使用超过显示尺寸的图片</li>
-      </ul>
-      
-      <div class="tip">
-        <p><strong>提示：</strong> 对于图片密集型应用，考虑使用响应式图片技术，根据设备屏幕大小和分辨率提供不同尺寸的图片。</p>
-        <pre>
+      </pre
+        >
+
+        <h3>1.2 资源压缩</h3>
+        <p>移动网络带宽有限，压缩传输资源可以显著提高加载速度。</p>
+        <ul>
+          <li>
+            <strong>压缩HTML、CSS和JavaScript</strong
+            >：使用工具如UglifyJS、CSSNano等
+          </li>
+          <li>
+            <strong>优化图片</strong>：使用WebP格式，或使用工具如ImageOptim压缩
+          </li>
+          <li><strong>启用GZIP/Brotli压缩</strong>：服务器端配置压缩传输</li>
+          <li>
+            <strong>使用适当的图片尺寸</strong>：不要使用超过显示尺寸的图片
+          </li>
+        </ul>
+
+        <div class="tip">
+          <p>
+            <strong>提示：</strong>
+            对于图片密集型应用，考虑使用响应式图片技术，根据设备屏幕大小和分辨率提供不同尺寸的图片。
+          </p>
+          <pre>
 &lt;picture&gt;
   &lt;source srcset="large.jpg" media="(min-width: 800px)"&gt;
   &lt;source srcset="medium.jpg" media="(min-width: 400px)"&gt;
   &lt;img src="small.jpg" alt="响应式图片"&gt;
 &lt;/picture&gt;
-        </pre>
-      </div>
-      
-      <h3>1.3 缓存策略</h3>
-      <p>合理的缓存策略可以减少不必要的网络请求。</p>
-      <ul>
-        <li><strong>设置适当的HTTP缓存头</strong>：Cache-Control、ETag等</li>
-        <li><strong>使用Service Worker缓存</strong>：实现离线访问能力</li>
-        <li><strong>使用localStorage/IndexedDB</strong>：缓存应用数据</li>
-        <li><strong>使用应用缓存清单</strong>：指定需要缓存的资源</li>
-      </ul>
-      
-      <pre>
+        </pre
+          >
+        </div>
+
+        <h3>1.3 缓存策略</h3>
+        <p>合理的缓存策略可以减少不必要的网络请求。</p>
+        <ul>
+          <li><strong>设置适当的HTTP缓存头</strong>：Cache-Control、ETag等</li>
+          <li><strong>使用Service Worker缓存</strong>：实现离线访问能力</li>
+          <li><strong>使用localStorage/IndexedDB</strong>：缓存应用数据</li>
+          <li><strong>使用应用缓存清单</strong>：指定需要缓存的资源</li>
+        </ul>
+
+        <pre>
 // Service Worker缓存示例
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -197,26 +221,37 @@ self.addEventListener('fetch', function(event) {
     })
   );
 });
-      </pre>
-    </div>
-    
-    <div class="section">
-      <h2>2. 渲染性能优化</h2>
-      
-      <h3>2.1 减少重排重绘</h3>
-      <p>移动设备的CPU和GPU资源有限，减少页面重排(reflow)和重绘(repaint)可以提高渲染性能。</p>
-      <ul>
-        <li><strong>批量DOM操作</strong>：使用DocumentFragment或克隆节点</li>
-        <li><strong>避免强制同步布局</strong>：不要在修改DOM后立即查询布局信息</li>
-        <li><strong>使用CSS3硬件加速</strong>：transform、opacity等属性触发GPU加速</li>
-        <li><strong>使用绝对定位脱离文档流</strong>：减少对其他元素的影响</li>
-      </ul>
-      
-      <div class="warning">
-        <p><strong>注意：</strong> 过度使用硬件加速可能导致内存占用过高，尤其在低端设备上。</p>
+      </pre
+        >
       </div>
-      
-      <pre>
+
+      <div class="section">
+        <h2>2. 渲染性能优化</h2>
+
+        <h3>2.1 减少重排重绘</h3>
+        <p>
+          移动设备的CPU和GPU资源有限，减少页面重排(reflow)和重绘(repaint)可以提高渲染性能。
+        </p>
+        <ul>
+          <li><strong>批量DOM操作</strong>：使用DocumentFragment或克隆节点</li>
+          <li>
+            <strong>避免强制同步布局</strong>：不要在修改DOM后立即查询布局信息
+          </li>
+          <li>
+            <strong>使用CSS3硬件加速</strong
+            >：transform、opacity等属性触发GPU加速
+          </li>
+          <li><strong>使用绝对定位脱离文档流</strong>：减少对其他元素的影响</li>
+        </ul>
+
+        <div class="warning">
+          <p>
+            <strong>注意：</strong>
+            过度使用硬件加速可能导致内存占用过高，尤其在低端设备上。
+          </p>
+        </div>
+
+        <pre>
 // 不好的做法 - 导致多次重排
 for (let i = 0; i < 100; i++) {
   document.getElementById('container').innerHTML += '&lt;div&gt;' + i + '&lt;/div&gt;';
@@ -236,19 +271,24 @@ document.getElementById('container').appendChild(fragment);
   transform: translateZ(0);
   will-change: transform;
 }
-      </pre>
-      
-      <h3>2.2 优化JavaScript执行</h3>
-      <p>JavaScript执行效率对移动端性能影响巨大。</p>
-      <ul>
-        <li><strong>使用requestAnimationFrame</strong>：同步动画与浏览器渲染周期</li>
-        <li><strong>使用Web Workers</strong>：将耗时计算放在后台线程</li>
-        <li><strong>避免长任务阻塞主线程</strong>：任务分割或异步执行</li>
-        <li><strong>延迟加载非关键JavaScript</strong>：使用async或defer属性</li>
-        <li><strong>使用防抖和节流</strong>：优化频繁触发的事件处理</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>2.2 优化JavaScript执行</h3>
+        <p>JavaScript执行效率对移动端性能影响巨大。</p>
+        <ul>
+          <li>
+            <strong>使用requestAnimationFrame</strong>：同步动画与浏览器渲染周期
+          </li>
+          <li><strong>使用Web Workers</strong>：将耗时计算放在后台线程</li>
+          <li><strong>避免长任务阻塞主线程</strong>：任务分割或异步执行</li>
+          <li>
+            <strong>延迟加载非关键JavaScript</strong>：使用async或defer属性
+          </li>
+          <li><strong>使用防抖和节流</strong>：优化频繁触发的事件处理</li>
+        </ul>
+
+        <pre>
 // 使用requestAnimationFrame优化动画
 function animate() {
   // 更新动画
@@ -290,19 +330,26 @@ function throttle(func, limit) {
     }
   };
 }
-      </pre>
-      
-      <h3>2.3 CSS优化</h3>
-      <p>CSS渲染性能对移动端体验至关重要。</p>
-      <ul>
-        <li><strong>避免复杂的选择器</strong>：嵌套层级不超过3层</li>
-        <li><strong>减少使用昂贵的属性</strong>：box-shadow、border-radius等</li>
-        <li><strong>使用CSS动画代替JavaScript动画</strong>：性能更好且省电</li>
-        <li><strong>避免使用@import</strong>：会阻塞渲染</li>
-        <li><strong>使用flexbox/grid布局</strong>：性能更好且易于响应式设计</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>2.3 CSS优化</h3>
+        <p>CSS渲染性能对移动端体验至关重要。</p>
+        <ul>
+          <li><strong>避免复杂的选择器</strong>：嵌套层级不超过3层</li>
+          <li>
+            <strong>减少使用昂贵的属性</strong>：box-shadow、border-radius等
+          </li>
+          <li>
+            <strong>使用CSS动画代替JavaScript动画</strong>：性能更好且省电
+          </li>
+          <li><strong>避免使用@import</strong>：会阻塞渲染</li>
+          <li>
+            <strong>使用flexbox/grid布局</strong>：性能更好且易于响应式设计
+          </li>
+        </ul>
+
+        <pre>
 /* 不好的选择器 - 过于复杂 */
 body div.container ul li a.link span { color: red; }
 
@@ -318,22 +365,25 @@ body div.container ul li a.link span { color: red; }
 .fade-in {
   animation: fadeIn 0.5s ease-in;
 }
-      </pre>
-    </div>
-    
-    <div class="section">
-      <h2>3. 移动端特有优化</h2>
-      
-      <h3>3.1 触摸事件优化</h3>
-      <p>移动端触摸事件处理需要特别优化。</p>
-      <ul>
-        <li><strong>使用passive事件监听器</strong>：提高滚动性能</li>
-        <li><strong>消除300ms点击延迟</strong>：使用touch-action或fastclick库</li>
-        <li><strong>合理使用事件委托</strong>：减少事件监听器数量</li>
-        <li><strong>优化触摸反馈</strong>：使用CSS提供即时视觉反馈</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+      </div>
+
+      <div class="section">
+        <h2>3. 移动端特有优化</h2>
+
+        <h3>3.1 触摸事件优化</h3>
+        <p>移动端触摸事件处理需要特别优化。</p>
+        <ul>
+          <li><strong>使用passive事件监听器</strong>：提高滚动性能</li>
+          <li>
+            <strong>消除300ms点击延迟</strong>：使用touch-action或fastclick库
+          </li>
+          <li><strong>合理使用事件委托</strong>：减少事件监听器数量</li>
+          <li><strong>优化触摸反馈</strong>：使用CSS提供即时视觉反馈</li>
+        </ul>
+
+        <pre>
 // 使用passive事件监听器
 document.addEventListener('touchstart', function(e) {
   // 处理触摸事件
@@ -347,18 +397,21 @@ document.addEventListener('touchstart', function(e) {
 button {
   touch-action: manipulation;
 }
-      </pre>
-      
-      <h3>3.2 响应式设计优化</h3>
-      <p>优化不同屏幕尺寸和分辨率的显示效果。</p>
-      <ul>
-        <li><strong>使用相对单位</strong>：rem、em、vh/vw等</li>
-        <li><strong>使用媒体查询</strong>：根据设备特性调整布局</li>
-        <li><strong>设置合适的viewport</strong>：确保正确缩放</li>
-        <li><strong>使用移动优先策略</strong>：先为移动设备设计，再逐步增强</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>3.2 响应式设计优化</h3>
+        <p>优化不同屏幕尺寸和分辨率的显示效果。</p>
+        <ul>
+          <li><strong>使用相对单位</strong>：rem、em、vh/vw等</li>
+          <li><strong>使用媒体查询</strong>：根据设备特性调整布局</li>
+          <li><strong>设置合适的viewport</strong>：确保正确缩放</li>
+          <li>
+            <strong>使用移动优先策略</strong>：先为移动设备设计，再逐步增强
+          </li>
+        </ul>
+
+        <pre>
 /* 使用相对单位 */
 :root {
   font-size: 16px; /* 基准字体大小 */
@@ -384,18 +437,19 @@ h1 {
     display: none;
   }
 }
-      </pre>
-      
-      <h3>3.3 电池优化</h3>
-      <p>移动设备电池寿命是用户体验的重要因素。</p>
-      <ul>
-        <li><strong>减少唤醒CPU的操作</strong>：合并定时器和事件处理</li>
-        <li><strong>优化动画</strong>：使用CSS动画、降低帧率等</li>
-        <li><strong>减少网络请求</strong>：批量请求、缓存数据</li>
-        <li><strong>使用Battery API</strong>：在低电量时降级功能</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+
+        <h3>3.3 电池优化</h3>
+        <p>移动设备电池寿命是用户体验的重要因素。</p>
+        <ul>
+          <li><strong>减少唤醒CPU的操作</strong>：合并定时器和事件处理</li>
+          <li><strong>优化动画</strong>：使用CSS动画、降低帧率等</li>
+          <li><strong>减少网络请求</strong>：批量请求、缓存数据</li>
+          <li><strong>使用Battery API</strong>：在低电量时降级功能</li>
+        </ul>
+
+        <pre>
 // 使用Battery API检测电量
 navigator.getBattery().then(function(battery) {
   if (battery.level < 0.15) {
@@ -408,60 +462,67 @@ navigator.getBattery().then(function(battery) {
     checkBatteryLevel(battery);
   });
 });
-      </pre>
-    </div>
-    
-    <div class="section">
-      <h2>4. 性能监测与分析</h2>
-      
-      <h3>4.1 性能指标</h3>
-      <p>了解和监测关键性能指标对优化至关重要。</p>
-      <ul>
-        <li><strong>First Contentful Paint (FCP)</strong>：首次内容绘制时间</li>
-        <li><strong>Largest Contentful Paint (LCP)</strong>：最大内容绘制时间</li>
-        <li><strong>First Input Delay (FID)</strong>：首次输入延迟</li>
-        <li><strong>Cumulative Layout Shift (CLS)</strong>：累积布局偏移</li>
-        <li><strong>Time to Interactive (TTI)</strong>：可交互时间</li>
-      </ul>
-      
-      <table>
-        <tr>
-          <th>指标</th>
-          <th>良好</th>
-          <th>需要改进</th>
-          <th>较差</th>
-        </tr>
-        <tr>
-          <td>LCP</td>
-          <td>≤ 2.5秒</td>
-          <td>≤ 4秒</td>
-          <td>> 4秒</td>
-        </tr>
-        <tr>
-          <td>FID</td>
-          <td>≤ 100毫秒</td>
-          <td>≤ 300毫秒</td>
-          <td>> 300毫秒</td>
-        </tr>
-        <tr>
-          <td>CLS</td>
-          <td>≤ 0.1</td>
-          <td>≤ 0.25</td>
-          <td>> 0.25</td>
-        </tr>
-      </table>
-      
-      <h3>4.2 性能监测工具</h3>
-      <p>使用专业工具监测和分析移动端性能。</p>
-      <ul>
-        <li><strong>Lighthouse</strong>：Google的网站性能分析工具</li>
-        <li><strong>Chrome DevTools</strong>：性能分析和网络监控</li>
-        <li><strong>WebPageTest</strong>：在真实设备上测试性能</li>
-        <li><strong>Performance API</strong>：在代码中收集性能指标</li>
-        <li><strong>Firebase Performance Monitoring</strong>：应用性能监控</li>
-      </ul>
-      
-      <pre>
+      </pre
+        >
+      </div>
+
+      <div class="section">
+        <h2>4. 性能监测与分析</h2>
+
+        <h3>4.1 性能指标</h3>
+        <p>了解和监测关键性能指标对优化至关重要。</p>
+        <ul>
+          <li>
+            <strong>First Contentful Paint (FCP)</strong>：首次内容绘制时间
+          </li>
+          <li>
+            <strong>Largest Contentful Paint (LCP)</strong>：最大内容绘制时间
+          </li>
+          <li><strong>First Input Delay (FID)</strong>：首次输入延迟</li>
+          <li><strong>Cumulative Layout Shift (CLS)</strong>：累积布局偏移</li>
+          <li><strong>Time to Interactive (TTI)</strong>：可交互时间</li>
+        </ul>
+
+        <table>
+          <tr>
+            <th>指标</th>
+            <th>良好</th>
+            <th>需要改进</th>
+            <th>较差</th>
+          </tr>
+          <tr>
+            <td>LCP</td>
+            <td>≤ 2.5秒</td>
+            <td>≤ 4秒</td>
+            <td>> 4秒</td>
+          </tr>
+          <tr>
+            <td>FID</td>
+            <td>≤ 100毫秒</td>
+            <td>≤ 300毫秒</td>
+            <td>> 300毫秒</td>
+          </tr>
+          <tr>
+            <td>CLS</td>
+            <td>≤ 0.1</td>
+            <td>≤ 0.25</td>
+            <td>> 0.25</td>
+          </tr>
+        </table>
+
+        <h3>4.2 性能监测工具</h3>
+        <p>使用专业工具监测和分析移动端性能。</p>
+        <ul>
+          <li><strong>Lighthouse</strong>：Google的网站性能分析工具</li>
+          <li><strong>Chrome DevTools</strong>：性能分析和网络监控</li>
+          <li><strong>WebPageTest</strong>：在真实设备上测试性能</li>
+          <li><strong>Performance API</strong>：在代码中收集性能指标</li>
+          <li>
+            <strong>Firebase Performance Monitoring</strong>：应用性能监控
+          </li>
+        </ul>
+
+        <pre>
 // 使用Performance API测量性能
 // 标记开始时间
 performance.mark('functionStart');
@@ -478,22 +539,35 @@ performance.measure('functionDuration', 'functionStart', 'functionEnd');
 // 获取测量结果
 const measures = performance.getEntriesByName('functionDuration');
 console.log('函数执行时间: ' + measures[0].duration + 'ms');
-      </pre>
+      </pre
+        >
+      </div>
+
+      <div
+        style="
+          margin-top: 30px;
+          padding: 15px;
+          background-color: #f8f9fa;
+          border-radius: 5px;
+        "
+      >
+        <h3>面试要点：</h3>
+        <ul>
+          <li>移动端性能优化需要综合考虑网络、渲染、电池等多方面因素</li>
+          <li>网络优化关键点：减少请求数量、压缩资源、合理使用缓存</li>
+          <li>
+            渲染优化关键点：减少重排重绘、使用硬件加速、优化JavaScript执行
+          </li>
+          <li>移动端特有优化：触摸事件优化、响应式设计、电池优化</li>
+          <li>性能监测指标：LCP、FID、CLS等Core Web Vitals指标</li>
+          <li>
+            常用优化技术：Service Worker缓存、Web
+            Workers、requestAnimationFrame等
+          </li>
+          <li>移动端优化需要考虑设备多样性，要在各种设备上进行测试</li>
+          <li>性能优化是一个持续过程，需要不断监测和改进</li>
+        </ul>
+      </div>
     </div>
-    
-    <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-      <h3>面试要点：</h3>
-      <ul>
-        <li>移动端性能优化需要综合考虑网络、渲染、电池等多方面因素</li>
-        <li>网络优化关键点：减少请求数量、压缩资源、合理使用缓存</li>
-        <li>渲染优化关键点：减少重排重绘、使用硬件加速、优化JavaScript执行</li>
-        <li>移动端特有优化：触摸事件优化、响应式设计、电池优化</li>
-        <li>性能监测指标：LCP、FID、CLS等Core Web Vitals指标</li>
-        <li>常用优化技术：Service Worker缓存、Web Workers、requestAnimationFrame等</li>
-        <li>移动端优化需要考虑设备多样性，要在各种设备上进行测试</li>
-        <li>性能优化是一个持续过程，需要不断监测和改进</li>
-      </ul>
-    </div>
-  </div>
-</body>
-</html> 
+  </body>
+</html>

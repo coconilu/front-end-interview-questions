@@ -80,7 +80,7 @@ function test() {
     values1.push(current.val);
     current = current.next;
   }
-  console.log("重排后的链表 (1->2->3->4)：", values1.join("->")); // 应该输出 1->4->2->3
+  console.log('重排后的链表 (1->2->3->4)：', values1.join('->')); // 应该输出 1->4->2->3
 
   // 创建链表: 1->2->3->4->5
   const head2 = new ListNode(1);
@@ -99,7 +99,7 @@ function test() {
     values2.push(current.val);
     current = current.next;
   }
-  console.log("重排后的链表 (1->2->3->4->5)：", values2.join("->")); // 应该输出 1->5->2->4->3
+  console.log('重排后的链表 (1->2->3->4->5)：', values2.join('->')); // 应该输出 1->5->2->4->3
 }
 
 // 运行测试

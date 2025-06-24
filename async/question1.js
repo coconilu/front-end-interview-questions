@@ -5,20 +5,20 @@
  * 考察点: 事件循环、宏任务、微任务的执行顺序
  */
 
-console.log("1");
+console.log('1');
 
 setTimeout(() => {
-  console.log("2");
+  console.log('2');
 }, 0);
 
 new Promise((resolve) => {
-  console.log("3");
+  console.log('3');
   resolve();
 }).then(() => {
-  console.log("4");
+  console.log('4');
 });
 
-console.log("5");
+console.log('5');
 
 /**
  * 答案:

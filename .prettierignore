@@ -1,0 +1,11 @@
+node_modules/
+.git/
+*.md
+package-lock.json
+pnpm-lock.yaml
+.trae/
+.cursor/
+ssr/nuxtSSR.js
+ssr/nextjsSSR.js
+frameworks/vue/vueComposition.js
+frameworks/vue/vuex.js

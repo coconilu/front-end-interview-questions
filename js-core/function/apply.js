@@ -10,8 +10,8 @@ Function.prototype.myApply = function (context, args) {
   context = context || window;
 
   // 检查参数是否为数组或类数组
-  if (args && !Array.isArray(args) && !("length" in args)) {
-    throw new TypeError("第二个参数必须是数组或类数组对象");
+  if (args && !Array.isArray(args) && !('length' in args)) {
+    throw new TypeError('第二个参数必须是数组或类数组对象');
   }
 
   // 防止属性名冲突

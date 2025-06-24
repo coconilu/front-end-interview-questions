@@ -23,15 +23,15 @@ const ParentComponent = {
   data() {
     return {
       messageToChild: '父组件传递给子组件的数据',
-      messageFromChild: ''
+      messageFromChild: '',
     };
   },
   methods: {
     handleChildUpdate(message) {
       this.messageFromChild = message;
       console.log('父组件接收到子组件消息:', message);
-    }
-  }
+    },
+  },
 };
 
 // 子组件
@@ -46,14 +46,14 @@ const ChildComponent = {
   props: {
     message: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     sendMessageToParent() {
       this.$emit('update-message', '这是来自子组件的消息');
-    }
-  }
+    },
+  },
 };
 
 /**
@@ -71,8 +71,8 @@ const RefParentComponent = {
     callChildMethod() {
       // 通过ref直接访问子组件实例
       this.$refs.childComponent.childMethod('父组件通过ref调用');
-    }
-  }
+    },
+  },
 };
 
 const RefChildComponent = {
@@ -80,8 +80,8 @@ const RefChildComponent = {
   methods: {
     childMethod(message) {
       console.log('子组件方法被调用:', message);
-    }
-  }
+    },
+  },
 };
 
 /**
@@ -103,8 +103,8 @@ const ComponentA = {
     sendMessage() {
       // 发布事件
       EventBus.$emit('message-from-a', '这是来自组件A的消息');
-    }
-  }
+    },
+  },
 };
 
 // 组件B
@@ -117,7 +117,7 @@ const ComponentB = {
   `,
   data() {
     return {
-      message: ''
+      message: '',
     };
   },
   created() {
@@ -129,7 +129,7 @@ const ComponentB = {
   beforeDestroy() {
     // 取消订阅
     EventBus.$off('message-from-a');
-  }
+  },
 };
 
 /**
@@ -140,7 +140,7 @@ const ComponentB = {
 const store = new Vuex.Store({
   state: {
     count: 0,
-    message: '全局共享的消息'
+    message: '全局共享的消息',
   },
   mutations: {
     INCREMENT(state) {
@@ -148,18 +148,18 @@ const store = new Vuex.Store({
     },
     SET_MESSAGE(state, message) {
       state.message = message;
-    }
+    },
   },
   actions: {
     incrementAsync({ commit }) {
       setTimeout(() => {
         commit('INCREMENT');
       }, 1000);
-    }
+    },
   },
   getters: {
-    doubleCount: state => state.count * 2
-  }
+    doubleCount: (state) => state.count * 2,
+  },
 });
 
 // 使用Vuex的组件
@@ -179,19 +179,19 @@ const VuexComponent = {
     // 映射state
     ...Vuex.mapState(['count', 'message']),
     // 映射getters
-    ...Vuex.mapGetters(['doubleCount'])
+    ...Vuex.mapGetters(['doubleCount']),
   },
   methods: {
     // 映射mutations
     ...Vuex.mapMutations({
-      increment: 'INCREMENT'
+      increment: 'INCREMENT',
     }),
     // 映射actions
     ...Vuex.mapActions(['incrementAsync']),
     updateMessage() {
       this.$store.commit('SET_MESSAGE', '更新后的消息');
-    }
-  }
+    },
+  },
 };
 
 /**
@@ -208,7 +208,7 @@ const AncestorComponent = {
   `,
   data() {
     return {
-      sharedData: '祖先组件提供的数据'
+      sharedData: '祖先组件提供的数据',
     };
   },
   // 提供数据给后代组件
@@ -216,14 +216,14 @@ const AncestorComponent = {
     return {
       ancestorData: this.sharedData,
       // 提供方法
-      ancestorMethod: this.handleDescendantEvent
+      ancestorMethod: this.handleDescendantEvent,
     };
   },
   methods: {
     handleDescendantEvent(message) {
       console.log('祖先组件收到后代消息:', message);
-    }
-  }
+    },
+  },
 };
 
 // 后代组件
@@ -240,8 +240,8 @@ const DescendantComponent = {
   methods: {
     callAncestorMethod() {
       this.ancestorMethod('这是来自后代组件的消息');
-    }
-  }
+    },
+  },
 };
 
 /**
@@ -294,17 +294,17 @@ export default {
 
 /**
  * 通信方式总结
- * 
+ *
  * 1. Props/Events: 父子组件通信的基本方式
  * 2. Ref: 父组件直接访问子组件实例
  * 3. EventBus: 任意组件间通信，适用于小型应用
  * 4. Vuex: 复杂应用的状态管理
  * 5. Provide/Inject: 深层嵌套组件通信
  * 6. Vue3组合式API: 使用provide/inject和响应式API
- * 
+ *
  * 选择合适的通信方式取决于:
  * - 组件关系(父子、兄弟、跨多层)
  * - 应用复杂度
  * - 数据流向(单向/双向)
  * - 是否需要响应式
- */ 
+ */

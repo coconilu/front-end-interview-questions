@@ -1,232 +1,244 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS Grid布局实现</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    .container {
-      margin-bottom: 30px;
-    }
-    
-    .item {
-      padding: 20px;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-      background-color: #3498db;
-    }
-    
-    /* 示例1: 基本Grid容器 */
-    .basic-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
-    
-    /* 示例2: Grid模板区域 */
-    .grid-areas {
-      display: grid;
-      grid-template-areas:
-        "header header header"
-        "sidebar content content"
-        "footer footer footer";
-      grid-template-columns: 1fr 2fr 1fr;
-      grid-template-rows: auto 1fr auto;
-      gap: 10px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 10px;
-      height: 400px;
-    }
-    
-    .grid-areas .header {
-      grid-area: header;
-      background-color: #9b59b6;
-    }
-    
-    .grid-areas .sidebar {
-      grid-area: sidebar;
-      background-color: #e74c3c;
-    }
-    
-    .grid-areas .content {
-      grid-area: content;
-      background-color: #2ecc71;
-    }
-    
-    .grid-areas .footer {
-      grid-area: footer;
-      background-color: #f39c12;
-    }
-    
-    /* 示例3: Grid自动布局 */
-    .auto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
-    
-    /* 示例4: Grid定位与对齐 */
-    .grid-positioning {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 100px);
-      gap: 10px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
-    
-    .grid-positioning .item:nth-child(1) {
-      grid-column: 1 / 3;
-      grid-row: 1 / 3;
-      background-color: #1abc9c;
-    }
-    
-    .grid-positioning .item:nth-child(2) {
-      grid-column: 3;
-      grid-row: 1;
-      background-color: #3498db;
-    }
-    
-    .grid-positioning .item:nth-child(3) {
-      grid-column: 3;
-      grid-row: 2 / 4;
-      background-color: #9b59b6;
-    }
-    
-    .grid-positioning .item:nth-child(4) {
-      grid-column: 1 / 3;
-      grid-row: 3;
-      background-color: #e74c3c;
-    }
-    
-    /* 示例5: Grid对齐方式 */
-    .grid-alignment {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(2, 100px);
-      gap: 10px;
-      height: 300px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 10px;
-      
-      /* 网格容器中的对齐 */
-      justify-content: center; /* 水平对齐整个网格 */
-      align-content: center;   /* 垂直对齐整个网格 */
-      
-      /* 网格项目中的对齐 */
-      justify-items: center;   /* 水平对齐项目内容 */
-      align-items: center;     /* 垂直对齐项目内容 */
-    }
-  </style>
-</head>
-<body>
-  <h1>CSS Grid布局实现</h1>
-  
-  <h2>1. 基本Grid容器</h2>
-  <div class="container">
-    <div class="basic-grid">
-      <div class="item">Item 1</div>
-      <div class="item">Item 2</div>
-      <div class="item">Item 3</div>
-      <div class="item">Item 4</div>
-      <div class="item">Item 5</div>
-      <div class="item">Item 6</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grid布局实现</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      .container {
+        margin-bottom: 30px;
+      }
+
+      .item {
+        padding: 20px;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        background-color: #3498db;
+      }
+
+      /* 示例1: 基本Grid容器 */
+      .basic-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+
+      /* 示例2: Grid模板区域 */
+      .grid-areas {
+        display: grid;
+        grid-template-areas:
+          'header header header'
+          'sidebar content content'
+          'footer footer footer';
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+        height: 400px;
+      }
+
+      .grid-areas .header {
+        grid-area: header;
+        background-color: #9b59b6;
+      }
+
+      .grid-areas .sidebar {
+        grid-area: sidebar;
+        background-color: #e74c3c;
+      }
+
+      .grid-areas .content {
+        grid-area: content;
+        background-color: #2ecc71;
+      }
+
+      .grid-areas .footer {
+        grid-area: footer;
+        background-color: #f39c12;
+      }
+
+      /* 示例3: Grid自动布局 */
+      .auto-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+
+      /* 示例4: Grid定位与对齐 */
+      .grid-positioning {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 100px);
+        gap: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+
+      .grid-positioning .item:nth-child(1) {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+        background-color: #1abc9c;
+      }
+
+      .grid-positioning .item:nth-child(2) {
+        grid-column: 3;
+        grid-row: 1;
+        background-color: #3498db;
+      }
+
+      .grid-positioning .item:nth-child(3) {
+        grid-column: 3;
+        grid-row: 2 / 4;
+        background-color: #9b59b6;
+      }
+
+      .grid-positioning .item:nth-child(4) {
+        grid-column: 1 / 3;
+        grid-row: 3;
+        background-color: #e74c3c;
+      }
+
+      /* 示例5: Grid对齐方式 */
+      .grid-alignment {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(2, 100px);
+        gap: 10px;
+        height: 300px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+
+        /* 网格容器中的对齐 */
+        justify-content: center; /* 水平对齐整个网格 */
+        align-content: center; /* 垂直对齐整个网格 */
+
+        /* 网格项目中的对齐 */
+        justify-items: center; /* 水平对齐项目内容 */
+        align-items: center; /* 垂直对齐项目内容 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Grid布局实现</h1>
+
+    <h2>1. 基本Grid容器</h2>
+    <div class="container">
+      <div class="basic-grid">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+      </div>
     </div>
-  </div>
-  
-  <h2>2. Grid模板区域</h2>
-  <div class="container">
-    <div class="grid-areas">
-      <header class="item header">Header</header>
-      <aside class="item sidebar">Sidebar</aside>
-      <main class="item content">Main Content</main>
-      <footer class="item footer">Footer</footer>
+
+    <h2>2. Grid模板区域</h2>
+    <div class="container">
+      <div class="grid-areas">
+        <header class="item header">Header</header>
+        <aside class="item sidebar">Sidebar</aside>
+        <main class="item content">Main Content</main>
+        <footer class="item footer">Footer</footer>
+      </div>
     </div>
-  </div>
-  
-  <h2>3. Grid自动布局</h2>
-  <div class="container">
-    <div class="auto-grid">
-      <div class="item">Item 1</div>
-      <div class="item">Item 2</div>
-      <div class="item">Item 3</div>
-      <div class="item">Item 4</div>
-      <div class="item">Item 5</div>
-      <div class="item">Item 6</div>
-      <div class="item">Item 7</div>
-      <div class="item">Item 8</div>
+
+    <h2>3. Grid自动布局</h2>
+    <div class="container">
+      <div class="auto-grid">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+        <div class="item">Item 7</div>
+        <div class="item">Item 8</div>
+      </div>
     </div>
-  </div>
-  
-  <h2>4. Grid定位与跨行跨列</h2>
-  <div class="container">
-    <div class="grid-positioning">
-      <div class="item">Item 1<br>(跨2列2行)</div>
-      <div class="item">Item 2</div>
-      <div class="item">Item 3<br>(跨2行)</div>
-      <div class="item">Item 4<br>(跨2列)</div>
+
+    <h2>4. Grid定位与跨行跨列</h2>
+    <div class="container">
+      <div class="grid-positioning">
+        <div class="item">Item 1<br />(跨2列2行)</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3<br />(跨2行)</div>
+        <div class="item">Item 4<br />(跨2列)</div>
+      </div>
     </div>
-  </div>
-  
-  <h2>5. Grid对齐方式</h2>
-  <div class="container">
-    <div class="grid-alignment">
-      <div class="item">1</div>
-      <div class="item">2</div>
-      <div class="item">3</div>
-      <div class="item">4</div>
-      <div class="item">5</div>
-      <div class="item">6</div>
+
+    <h2>5. Grid对齐方式</h2>
+    <div class="container">
+      <div class="grid-alignment">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+      </div>
     </div>
-  </div>
-  
-  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-    <h3>面试要点：</h3>
-    <ul>
-      <li>Grid是二维布局系统，同时控制行和列</li>
-      <li>主要容器属性：display: grid、grid-template-columns、grid-template-rows、grid-template-areas、gap</li>
-      <li>项目属性：grid-column、grid-row、grid-area、justify-self、align-self</li>
-      <li>fr单位用于弹性分配空间，repeat()函数用于重复模式</li>
-      <li>minmax()函数允许设置最小和最大尺寸范围</li>
-      <li>auto-fill和auto-fit用于响应式布局</li>
-      <li>Grid与Flexbox比较：Grid适合二维布局，Flexbox适合一维布局</li>
-      <li>浏览器兼容性：现代浏览器都支持Grid，IE11部分支持（需要前缀）</li>
-    </ul>
-  </div>
-</body>
-</html> 
+
+    <div
+      style="
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      "
+    >
+      <h3>面试要点：</h3>
+      <ul>
+        <li>Grid是二维布局系统，同时控制行和列</li>
+        <li>
+          主要容器属性：display:
+          grid、grid-template-columns、grid-template-rows、grid-template-areas、gap
+        </li>
+        <li>
+          项目属性：grid-column、grid-row、grid-area、justify-self、align-self
+        </li>
+        <li>fr单位用于弹性分配空间，repeat()函数用于重复模式</li>
+        <li>minmax()函数允许设置最小和最大尺寸范围</li>
+        <li>auto-fill和auto-fit用于响应式布局</li>
+        <li>Grid与Flexbox比较：Grid适合二维布局，Flexbox适合一维布局</li>
+        <li>浏览器兼容性：现代浏览器都支持Grid，IE11部分支持（需要前缀）</li>
+      </ul>
+    </div>
+  </body>
+</html>

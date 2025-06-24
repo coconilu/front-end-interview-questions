@@ -62,7 +62,7 @@ function reactive(obj) {
     let value = obj[key];
 
     // 如果属性值是对象，递归使其响应式
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
       value = reactive(value);
     }
 
@@ -80,7 +80,7 @@ function reactive(obj) {
         value = newValue;
 
         // 如果新值是对象，使其响应式
-        if (typeof newValue === "object" && newValue !== null) {
+        if (typeof newValue === 'object' && newValue !== null) {
           value = reactive(newValue);
         }
 
@@ -132,7 +132,7 @@ function reactiveProxy(target) {
       dep.depend();
 
       // 如果属性值是对象，递归创建代理
-      if (typeof result === "object" && result !== null) {
+      if (typeof result === 'object' && result !== null) {
         return reactiveProxy(result);
       }
 

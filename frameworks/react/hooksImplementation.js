@@ -17,29 +17,28 @@ let currentHook = 0;
 function useState(initialState) {
   // 获取当前hook的索引
   const hookIndex = currentHook;
-  
+
   // 如果是第一次渲染，使用初始值
   if (!hooks[hookIndex]) {
     hooks[hookIndex] = initialState;
   }
-  
+
   // 创建setState函数
   const setState = (newState) => {
     // 如果新状态是函数，则调用它获取新状态
-    const nextState = typeof newState === 'function' 
-      ? newState(hooks[hookIndex])
-      : newState;
-      
+    const nextState =
+      typeof newState === 'function' ? newState(hooks[hookIndex]) : newState;
+
     // 更新状态
     hooks[hookIndex] = nextState;
-    
+
     // 触发重新渲染
     render();
   };
-  
+
   // 增加hook索引
   currentHook++;
-  
+
   return [hooks[hookIndex], setState];
 }
 
@@ -50,22 +49,21 @@ function useState(initialState) {
  */
 function useEffect(callback, deps) {
   const hookIndex = currentHook;
-  
+
   // 获取上一次的依赖
   const prevDeps = hooks[hookIndex];
-  
+
   // 检查依赖是否改变
-  const hasChangedDeps = !prevDeps || 
-    !deps || 
-    deps.some((dep, i) => dep !== prevDeps[i]);
-  
+  const hasChangedDeps =
+    !prevDeps || !deps || deps.some((dep, i) => dep !== prevDeps[i]);
+
   if (hasChangedDeps) {
     // 执行副作用
     callback();
     // 保存新的依赖
     hooks[hookIndex] = deps;
   }
-  
+
   currentHook++;
 }
 
@@ -76,11 +74,11 @@ function useEffect(callback, deps) {
  */
 function useRef(initialValue) {
   const hookIndex = currentHook;
-  
+
   if (!hooks[hookIndex]) {
     hooks[hookIndex] = { current: initialValue };
   }
-  
+
   currentHook++;
   return hooks[hookIndex];
 }
@@ -99,7 +97,7 @@ function resetHooks() {
 function render() {
   // 重置hooks状态
   resetHooks();
-  
+
   // 这里应该调用组件的render方法
   // 为了示例，我们直接返回
   return;
@@ -126,4 +124,4 @@ function Counter() {
 }
 */
 
-export { useState, useEffect, useRef }; 
+export { useState, useEffect, useRef };

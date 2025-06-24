@@ -29,7 +29,7 @@ function basicAjaxGet(url, callback) {
   };
 
   // 初始化请求
-  xhr.open("GET", url, true);
+  xhr.open('GET', url, true);
 
   // 发送请求
   xhr.send();
@@ -52,8 +52,8 @@ function basicAjaxGet(url, callback) {
 function ajax(options) {
   // 默认选项
   const defaults = {
-    url: "",
-    method: "GET",
+    url: '',
+    method: 'GET',
     headers: {},
     data: null,
     timeout: 0,
@@ -61,7 +61,7 @@ function ajax(options) {
     success: null,
     error: null,
     complete: null,
-    responseType: "",
+    responseType: '',
   };
 
   // 合并选项
@@ -83,8 +83,8 @@ function ajax(options) {
       try {
         // 尝试解析JSON
         if (
-          options.responseType === "json" &&
-          typeof xhr.response === "string"
+          options.responseType === 'json' &&
+          typeof xhr.response === 'string'
         ) {
           response = JSON.parse(xhr.response);
         } else {
@@ -98,18 +98,18 @@ function ajax(options) {
       // 根据状态码处理响应
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         // 请求成功
-        if (typeof options.success === "function") {
+        if (typeof options.success === 'function') {
           options.success(response, xhr.status, xhr);
         }
       } else {
         // 请求失败
-        if (typeof options.error === "function") {
+        if (typeof options.error === 'function') {
           options.error(xhr, xhr.status, xhr.statusText);
         }
       }
 
       // 完成回调
-      if (typeof options.complete === "function") {
+      if (typeof options.complete === 'function') {
         options.complete(xhr, xhr.status);
       }
     }
@@ -117,20 +117,20 @@ function ajax(options) {
 
   // 监听错误
   xhr.onerror = function () {
-    if (typeof options.error === "function") {
+    if (typeof options.error === 'function') {
       options.error(xhr, xhr.status, xhr.statusText);
     }
-    if (typeof options.complete === "function") {
+    if (typeof options.complete === 'function') {
       options.complete(xhr, xhr.status);
     }
   };
 
   // 监听超时
   xhr.ontimeout = function () {
-    if (typeof options.error === "function") {
-      options.error(xhr, 0, "timeout");
+    if (typeof options.error === 'function') {
+      options.error(xhr, 0, 'timeout');
     }
-    if (typeof options.complete === "function") {
+    if (typeof options.complete === 'function') {
       options.complete(xhr, 0);
     }
   };
@@ -142,8 +142,8 @@ function ajax(options) {
   let url = options.url;
 
   // 对于GET请求，将data作为查询参数附加到URL
-  if (method === "GET" && options.data) {
-    url += (url.includes("?") ? "&" : "?") + formatData(options.data);
+  if (method === 'GET' && options.data) {
+    url += (url.includes('?') ? '&' : '?') + formatData(options.data);
   }
 
   // 初始化请求
@@ -163,15 +163,15 @@ function ajax(options) {
 
   // 对于POST、PUT等请求，设置Content-Type（如果未设置）
   if (
-    method !== "GET" &&
-    method !== "HEAD" &&
-    !xhr.getResponseHeader("Content-Type")
+    method !== 'GET' &&
+    method !== 'HEAD' &&
+    !xhr.getResponseHeader('Content-Type')
   ) {
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   }
 
   // 发送请求
-  if (method === "GET" || method === "HEAD") {
+  if (method === 'GET' || method === 'HEAD') {
     xhr.send();
   } else {
     // 处理请求体
@@ -179,16 +179,16 @@ function ajax(options) {
 
     // 如果data是对象且Content-Type是application/x-www-form-urlencoded，则格式化数据
     if (
-      typeof data === "object" &&
-      xhr.getResponseHeader("Content-Type") ===
-        "application/x-www-form-urlencoded"
+      typeof data === 'object' &&
+      xhr.getResponseHeader('Content-Type') ===
+        'application/x-www-form-urlencoded'
     ) {
       data = formatData(data);
     }
     // 如果data是对象且Content-Type是application/json，则JSON序列化
     else if (
-      typeof data === "object" &&
-      xhr.getResponseHeader("Content-Type") === "application/json"
+      typeof data === 'object' &&
+      xhr.getResponseHeader('Content-Type') === 'application/json'
     ) {
       data = JSON.stringify(data);
     }
@@ -198,19 +198,19 @@ function ajax(options) {
 
   // 格式化数据为查询字符串
   function formatData(data) {
-    if (typeof data === "string") {
+    if (typeof data === 'string') {
       return data;
     }
 
     const pairs = [];
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {
-        const value = data[key] === null ? "" : data[key];
-        pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
+        const value = data[key] === null ? '' : data[key];
+        pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
       }
     }
 
-    return pairs.join("&");
+    return pairs.join('&');
   }
 
   // 返回xhr对象，便于外部中止请求
@@ -248,7 +248,7 @@ function get(url, data = null, options = {}) {
   return ajaxPromise({
     ...options,
     url,
-    method: "GET",
+    method: 'GET',
     data,
   });
 }
@@ -264,10 +264,10 @@ function post(url, data = null, options = {}) {
   return ajaxPromise({
     ...options,
     url,
-    method: "POST",
+    method: 'POST',
     data,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...options.headers,
     },
   });
@@ -280,16 +280,16 @@ function post(url, data = null, options = {}) {
  * @param {string} [method='GET'] - 请求方法
  * @returns {Promise} - 返回Promise对象
  */
-function getJSON(url, data = null, method = "GET") {
+function getJSON(url, data = null, method = 'GET') {
   return ajaxPromise({
     url,
     method,
     data,
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    responseType: "json",
+    responseType: 'json',
   });
 }
 

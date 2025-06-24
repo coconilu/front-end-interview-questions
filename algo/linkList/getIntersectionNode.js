@@ -58,7 +58,7 @@ function test() {
   headB.next.next.next = intersect;
 
   const result = getIntersectionNode(headA, headB);
-  console.log("相交节点的值：", result ? result.val : null);
+  console.log('相交节点的值：', result ? result.val : null);
 }
 
 // 运行测试

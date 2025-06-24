@@ -73,12 +73,12 @@ function kmpSearch(text, pattern) {
 }
 
 // 测试
-const text = "ABABDABACDABABCABAB";
-const pattern = "ABABCABAB";
+const text = 'ABABDABACDABABCABAB';
+const pattern = 'ABABCABAB';
 console.log(kmpSearch(text, pattern)); // [10]
 
-const text2 = "AABAACAADAABAABA";
-const pattern2 = "AABA";
+const text2 = 'AABAACAADAABAABA';
+const pattern2 = 'AABA';
 console.log(kmpSearch(text2, pattern2)); // [0, 9, 12]
 
 module.exports = { kmpSearch, computeLPS };

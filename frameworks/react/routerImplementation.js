@@ -32,13 +32,11 @@ function Router({ children }) {
     navigate: (to) => {
       window.history.pushState({}, '', to);
       setLocation(to);
-    }
+    },
   };
 
   return (
-    <RouterContext.Provider value={value}>
-      {children}
-    </RouterContext.Provider>
+    <RouterContext.Provider value={value}>{children}</RouterContext.Provider>
   );
 }
 
@@ -49,10 +47,10 @@ function Router({ children }) {
  */
 function Route({ path, component: Component }) {
   const { location } = useContext(RouterContext);
-  
+
   // 简单的路径匹配
   const match = location === path;
-  
+
   return match ? <Component /> : null;
 }
 
@@ -63,12 +61,12 @@ function Route({ path, component: Component }) {
  */
 function Link({ to, children }) {
   const { navigate } = useContext(RouterContext);
-  
+
   const handleClick = (e) => {
     e.preventDefault();
     navigate(to);
   };
-  
+
   return (
     <a href={to} onClick={handleClick}>
       {children}
@@ -82,14 +80,14 @@ function Link({ to, children }) {
  */
 function useHistory() {
   const { navigate } = useContext(RouterContext);
-  
+
   return {
     push: (to) => navigate(to),
     replace: (to) => {
       window.history.replaceState({}, '', to);
       navigate(to);
     },
-    goBack: () => window.history.back()
+    goBack: () => window.history.back(),
   };
 }
 
@@ -99,11 +97,11 @@ function useHistory() {
  */
 function useParams() {
   const { location } = useContext(RouterContext);
-  
+
   // 简单的参数解析
   const params = {};
   const pathParts = location.split('/');
-  
+
   // 假设路由格式为 /:param1/:param2
   if (pathParts.length > 1) {
     params.param1 = pathParts[1];
@@ -111,7 +109,7 @@ function useParams() {
       params.param2 = pathParts[2];
     }
   }
-  
+
   return params;
 }
 
@@ -159,10 +157,4 @@ function App() {
 }
 */
 
-export {
-  Router,
-  Route,
-  Link,
-  useHistory,
-  useParams
-}; 
+export { Router, Route, Link, useHistory, useParams };

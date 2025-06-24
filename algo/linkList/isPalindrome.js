@@ -117,11 +117,11 @@ function isPalindromeArray(head) {
     values.push(current.val);
     current = current.next;
   }
-  
+
   // 使用双指针判断数组是否为回文
   let left = 0;
   let right = values.length - 1;
-  
+
   while (left < right) {
     if (values[left] !== values[right]) {
       return false;
@@ -129,7 +129,7 @@ function isPalindromeArray(head) {
     left++;
     right--;
   }
-  
+
   return true;
 }
 
@@ -141,17 +141,23 @@ function test() {
   list1.next.next = new ListNode(2);
   list1.next.next.next = new ListNode(1);
 
-  console.log("测试用例1结果 (迭代解法):", isPalindrome(list1)); // 应该输出 true
-  console.log("测试用例1结果 (递归解法):", isPalindromeRecursiveSolution(list1)); // 应该输出 true
-  console.log("测试用例1结果 (数组解法):", isPalindromeArray(list1)); // 应该输出 true
+  console.log('测试用例1结果 (迭代解法):', isPalindrome(list1)); // 应该输出 true
+  console.log(
+    '测试用例1结果 (递归解法):',
+    isPalindromeRecursiveSolution(list1)
+  ); // 应该输出 true
+  console.log('测试用例1结果 (数组解法):', isPalindromeArray(list1)); // 应该输出 true
 
   // 测试用例2: [1,2] - 非回文
   const list2 = new ListNode(1);
   list2.next = new ListNode(2);
 
-  console.log("测试用例2结果 (迭代解法):", isPalindrome(list2)); // 应该输出 false
-  console.log("测试用例2结果 (递归解法):", isPalindromeRecursiveSolution(list2)); // 应该输出 false
-  console.log("测试用例2结果 (数组解法):", isPalindromeArray(list2)); // 应该输出 false
+  console.log('测试用例2结果 (迭代解法):', isPalindrome(list2)); // 应该输出 false
+  console.log(
+    '测试用例2结果 (递归解法):',
+    isPalindromeRecursiveSolution(list2)
+  ); // 应该输出 false
+  console.log('测试用例2结果 (数组解法):', isPalindromeArray(list2)); // 应该输出 false
 }
 
 // 运行测试

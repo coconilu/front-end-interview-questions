@@ -71,9 +71,9 @@ console.log(dedupeWithMap(duplicateArray)); // [1, 2, 3, 4, 5]
 // 注意: 对象方法在处理特殊值如数字和字符串'1'时可能会有问题
 const specialArray = [
   1,
-  "1",
+  '1',
   true,
-  "true",
+  'true',
   {},
   {},
   null,

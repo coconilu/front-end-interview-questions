@@ -18,7 +18,7 @@ function createElement(type, props = {}, ...children) {
     children: children
       .flat()
       .map((child) =>
-        typeof child === "object" ? child : createTextElement(child),
+        typeof child === 'object' ? child : createTextElement(child)
       ),
   };
 }
@@ -30,7 +30,7 @@ function createElement(type, props = {}, ...children) {
  */
 function createTextElement(text) {
   return {
-    type: "TEXT_ELEMENT",
+    type: 'TEXT_ELEMENT',
     props: {},
     children: [],
     value: text,
@@ -45,7 +45,7 @@ function createTextElement(text) {
 function render(vNode, container) {
   // 创建DOM元素
   const dom =
-    vNode.type === "TEXT_ELEMENT"
+    vNode.type === 'TEXT_ELEMENT'
       ? document.createTextNode(vNode.value)
       : document.createElement(vNode.type);
 
@@ -53,13 +53,13 @@ function render(vNode, container) {
   if (vNode.props) {
     Object.keys(vNode.props).forEach((name) => {
       // 处理事件
-      if (name.startsWith("on")) {
+      if (name.startsWith('on')) {
         const eventType = name.toLowerCase().substring(2);
         dom.addEventListener(eventType, vNode.props[name]);
-      } else if (name === "style") {
+      } else if (name === 'style') {
         // 处理样式
         Object.assign(dom.style, vNode.props.style);
-      } else if (name !== "children") {
+      } else if (name !== 'children') {
         // 设置其他属性
         dom[name] = vNode.props[name];
       }
@@ -89,7 +89,7 @@ function updateElement(dom, oldVNode, newVNode) {
   }
 
   // 情况2：新节点是文本节点
-  if (typeof newVNode === "string") {
+  if (typeof newVNode === 'string') {
     dom.textContent = newVNode;
     return;
   }
@@ -124,16 +124,16 @@ function updateElement(dom, oldVNode, newVNode) {
 function updateProps(dom, oldProps, newProps) {
   // 设置新属性
   Object.keys(newProps).forEach((name) => {
-    if (name === "children") return;
+    if (name === 'children') return;
 
     // 处理事件
-    if (name.startsWith("on")) {
+    if (name.startsWith('on')) {
       const eventType = name.toLowerCase().substring(2);
       if (oldProps[name]) {
         dom.removeEventListener(eventType, oldProps[name]);
       }
       dom.addEventListener(eventType, newProps[name]);
-    } else if (name === "style") {
+    } else if (name === 'style') {
       // 处理样式
       Object.assign(dom.style, newProps.style);
     } else {
@@ -144,15 +144,15 @@ function updateProps(dom, oldProps, newProps) {
 
   // 移除不再存在的属性
   Object.keys(oldProps).forEach((name) => {
-    if (name === "children" || newProps[name] !== undefined) return;
+    if (name === 'children' || newProps[name] !== undefined) return;
 
     // 移除事件
-    if (name.startsWith("on")) {
+    if (name.startsWith('on')) {
       const eventType = name.toLowerCase().substring(2);
       dom.removeEventListener(eventType, oldProps[name]);
     } else {
       // 移除属性
-      dom[name] = "";
+      dom[name] = '';
     }
   });
 }

@@ -1,6 +1,6 @@
 /**
  * TypeScript 条件类型面试题
- * 
+ *
  * 条件类型是TypeScript中强大的类型系统特性，允许根据条件表达式选择不同的类型
  */
 
@@ -8,18 +8,18 @@
 type IsString<T> = T extends string ? true : false;
 
 // 使用示例
-type A = IsString<string>;  // true
-type B = IsString<number>;  // false
+type A = IsString<string>; // true
+type B = IsString<number>; // false
 
 // 2. 分配条件类型（Distributive Conditional Types）
 type ToArray<T> = T extends any ? T[] : never;
 
 // 使用示例
-type C = ToArray<string | number>;  // string[] | number[]
+type C = ToArray<string | number>; // string[] | number[]
 
 // 3. 条件类型与映射类型结合
 type NonNullableProperties<T> = {
-  [K in keyof T]: T[K] extends null | undefined ? never : K
+  [K in keyof T]: T[K] extends null | undefined ? never : K;
 }[keyof T];
 
 // 使用示例
@@ -30,29 +30,27 @@ interface PersonBase {
   phone: undefined;
 }
 
-type NonNullableKeys = NonNullableProperties<PersonBase>;  // "name" | "age"
+type NonNullableKeys = NonNullableProperties<PersonBase>; // "name" | "age"
 
 // 4. 条件类型中使用infer进行类型推断
 type UnpackArray<T> = T extends Array<infer U> ? U : T;
 
 // 使用示例
-type D = UnpackArray<string[]>;  // string
-type E = UnpackArray<number>;    // number
+type D = UnpackArray<string[]>; // string
+type E = UnpackArray<number>; // number
 
 // 5. 递归条件类型
-type DeepFlatten<T> = T extends Array<infer U>
-  ? DeepFlatten<U>
-  : T;
+type DeepFlatten<T> = T extends Array<infer U> ? DeepFlatten<U> : T;
 
 // 使用示例
 type DeepNestedArray = [1, [2, [3, 4]], 5];
-type DeepFlattenedArray = DeepFlatten<DeepNestedArray>;  // number
+type DeepFlattenedArray = DeepFlatten<DeepNestedArray>; // number
 
 // 6. 条件类型与联合类型、交叉类型结合
 type MyNonNullable<T> = T extends null | undefined ? never : T;
 
 // 使用示例
-type F = MyNonNullable<string | null | undefined>;  // string
+type F = MyNonNullable<string | null | undefined>; // string
 
 // 7. 条件类型与泛型约束结合
 type ExtractPropertyType<T, P extends keyof T> = T[P];
@@ -64,11 +62,11 @@ interface ProductBase {
   price: number;
 }
 
-type ProductName = ExtractPropertyType<ProductBase, 'name'>;  // string
+type ProductName = ExtractPropertyType<ProductBase, 'name'>; // string
 
 // 面试题1: 实现一个类型，从对象类型中提取所有值为字符串的属性键
 type ExtractStringKeys<T> = {
-  [K in keyof T]: T[K] extends string ? K : never
+  [K in keyof T]: T[K] extends string ? K : never;
 }[keyof T];
 
 // 使用示例
@@ -80,15 +78,18 @@ interface UserBase {
   meta: { [key: string]: any };
 }
 
-type StringKeys = ExtractStringKeys<UserBase>;  // "name" | "email"
+type StringKeys = ExtractStringKeys<UserBase>; // "name" | "email"
 
 // 面试题2: 实现一个类型，将联合类型转换为交叉类型
-type UnionToIntersection<U> = 
-  (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
 
 // 使用示例
 type Union = { a: string } | { b: number } | { c: boolean };
-type Intersection = UnionToIntersection<Union>;  // { a: string } & { b: number } & { c: boolean }
+type Intersection = UnionToIntersection<Union>; // { a: string } & { b: number } & { c: boolean }
 
 // 面试题3: 实现一个类型，从函数类型中提取参数类型和返回类型
 type FunctionInfo<T extends (...args: any[]) => any> = {
@@ -125,7 +126,7 @@ type Without<T, U> = T extends U ? never : T;
 
 // 使用示例
 type NumericOrString = number | string | boolean | object;
-type OnlyNumericOrString = Without<NumericOrString, boolean | object>;  // number | string
+type OnlyNumericOrString = Without<NumericOrString, boolean | object>; // number | string
 
 // 面试题6: 实现一个类型，将对象类型的键转换为驼峰命名
 type CamelCase<S extends string> = S extends `${infer P}_${infer Q}`
@@ -149,10 +150,11 @@ type CamelCaseObject = CamelCaseKeys<SnakeCaseObject>;
 
 // 面试题7: 实现一个类型，检查两个类型是否相等
 type Equals<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends
-  (<T>() => T extends Y ? 1 : 2) ? true : false;
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
 
 // 使用示例
-type IsEqual1 = Equals<{ a: string; b: number }, { a: string; b: number }>;  // true
-type IsEqual2 = Equals<{ a: string; b: number }, { b: number; a: string }>;  // true
-type IsEqual3 = Equals<{ a: string; b: number }, { a: string }>;             // false 
+type IsEqual1 = Equals<{ a: string; b: number }, { a: string; b: number }>; // true
+type IsEqual2 = Equals<{ a: string; b: number }, { b: number; a: string }>; // true
+type IsEqual3 = Equals<{ a: string; b: number }, { a: string }>; // false

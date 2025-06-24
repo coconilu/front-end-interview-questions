@@ -86,22 +86,22 @@ function test() {
     const result = coinChange(coins, amount);
     console.log(`硬币: [${coins}], 金额: ${amount}`);
     console.log(
-      `结果: ${result}, 期望: ${expected}, 正确: ${result === expected}`,
+      `结果: ${result}, 期望: ${expected}, 正确: ${result === expected}`
     );
-    console.log("---");
+    console.log('---');
   }
 
-  console.log("\n性能测试（大数据）：");
+  console.log('\n性能测试（大数据）：');
   const largeAmount = 10000;
   const largeCoins = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000];
 
-  console.time("动态规划");
+  console.time('动态规划');
   coinChange(largeCoins, largeAmount);
-  console.timeEnd("动态规划");
+  console.timeEnd('动态规划');
 
-  console.time("记忆化递归");
+  console.time('记忆化递归');
   coinChangeMemo(largeCoins, largeAmount);
-  console.timeEnd("记忆化递归");
+  console.timeEnd('记忆化递归');
 }
 
 test();

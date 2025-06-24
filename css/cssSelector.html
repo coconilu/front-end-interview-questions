@@ -1,515 +1,533 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS选择器及优先级</title>
-  <style>
-    /* 通用样式 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      color: #333;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin: 30px 0 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-    
-    .container {
-      margin-bottom: 30px;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 20px;
-    }
-    
-    .selector-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    
-    .selector-table th, .selector-table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    
-    .selector-table th {
-      background-color: #f0f0f0;
-      font-weight: bold;
-    }
-    
-    .selector-table tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-    
-    .example {
-      margin: 10px 0;
-      padding: 15px;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    
-    code {
-      background-color: #f0f0f0;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-family: Consolas, Monaco, monospace;
-    }
-    
-    /* 基本选择器示例 */
-    /* 通用选择器 */
-    * {
-      /* 已经在顶部定义了 */
-    }
-    
-    /* 元素选择器 */
-    p {
-      margin-bottom: 10px;
-    }
-    
-    /* 类选择器 */
-    .highlight {
-      background-color: #ffff99;
-      padding: 2px 5px;
-    }
-    
-    /* ID选择器 */
-    #unique {
-      font-weight: bold;
-      color: #e74c3c;
-    }
-    
-    /* 属性选择器 */
-    input[type="text"] {
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    
-    input[disabled] {
-      background-color: #f8f8f8;
-      cursor: not-allowed;
-    }
-    
-    a[href^="https"] {
-      color: #2ecc71;
-    }
-    
-    a[href$=".pdf"] {
-      color: #e74c3c;
-    }
-    
-    a[href*="example"] {
-      text-decoration: underline;
-    }
-    
-    /* 组合选择器示例 */
-    /* 后代选择器 */
-    .parent .child {
-      border-left: 3px solid #3498db;
-      padding-left: 10px;
-    }
-    
-    /* 子选择器 */
-    .parent > .direct-child {
-      border-left: 3px solid #e74c3c;
-      padding-left: 10px;
-    }
-    
-    /* 相邻兄弟选择器 */
-    .sibling + .adjacent {
-      border-left: 3px solid #f39c12;
-      padding-left: 10px;
-    }
-    
-    /* 通用兄弟选择器 */
-    .sibling ~ .general {
-      border-left: 3px solid #9b59b6;
-      padding-left: 10px;
-    }
-    
-    /* 伪类选择器示例 */
-    a:link {
-      color: #3498db;
-    }
-    
-    a:visited {
-      color: #9b59b6;
-    }
-    
-    a:hover {
-      color: #e74c3c;
-      text-decoration: underline;
-    }
-    
-    a:active {
-      color: #f39c12;
-    }
-    
-    /* 结构伪类 */
-    .list-item:first-child {
-      font-weight: bold;
-    }
-    
-    .list-item:last-child {
-      color: #7f8c8d;
-    }
-    
-    .list-item:nth-child(odd) {
-      background-color: #f9f9f9;
-    }
-    
-    .list-item:nth-child(3n) {
-      border-left: 3px solid #1abc9c;
-    }
-    
-    /* 否定伪类 */
-    .items .item:not(.special) {
-      opacity: 0.7;
-    }
-    
-    /* 伪元素选择器示例 */
-    .pseudo-element::before {
-      content: "《 ";
-      color: #3498db;
-    }
-    
-    .pseudo-element::after {
-      content: " 》";
-      color: #3498db;
-    }
-    
-    .first-letter::first-letter {
-      font-size: 24px;
-      font-weight: bold;
-      color: #e74c3c;
-    }
-    
-    .first-line::first-line {
-      font-weight: bold;
-      color: #2ecc71;
-    }
-    
-    .selection::selection {
-      background-color: #3498db;
-      color: white;
-    }
-    
-    /* 优先级示例 */
-    p {
-      color: black; /* 元素选择器 (0,0,0,1) */
-    }
-    
-    .text {
-      color: blue; /* 类选择器 (0,0,1,0) */
-    }
-    
-    #unique-text {
-      color: red; /* ID选择器 (0,1,0,0) */
-    }
-    
-    /* 组合不同优先级的选择器 */
-    body p.text {
-      color: green; /* 组合选择器 (0,0,1,2) */
-    }
-    
-    #container .text {
-      color: purple; /* 组合选择器 (0,1,1,0) */
-    }
-    
-    p.text.highlight {
-      color: orange; /* 组合多个类 (0,0,2,1) */
-    }
-    
-    /* 最高优先级 */
-    p.text {
-      color: grey !important; /* 使用!important (∞) */
-    }
-  </style>
-</head>
-<body>
-  <h1>CSS选择器及优先级</h1>
-  
-  <h2>1. 基本选择器</h2>
-  <div class="container">
-    <table class="selector-table">
-      <thead>
-        <tr>
-          <th>选择器</th>
-          <th>语法</th>
-          <th>描述</th>
-          <th>优先级</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>通用选择器</td>
-          <td><code>*</code></td>
-          <td>选择所有元素</td>
-          <td>(0,0,0,0)</td>
-        </tr>
-        <tr>
-          <td>元素选择器</td>
-          <td><code>p</code></td>
-          <td>选择所有p元素</td>
-          <td>(0,0,0,1)</td>
-        </tr>
-        <tr>
-          <td>类选择器</td>
-          <td><code>.class</code></td>
-          <td>选择所有class="class"的元素</td>
-          <td>(0,0,1,0)</td>
-        </tr>
-        <tr>
-          <td>ID选择器</td>
-          <td><code>#id</code></td>
-          <td>选择id="id"的元素</td>
-          <td>(0,1,0,0)</td>
-        </tr>
-        <tr>
-          <td>属性选择器</td>
-          <td><code>[attr=value]</code></td>
-          <td>选择attr属性等于value的元素</td>
-          <td>(0,0,1,0)</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div class="example">
-      <p>这是一个普通段落</p>
-      <p class="highlight">这是一个带有 <code>.highlight</code> 类的段落</p>
-      <p id="unique">这是一个带有 <code>#unique</code> ID的段落</p>
-      <p>
-        <input type="text" placeholder="文本输入框">
-        <input type="text" disabled placeholder="禁用的输入框">
-      </p>
-      <p>
-        <a href="https://example.com">HTTPS链接</a>
-        <a href="document.pdf">PDF文档</a>
-        <a href="http://example.org">包含example的链接</a>
-      </p>
-    </div>
-  </div>
-  
-  <h2>2. 组合选择器</h2>
-  <div class="container">
-    <table class="selector-table">
-      <thead>
-        <tr>
-          <th>选择器</th>
-          <th>语法</th>
-          <th>描述</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>后代选择器</td>
-          <td><code>A B</code></td>
-          <td>选择A元素内的所有B元素（包括间接子元素）</td>
-        </tr>
-        <tr>
-          <td>子选择器</td>
-          <td><code>A > B</code></td>
-          <td>选择A元素的直接子元素B</td>
-        </tr>
-        <tr>
-          <td>相邻兄弟选择器</td>
-          <td><code>A + B</code></td>
-          <td>选择紧接在A元素后的B元素</td>
-        </tr>
-        <tr>
-          <td>通用兄弟选择器</td>
-          <td><code>A ~ B</code></td>
-          <td>选择A元素后的所有同级B元素</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div class="example">
-      <div class="parent">
-        <p>父元素</p>
-        <div class="child">后代元素 (使用空格选择器)</div>
-        <div class="direct-child">直接子元素 (使用 > 选择器)</div>
-      </div>
-      
-      <div class="siblings">
-        <p class="sibling">兄弟元素</p>
-        <p class="adjacent">相邻兄弟 (使用 + 选择器)</p>
-        <p class="general">通用兄弟 (使用 ~ 选择器)</p>
-        <p class="general">通用兄弟 (使用 ~ 选择器)</p>
-      </div>
-    </div>
-  </div>
-  
-  <h2>3. 伪类选择器</h2>
-  <div class="container">
-    <table class="selector-table">
-      <thead>
-        <tr>
-          <th>选择器</th>
-          <th>描述</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>:link</code></td>
-          <td>未访问的链接</td>
-        </tr>
-        <tr>
-          <td><code>:visited</code></td>
-          <td>已访问的链接</td>
-        </tr>
-        <tr>
-          <td><code>:hover</code></td>
-          <td>鼠标悬停的元素</td>
-        </tr>
-        <tr>
-          <td><code>:active</code></td>
-          <td>激活的元素（如点击按钮）</td>
-        </tr>
-        <tr>
-          <td><code>:focus</code></td>
-          <td>获得焦点的元素</td>
-        </tr>
-        <tr>
-          <td><code>:first-child</code></td>
-          <td>第一个子元素</td>
-        </tr>
-        <tr>
-          <td><code>:last-child</code></td>
-          <td>最后一个子元素</td>
-        </tr>
-        <tr>
-          <td><code>:nth-child(n)</code></td>
-          <td>第n个子元素</td>
-        </tr>
-        <tr>
-          <td><code>:not(selector)</code></td>
-          <td>否定选择器，不匹配指定选择器的元素</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div class="example">
-      <p>链接伪类：<a href="#">测试链接</a>（鼠标悬停查看效果）</p>
-      
-      <div class="list">
-        <p class="list-item">第一个元素 (:first-child)</p>
-        <p class="list-item">第二个元素</p>
-        <p class="list-item">第三个元素 (:nth-child(3n))</p>
-        <p class="list-item">第四个元素</p>
-        <p class="list-item">第五个元素</p>
-        <p class="list-item">第六个元素 (:nth-child(3n))</p>
-        <p class="list-item">最后一个元素 (:last-child)</p>
-      </div>
-      
-      <div class="items">
-        <p class="item">普通项目</p>
-        <p class="item special">特殊项目</p>
-        <p class="item">普通项目</p>
-      </div>
-    </div>
-  </div>
-  
-  <h2>4. 伪元素选择器</h2>
-  <div class="container">
-    <table class="selector-table">
-      <thead>
-        <tr>
-          <th>选择器</th>
-          <th>描述</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>::before</code></td>
-          <td>在元素内容前插入内容</td>
-        </tr>
-        <tr>
-          <td><code>::after</code></td>
-          <td>在元素内容后插入内容</td>
-        </tr>
-        <tr>
-          <td><code>::first-letter</code></td>
-          <td>选择元素的第一个字母</td>
-        </tr>
-        <tr>
-          <td><code>::first-line</code></td>
-          <td>选择元素的第一行</td>
-        </tr>
-        <tr>
-          <td><code>::selection</code></td>
-          <td>选择用户选中的部分</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div class="example">
-      <p class="pseudo-element">使用::before和::after伪元素的段落</p>
-      
-      <p class="first-letter">这段文字的第一个字母使用了::first-letter伪元素样式。Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      
-      <p class="first-line">这段文字的第一行使用了::first-line伪元素样式。Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu sem nisl. Sed euismod magna eget odio sagittis, id rutrum nibh faucibus.</p>
-      
-      <p class="selection">选中这段文字查看::selection伪元素效果</p>
-    </div>
-  </div>
-  
-  <h2>5. CSS选择器优先级</h2>
-  <div class="container">
-    <p>CSS优先级按照以下顺序（从高到低）：</p>
-    <ol>
-      <li>!important 声明</li>
-      <li>内联样式（style属性）</li>
-      <li>ID选择器（#id）</li>
-      <li>类选择器（.class）、属性选择器（[attr=value]）和伪类（:hover）</li>
-      <li>元素选择器（p）和伪元素（::before）</li>
-      <li>通用选择器（*）和组合器（>, +, ~, 空格）</li>
-    </ol>
-    
-    <p>优先级可以看作四位数：(行内样式, ID, 类/属性/伪类, 元素/伪元素)</p>
-    
-    <div class="example">
-      <p class="text" id="unique-text" style="color: teal;">
-        这段文字有多重样式定义，实际显示的颜色取决于CSS优先级
-      </p>
-      
-      <div id="container">
-        <p class="text highlight">
-          这段文字也有多重样式定义
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS选择器及优先级</title>
+    <style>
+      /* 通用样式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        margin: 30px 0 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      .container {
+        margin-bottom: 30px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+      }
+
+      .selector-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      .selector-table th,
+      .selector-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .selector-table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+
+      .selector-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .example {
+        margin: 10px 0;
+        padding: 15px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: Consolas, Monaco, monospace;
+      }
+
+      /* 基本选择器示例 */
+      /* 通用选择器 */
+      * {
+        /* 已经在顶部定义了 */
+      }
+
+      /* 元素选择器 */
+      p {
+        margin-bottom: 10px;
+      }
+
+      /* 类选择器 */
+      .highlight {
+        background-color: #ffff99;
+        padding: 2px 5px;
+      }
+
+      /* ID选择器 */
+      #unique {
+        font-weight: bold;
+        color: #e74c3c;
+      }
+
+      /* 属性选择器 */
+      input[type='text'] {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      input[disabled] {
+        background-color: #f8f8f8;
+        cursor: not-allowed;
+      }
+
+      a[href^='https'] {
+        color: #2ecc71;
+      }
+
+      a[href$='.pdf'] {
+        color: #e74c3c;
+      }
+
+      a[href*='example'] {
+        text-decoration: underline;
+      }
+
+      /* 组合选择器示例 */
+      /* 后代选择器 */
+      .parent .child {
+        border-left: 3px solid #3498db;
+        padding-left: 10px;
+      }
+
+      /* 子选择器 */
+      .parent > .direct-child {
+        border-left: 3px solid #e74c3c;
+        padding-left: 10px;
+      }
+
+      /* 相邻兄弟选择器 */
+      .sibling + .adjacent {
+        border-left: 3px solid #f39c12;
+        padding-left: 10px;
+      }
+
+      /* 通用兄弟选择器 */
+      .sibling ~ .general {
+        border-left: 3px solid #9b59b6;
+        padding-left: 10px;
+      }
+
+      /* 伪类选择器示例 */
+      a:link {
+        color: #3498db;
+      }
+
+      a:visited {
+        color: #9b59b6;
+      }
+
+      a:hover {
+        color: #e74c3c;
+        text-decoration: underline;
+      }
+
+      a:active {
+        color: #f39c12;
+      }
+
+      /* 结构伪类 */
+      .list-item:first-child {
+        font-weight: bold;
+      }
+
+      .list-item:last-child {
+        color: #7f8c8d;
+      }
+
+      .list-item:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
+
+      .list-item:nth-child(3n) {
+        border-left: 3px solid #1abc9c;
+      }
+
+      /* 否定伪类 */
+      .items .item:not(.special) {
+        opacity: 0.7;
+      }
+
+      /* 伪元素选择器示例 */
+      .pseudo-element::before {
+        content: '《 ';
+        color: #3498db;
+      }
+
+      .pseudo-element::after {
+        content: ' 》';
+        color: #3498db;
+      }
+
+      .first-letter::first-letter {
+        font-size: 24px;
+        font-weight: bold;
+        color: #e74c3c;
+      }
+
+      .first-line::first-line {
+        font-weight: bold;
+        color: #2ecc71;
+      }
+
+      .selection::selection {
+        background-color: #3498db;
+        color: white;
+      }
+
+      /* 优先级示例 */
+      p {
+        color: black; /* 元素选择器 (0,0,0,1) */
+      }
+
+      .text {
+        color: blue; /* 类选择器 (0,0,1,0) */
+      }
+
+      #unique-text {
+        color: red; /* ID选择器 (0,1,0,0) */
+      }
+
+      /* 组合不同优先级的选择器 */
+      body p.text {
+        color: green; /* 组合选择器 (0,0,1,2) */
+      }
+
+      #container .text {
+        color: purple; /* 组合选择器 (0,1,1,0) */
+      }
+
+      p.text.highlight {
+        color: orange; /* 组合多个类 (0,0,2,1) */
+      }
+
+      /* 最高优先级 */
+      p.text {
+        color: grey !important; /* 使用!important (∞) */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS选择器及优先级</h1>
+
+    <h2>1. 基本选择器</h2>
+    <div class="container">
+      <table class="selector-table">
+        <thead>
+          <tr>
+            <th>选择器</th>
+            <th>语法</th>
+            <th>描述</th>
+            <th>优先级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>通用选择器</td>
+            <td><code>*</code></td>
+            <td>选择所有元素</td>
+            <td>(0,0,0,0)</td>
+          </tr>
+          <tr>
+            <td>元素选择器</td>
+            <td><code>p</code></td>
+            <td>选择所有p元素</td>
+            <td>(0,0,0,1)</td>
+          </tr>
+          <tr>
+            <td>类选择器</td>
+            <td><code>.class</code></td>
+            <td>选择所有class="class"的元素</td>
+            <td>(0,0,1,0)</td>
+          </tr>
+          <tr>
+            <td>ID选择器</td>
+            <td><code>#id</code></td>
+            <td>选择id="id"的元素</td>
+            <td>(0,1,0,0)</td>
+          </tr>
+          <tr>
+            <td>属性选择器</td>
+            <td><code>[attr=value]</code></td>
+            <td>选择attr属性等于value的元素</td>
+            <td>(0,0,1,0)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example">
+        <p>这是一个普通段落</p>
+        <p class="highlight">这是一个带有 <code>.highlight</code> 类的段落</p>
+        <p id="unique">这是一个带有 <code>#unique</code> ID的段落</p>
+        <p>
+          <input type="text" placeholder="文本输入框" />
+          <input type="text" disabled placeholder="禁用的输入框" />
+        </p>
+        <p>
+          <a href="https://example.com">HTTPS链接</a>
+          <a href="document.pdf">PDF文档</a>
+          <a href="http://example.org">包含example的链接</a>
         </p>
       </div>
     </div>
-  </div>
-  
-  <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-    <h3>面试要点：</h3>
-    <ul>
-      <li>CSS选择器是用来精确选择要样式化的HTML元素的模式</li>
-      <li>选择器优先级计算：(行内样式, ID数量, 类/属性/伪类数量, 元素/伪元素数量)</li>
-      <li>!important声明会覆盖任何其他声明，但应尽量避免使用</li>
-      <li>较新的选择器包括:root、:empty、:target、:checked等</li>
-      <li>伪类与伪元素区别：伪类用单冒号(:)表示状态，伪元素用双冒号(::)创建虚拟元素</li>
-      <li>高性能CSS建议：避免过深的后代选择器，尽量使用类选择器</li>
-      <li>选择器从右向左匹配，因此右侧应尽量具体</li>
-    </ul>
-  </div>
-</body>
-</html> 
+
+    <h2>2. 组合选择器</h2>
+    <div class="container">
+      <table class="selector-table">
+        <thead>
+          <tr>
+            <th>选择器</th>
+            <th>语法</th>
+            <th>描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>后代选择器</td>
+            <td><code>A B</code></td>
+            <td>选择A元素内的所有B元素（包括间接子元素）</td>
+          </tr>
+          <tr>
+            <td>子选择器</td>
+            <td><code>A > B</code></td>
+            <td>选择A元素的直接子元素B</td>
+          </tr>
+          <tr>
+            <td>相邻兄弟选择器</td>
+            <td><code>A + B</code></td>
+            <td>选择紧接在A元素后的B元素</td>
+          </tr>
+          <tr>
+            <td>通用兄弟选择器</td>
+            <td><code>A ~ B</code></td>
+            <td>选择A元素后的所有同级B元素</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example">
+        <div class="parent">
+          <p>父元素</p>
+          <div class="child">后代元素 (使用空格选择器)</div>
+          <div class="direct-child">直接子元素 (使用 > 选择器)</div>
+        </div>
+
+        <div class="siblings">
+          <p class="sibling">兄弟元素</p>
+          <p class="adjacent">相邻兄弟 (使用 + 选择器)</p>
+          <p class="general">通用兄弟 (使用 ~ 选择器)</p>
+          <p class="general">通用兄弟 (使用 ~ 选择器)</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>3. 伪类选择器</h2>
+    <div class="container">
+      <table class="selector-table">
+        <thead>
+          <tr>
+            <th>选择器</th>
+            <th>描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>:link</code></td>
+            <td>未访问的链接</td>
+          </tr>
+          <tr>
+            <td><code>:visited</code></td>
+            <td>已访问的链接</td>
+          </tr>
+          <tr>
+            <td><code>:hover</code></td>
+            <td>鼠标悬停的元素</td>
+          </tr>
+          <tr>
+            <td><code>:active</code></td>
+            <td>激活的元素（如点击按钮）</td>
+          </tr>
+          <tr>
+            <td><code>:focus</code></td>
+            <td>获得焦点的元素</td>
+          </tr>
+          <tr>
+            <td><code>:first-child</code></td>
+            <td>第一个子元素</td>
+          </tr>
+          <tr>
+            <td><code>:last-child</code></td>
+            <td>最后一个子元素</td>
+          </tr>
+          <tr>
+            <td><code>:nth-child(n)</code></td>
+            <td>第n个子元素</td>
+          </tr>
+          <tr>
+            <td><code>:not(selector)</code></td>
+            <td>否定选择器，不匹配指定选择器的元素</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example">
+        <p>链接伪类：<a href="#">测试链接</a>（鼠标悬停查看效果）</p>
+
+        <div class="list">
+          <p class="list-item">第一个元素 (:first-child)</p>
+          <p class="list-item">第二个元素</p>
+          <p class="list-item">第三个元素 (:nth-child(3n))</p>
+          <p class="list-item">第四个元素</p>
+          <p class="list-item">第五个元素</p>
+          <p class="list-item">第六个元素 (:nth-child(3n))</p>
+          <p class="list-item">最后一个元素 (:last-child)</p>
+        </div>
+
+        <div class="items">
+          <p class="item">普通项目</p>
+          <p class="item special">特殊项目</p>
+          <p class="item">普通项目</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>4. 伪元素选择器</h2>
+    <div class="container">
+      <table class="selector-table">
+        <thead>
+          <tr>
+            <th>选择器</th>
+            <th>描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>::before</code></td>
+            <td>在元素内容前插入内容</td>
+          </tr>
+          <tr>
+            <td><code>::after</code></td>
+            <td>在元素内容后插入内容</td>
+          </tr>
+          <tr>
+            <td><code>::first-letter</code></td>
+            <td>选择元素的第一个字母</td>
+          </tr>
+          <tr>
+            <td><code>::first-line</code></td>
+            <td>选择元素的第一行</td>
+          </tr>
+          <tr>
+            <td><code>::selection</code></td>
+            <td>选择用户选中的部分</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example">
+        <p class="pseudo-element">使用::before和::after伪元素的段落</p>
+
+        <p class="first-letter">
+          这段文字的第一个字母使用了::first-letter伪元素样式。Lorem ipsum dolor
+          sit amet, consectetur adipiscing elit.
+        </p>
+
+        <p class="first-line">
+          这段文字的第一行使用了::first-line伪元素样式。Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit. Nullam eu sem nisl. Sed euismod
+          magna eget odio sagittis, id rutrum nibh faucibus.
+        </p>
+
+        <p class="selection">选中这段文字查看::selection伪元素效果</p>
+      </div>
+    </div>
+
+    <h2>5. CSS选择器优先级</h2>
+    <div class="container">
+      <p>CSS优先级按照以下顺序（从高到低）：</p>
+      <ol>
+        <li>!important 声明</li>
+        <li>内联样式（style属性）</li>
+        <li>ID选择器（#id）</li>
+        <li>类选择器（.class）、属性选择器（[attr=value]）和伪类（:hover）</li>
+        <li>元素选择器（p）和伪元素（::before）</li>
+        <li>通用选择器（*）和组合器（>, +, ~, 空格）</li>
+      </ol>
+
+      <p>优先级可以看作四位数：(行内样式, ID, 类/属性/伪类, 元素/伪元素)</p>
+
+      <div class="example">
+        <p class="text" id="unique-text" style="color: teal">
+          这段文字有多重样式定义，实际显示的颜色取决于CSS优先级
+        </p>
+
+        <div id="container">
+          <p class="text highlight">这段文字也有多重样式定义</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      "
+    >
+      <h3>面试要点：</h3>
+      <ul>
+        <li>CSS选择器是用来精确选择要样式化的HTML元素的模式</li>
+        <li>
+          选择器优先级计算：(行内样式, ID数量, 类/属性/伪类数量,
+          元素/伪元素数量)
+        </li>
+        <li>!important声明会覆盖任何其他声明，但应尽量避免使用</li>
+        <li>较新的选择器包括:root、:empty、:target、:checked等</li>
+        <li>
+          伪类与伪元素区别：伪类用单冒号(:)表示状态，伪元素用双冒号(::)创建虚拟元素
+        </li>
+        <li>高性能CSS建议：避免过深的后代选择器，尽量使用类选择器</li>
+        <li>选择器从右向左匹配，因此右侧应尽量具体</li>
+      </ul>
+    </div>
+  </body>
+</html>

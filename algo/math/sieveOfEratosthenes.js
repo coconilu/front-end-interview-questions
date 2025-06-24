@@ -91,24 +91,24 @@ function isPrime(num) {
 }
 
 // 测试
-console.log("小于等于100的素数:");
+console.log('小于等于100的素数:');
 console.log(sieveOfEratosthenes(100));
 
-console.log("线性筛法 - 小于等于100的素数:");
+console.log('线性筛法 - 小于等于100的素数:');
 console.log(linearSieve(100));
 
-console.log("23是素数:", isPrime(23)); // true
-console.log("25是素数:", isPrime(25)); // false
+console.log('23是素数:', isPrime(23)); // true
+console.log('25是素数:', isPrime(25)); // false
 
 // 性能比较
 const n = 1000000;
-console.time("埃拉托斯特尼筛法");
+console.time('埃拉托斯特尼筛法');
 const count1 = sieveOfEratosthenes(n).length;
-console.timeEnd("埃拉托斯特尼筛法");
+console.timeEnd('埃拉托斯特尼筛法');
 
-console.time("线性筛法");
+console.time('线性筛法');
 const count2 = linearSieve(n).length;
-console.timeEnd("线性筛法");
+console.timeEnd('线性筛法');
 
 console.log(`小于等于${n}的素数个数: ${count1}`);
 

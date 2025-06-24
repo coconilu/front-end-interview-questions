@@ -6,20 +6,20 @@
  */
 function jsonStringify(data) {
   // 处理基本数据类型
-  if (data === null) return "null";
+  if (data === null) return 'null';
   if (data === undefined) return undefined;
-  if (typeof data === "boolean" || typeof data === "number")
+  if (typeof data === 'boolean' || typeof data === 'number')
     return data.toString();
-  if (typeof data === "string") return `"${data}"`;
+  if (typeof data === 'string') return `"${data}"`;
 
   // 处理数组
   if (Array.isArray(data)) {
-    const elements = data.map((item) => jsonStringify(item) ?? "null");
-    return `[${elements.join(",")}]`;
+    const elements = data.map((item) => jsonStringify(item) ?? 'null');
+    return `[${elements.join(',')}]`;
   }
 
   // 处理对象
-  if (typeof data === "object") {
+  if (typeof data === 'object') {
     const pairs = [];
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {
@@ -29,7 +29,7 @@ function jsonStringify(data) {
         }
       }
     }
-    return `{${pairs.join(",")}}`;
+    return `{${pairs.join(',')}}`;
   }
 
   // 不支持的数据类型（如函数、Symbol等）

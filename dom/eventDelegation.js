@@ -15,19 +15,19 @@
 function delegate(parent, eventType, selector, callback) {
   // 参数检查
   if (!parent || !(parent instanceof HTMLElement)) {
-    throw new Error("Parent must be a valid HTML element");
+    throw new Error('Parent must be a valid HTML element');
   }
 
-  if (!eventType || typeof eventType !== "string") {
-    throw new Error("Event type must be a valid string");
+  if (!eventType || typeof eventType !== 'string') {
+    throw new Error('Event type must be a valid string');
   }
 
-  if (!selector || typeof selector !== "string") {
-    throw new Error("Selector must be a valid string");
+  if (!selector || typeof selector !== 'string') {
+    throw new Error('Selector must be a valid string');
   }
 
-  if (!callback || typeof callback !== "function") {
-    throw new Error("Callback must be a function");
+  if (!callback || typeof callback !== 'function') {
+    throw new Error('Callback must be a function');
   }
 
   // 事件处理函数
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 // 导出函数供其他模块使用
-if (typeof module !== "undefined" && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     delegate,
     simpleDelegate,

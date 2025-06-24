@@ -95,19 +95,19 @@ function test() {
     console.log(`爬 ${i} 层楼梯的方法数：`, climbStairs(i));
   }
 
-  console.log("\n性能测试（n = 40）：");
+  console.log('\n性能测试（n = 40）：');
 
-  console.time("动态规划");
+  console.time('动态规划');
   climbStairs(40);
-  console.timeEnd("动态规划");
+  console.timeEnd('动态规划');
 
-  console.time("优化解法");
+  console.time('优化解法');
   climbStairsOptimized(40);
-  console.timeEnd("优化解法");
+  console.timeEnd('优化解法');
 
-  console.time("记忆化递归");
+  console.time('记忆化递归');
   climbStairsMemo(40);
-  console.timeEnd("记忆化递归");
+  console.timeEnd('记忆化递归');
 }
 
 test();

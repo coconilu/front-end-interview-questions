@@ -213,16 +213,16 @@ function createTestTree() {
 // 测试
 const root = createTestTree();
 
-console.log("前序遍历 (递归):", preorderTraversalRecursive(root)); // [1, 2, 4, 7, 5, 3, 6]
-console.log("前序遍历 (迭代):", preorderTraversalIterative(root)); // [1, 2, 4, 7, 5, 3, 6]
+console.log('前序遍历 (递归):', preorderTraversalRecursive(root)); // [1, 2, 4, 7, 5, 3, 6]
+console.log('前序遍历 (迭代):', preorderTraversalIterative(root)); // [1, 2, 4, 7, 5, 3, 6]
 
-console.log("中序遍历 (递归):", inorderTraversalRecursive(root)); // [7, 4, 2, 5, 1, 3, 6]
-console.log("中序遍历 (迭代):", inorderTraversalIterative(root)); // [7, 4, 2, 5, 1, 3, 6]
+console.log('中序遍历 (递归):', inorderTraversalRecursive(root)); // [7, 4, 2, 5, 1, 3, 6]
+console.log('中序遍历 (迭代):', inorderTraversalIterative(root)); // [7, 4, 2, 5, 1, 3, 6]
 
-console.log("后序遍历 (递归):", postorderTraversalRecursive(root)); // [7, 4, 5, 2, 6, 3, 1]
-console.log("后序遍历 (迭代):", postorderTraversalIterative(root)); // [7, 4, 5, 2, 6, 3, 1]
+console.log('后序遍历 (递归):', postorderTraversalRecursive(root)); // [7, 4, 5, 2, 6, 3, 1]
+console.log('后序遍历 (迭代):', postorderTraversalIterative(root)); // [7, 4, 5, 2, 6, 3, 1]
 
-console.log("层序遍历:", levelOrderTraversal(root)); // [[1], [2, 3], [4, 5, 6], [7]]
+console.log('层序遍历:', levelOrderTraversal(root)); // [[1], [2, 3], [4, 5, 6], [7]]
 
 module.exports = {
   TreeNode,

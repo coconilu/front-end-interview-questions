@@ -22,7 +22,7 @@ class Fiber {
     this.index = 0;
 
     // 副作用标记
-    this.effectTag = "NO_EFFECT";
+    this.effectTag = 'NO_EFFECT';
     this.alternate = null; // 指向另一棵树中对应的Fiber
 
     // 更新队列
@@ -37,15 +37,15 @@ let currentRoot = null; // 当前页面上对应的Fiber树
 let deletions = []; // 需要删除的节点
 
 // Fiber节点类型
-const HOST_COMPONENT = "host";
-const CLASS_COMPONENT = "class";
-const FUNCTION_COMPONENT = "function";
-const HOST_ROOT = "root";
+const HOST_COMPONENT = 'host';
+const CLASS_COMPONENT = 'class';
+const FUNCTION_COMPONENT = 'function';
+const HOST_ROOT = 'root';
 
 // 副作用标记
-const PLACEMENT = "PLACEMENT";
-const UPDATE = "UPDATE";
-const DELETION = "DELETION";
+const PLACEMENT = 'PLACEMENT';
+const UPDATE = 'UPDATE';
+const DELETION = 'DELETION';
 
 // 模拟React.createElement
 function createElement(type, props, ...children) {
@@ -54,7 +54,7 @@ function createElement(type, props, ...children) {
     props: {
       ...props,
       children: children.map((child) =>
-        typeof child === "object" ? child : createTextElement(child),
+        typeof child === 'object' ? child : createTextElement(child)
       ),
     },
   };
@@ -63,7 +63,7 @@ function createElement(type, props, ...children) {
 // 创建文本元素
 function createTextElement(text) {
   return {
-    type: "TEXT_ELEMENT",
+    type: 'TEXT_ELEMENT',
     props: {
       nodeValue: text,
       children: [],
@@ -95,7 +95,7 @@ function scheduleUpdate(fiber, element) {
     // 基于currentRoot创建workInProgress树
     nextUnitOfWork = createWorkInProgress(currentRoot, null);
     workInProgressRoot = nextUnitOfWork;
-    console.log("触发更新: 创建workInProgress树");
+    console.log('触发更新: 创建workInProgress树');
   }
 
   // 请求调度
@@ -111,7 +111,7 @@ function createWorkInProgress(current, pendingProps) {
     workInProgress = new Fiber(
       current.tag,
       current.key,
-      pendingProps || current.pendingProps,
+      pendingProps || current.pendingProps
     );
 
     workInProgress.stateNode = current.stateNode;
@@ -120,7 +120,7 @@ function createWorkInProgress(current, pendingProps) {
   } else {
     // 复用已有alternate，更新pendingProps
     workInProgress.pendingProps = pendingProps || current.pendingProps;
-    workInProgress.effectTag = "NO_EFFECT";
+    workInProgress.effectTag = 'NO_EFFECT';
     workInProgress.child = null;
     workInProgress.sibling = null;
   }
@@ -145,7 +145,7 @@ function workLoop(deadline) {
 
   // 如果没有下一个工作单元且workInProgressRoot存在，说明协调阶段完成，进入提交阶段
   if (!nextUnitOfWork && workInProgressRoot) {
-    console.log("协调阶段完成，开始提交阶段");
+    console.log('协调阶段完成，开始提交阶段');
     commitRoot();
   }
 
@@ -194,8 +194,8 @@ function performUnitOfWork(fiber) {
 function updateHostComponent(fiber) {
   // 如果没有DOM节点，创建DOM节点
   if (!fiber.stateNode) {
-    if (fiber.type === "TEXT_ELEMENT") {
-      fiber.stateNode = document.createTextNode("");
+    if (fiber.type === 'TEXT_ELEMENT') {
+      fiber.stateNode = document.createTextNode('');
     } else {
       fiber.stateNode = document.createElement(fiber.type);
     }
@@ -256,7 +256,7 @@ function processUpdateQueue(fiber) {
 
 // 协调子节点（Diff算法的简化版）
 function reconcileChildren(returnFiber, newChildren) {
-  console.log("进行协调: 比较新旧子节点");
+  console.log('进行协调: 比较新旧子节点');
 
   // 获取旧的第一个子Fiber
   let oldFiber = returnFiber.alternate ? returnFiber.alternate.child : null;
@@ -284,7 +284,7 @@ function reconcileChildren(returnFiber, newChildren) {
     // 如果类型不同但有新节点，创建新节点（添加）
     if (!sameType && newChild) {
       const tag =
-        typeof newChild.type === "function"
+        typeof newChild.type === 'function'
           ? newChild.type.prototype && newChild.type.prototype.isReactComponent
             ? CLASS_COMPONENT
             : FUNCTION_COMPONENT
@@ -334,7 +334,7 @@ function commitRoot() {
   }
 
   // workInProgress树切换为current树
-  console.log("提交阶段完成：workInProgress树切换为current树");
+  console.log('提交阶段完成：workInProgress树切换为current树');
   currentRoot = workInProgressRoot;
   workInProgressRoot = null;
   deletions = [];
@@ -363,7 +363,7 @@ function commitWork(fiber) {
     updateDomProperties(
       fiber.stateNode,
       fiber.memoizedProps,
-      fiber.pendingProps,
+      fiber.pendingProps
     );
   } else if (fiber.effectTag === DELETION) {
     // 删除节点
@@ -384,20 +384,20 @@ function commitWork(fiber) {
 function updateDomProperties(dom, prevProps, nextProps) {
   // 移除旧的事件监听器和属性
   Object.keys(prevProps).forEach((name) => {
-    if (name !== "children" && !(name in nextProps)) {
-      if (name.startsWith("on")) {
+    if (name !== 'children' && !(name in nextProps)) {
+      if (name.startsWith('on')) {
         const eventType = name.toLowerCase().substring(2);
         dom.removeEventListener(eventType, prevProps[name]);
       } else {
-        dom[name] = "";
+        dom[name] = '';
       }
     }
   });
 
   // 设置新的事件监听器和属性
   Object.keys(nextProps).forEach((name) => {
-    if (name !== "children" && prevProps[name] !== nextProps[name]) {
-      if (name.startsWith("on")) {
+    if (name !== 'children' && prevProps[name] !== nextProps[name]) {
+      if (name.startsWith('on')) {
         const eventType = name.toLowerCase().substring(2);
         // 移除旧的事件监听器
         if (prevProps[name]) {
@@ -471,28 +471,28 @@ window.ReactDOM = ReactDOM;
 // 使用示例
 function App() {
   return React.createElement(
-    "div",
-    { id: "app" },
-    React.createElement("h1", null, "Fiber架构演示"),
-    React.createElement("p", null, "这是一个简化的React Fiber实现"),
+    'div',
+    { id: 'app' },
+    React.createElement('h1', null, 'Fiber架构演示'),
+    React.createElement('p', null, '这是一个简化的React Fiber实现')
   );
 }
 
 // 在页面加载完成后渲染
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("root");
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('root');
   if (container) {
     ReactDOM.render(React.createElement(App), container);
 
     // 模拟更新
     setTimeout(() => {
-      console.log("------- 触发更新 -------");
+      console.log('------- 触发更新 -------');
       const updatedElement = React.createElement(
-        "div",
-        { id: "app" },
-        React.createElement("h1", null, "Fiber架构演示（已更新）"),
-        React.createElement("p", null, "这是一个更新后的React Fiber实现"),
-        React.createElement("button", null, "点击我"),
+        'div',
+        { id: 'app' },
+        React.createElement('h1', null, 'Fiber架构演示（已更新）'),
+        React.createElement('p', null, '这是一个更新后的React Fiber实现'),
+        React.createElement('button', null, '点击我')
       );
 
       ReactDOM.render(updatedElement, container);

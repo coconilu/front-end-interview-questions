@@ -43,7 +43,7 @@ function minDistance(word1, word2) {
         dp[i][j] = Math.min(
           dp[i - 1][j] + 1, // 删除
           dp[i][j - 1] + 1, // 插入
-          dp[i - 1][j - 1] + 1, // 替换
+          dp[i - 1][j - 1] + 1 // 替换
         );
       }
     }
@@ -83,7 +83,7 @@ function minDistanceOptimized(word1, word2) {
         curr[j] = Math.min(
           prev[j] + 1, // 删除
           curr[j - 1] + 1, // 插入
-          prev[j - 1] + 1, // 替换
+          prev[j - 1] + 1 // 替换
         );
       }
     }
@@ -97,9 +97,9 @@ function minDistanceOptimized(word1, word2) {
 }
 
 // 测试
-console.log(minDistance("horse", "ros")); // 3
-console.log(minDistance("intention", "execution")); // 5
-console.log(minDistanceOptimized("horse", "ros")); // 3
-console.log(minDistanceOptimized("intention", "execution")); // 5
+console.log(minDistance('horse', 'ros')); // 3
+console.log(minDistance('intention', 'execution')); // 5
+console.log(minDistanceOptimized('horse', 'ros')); // 3
+console.log(minDistanceOptimized('intention', 'execution')); // 5
 
 module.exports = { minDistance, minDistanceOptimized };

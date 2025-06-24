@@ -65,7 +65,7 @@ function test() {
   node4.next = node2; // 形成环，指向第二个节点
 
   const result = detectCycle(head);
-  console.log("环的入口节点值：", result ? result.val : null); // 应该输出 2
+  console.log('环的入口节点值：', result ? result.val : null); // 应该输出 2
 
   // 测试无环的情况
   const head2 = new ListNode(1);
@@ -73,7 +73,7 @@ function test() {
   head2.next.next = new ListNode(3);
 
   const result2 = detectCycle(head2);
-  console.log("无环情况：", result2 ? result2.val : null); // 应该输出 null
+  console.log('无环情况：', result2 ? result2.val : null); // 应该输出 null
 }
 
 // 运行测试

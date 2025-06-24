@@ -171,36 +171,36 @@ function test() {
 
     console.log(`输入数组: [${nums}]`);
     console.log(
-      `DP解法结果: ${maxSum1}, 期望: ${expected}, 正确: ${maxSum1 === expected}`,
+      `DP解法结果: ${maxSum1}, 期望: ${expected}, 正确: ${maxSum1 === expected}`
     );
     console.log(
-      `Kadane算法结果: ${maxSum2}, 期望: ${expected}, 正确: ${maxSum2 === expected}`,
+      `Kadane算法结果: ${maxSum2}, 期望: ${expected}, 正确: ${maxSum2 === expected}`
     );
     console.log(
-      `分治法结果: ${maxSum3}, 期望: ${expected}, 正确: ${maxSum3 === expected}`,
+      `分治法结果: ${maxSum3}, 期望: ${expected}, 正确: ${maxSum3 === expected}`
     );
     console.log(`最大和子数组: [${subArray}], 索引: [${start},${end}]`);
-    console.log("---");
+    console.log('---');
   }
 
   // 性能测试
-  console.log("\n性能测试（大规模数组）:");
+  console.log('\n性能测试（大规模数组）:');
   const largeArray = [];
   for (let i = 0; i < 10000; i++) {
     largeArray.push(Math.floor(Math.random() * 201) - 100); // -100 到 100 的随机数
   }
 
-  console.time("DP解法");
+  console.time('DP解法');
   maxSubArray(largeArray);
-  console.timeEnd("DP解法");
+  console.timeEnd('DP解法');
 
-  console.time("Kadane算法");
+  console.time('Kadane算法');
   maxSubArrayOptimized(largeArray);
-  console.timeEnd("Kadane算法");
+  console.timeEnd('Kadane算法');
 
-  console.time("分治法");
+  console.time('分治法');
   maxSubArrayDivideConquer(largeArray);
-  console.timeEnd("分治法");
+  console.timeEnd('分治法');
 }
 
 test();

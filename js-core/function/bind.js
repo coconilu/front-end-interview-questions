@@ -6,8 +6,8 @@
  */
 Function.prototype.myBind = function (context, ...args1) {
   const fn = this;
-  if (typeof fn !== "function") {
-    throw new TypeError("只能对函数使用bind");
+  if (typeof fn !== 'function') {
+    throw new TypeError('只能对函数使用bind');
   }
 
   return function (...args2) {

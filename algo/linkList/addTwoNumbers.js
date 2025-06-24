@@ -70,7 +70,7 @@ function test() {
     values.push(current.val);
     current = current.next;
   }
-  console.log("相加结果：", values.join("->")); // 应该输出 7->0->8
+  console.log('相加结果：', values.join('->')); // 应该输出 7->0->8
 
   // 测试进位情况
   const l3 = new ListNode(9);
@@ -85,7 +85,7 @@ function test() {
     values2.push(current.val);
     current = current.next;
   }
-  console.log("进位测试：", values2.join("->")); // 应该输出 0->0->1
+  console.log('进位测试：', values2.join('->')); // 应该输出 0->0->1
 }
 
 // 运行测试

@@ -23,7 +23,7 @@ class ArrayStack {
   // 出栈
   pop() {
     if (this.isEmpty()) {
-      throw new Error("Stack is empty");
+      throw new Error('Stack is empty');
     }
     return this.items.pop();
   }
@@ -87,7 +87,7 @@ class LinkedListStack {
   // 出栈
   pop() {
     if (this.isEmpty()) {
-      throw new Error("Stack is empty");
+      throw new Error('Stack is empty');
     }
     const data = this.top.data;
     this.top = this.top.next;
@@ -142,15 +142,15 @@ class LinkedListStack {
 function isValidParentheses(s) {
   const stack = new ArrayStack();
   const pairs = {
-    ")": "(",
-    "}": "{",
-    "]": "[",
+    ')': '(',
+    '}': '{',
+    ']': '[',
   };
 
   for (let char of s) {
-    if (char === "(" || char === "{" || char === "[") {
+    if (char === '(' || char === '{' || char === '[') {
       stack.push(char);
-    } else if (char === ")" || char === "}" || char === "]") {
+    } else if (char === ')' || char === '}' || char === ']') {
       if (stack.isEmpty() || stack.pop() !== pairs[char]) {
         return false;
       }
@@ -169,18 +169,18 @@ function decimalToBinary(decimal) {
     decimal = Math.floor(decimal / 2);
   }
 
-  let binary = "";
+  let binary = '';
   while (!stack.isEmpty()) {
     binary += stack.pop();
   }
 
-  return binary || "0";
+  return binary || '0';
 }
 
 // 3. 逆波兰表达式求值（后缀表达式）
 function evalRPN(tokens) {
   const stack = new ArrayStack();
-  const operators = ["+", "-", "*", "/"];
+  const operators = ['+', '-', '*', '/'];
 
   for (let token of tokens) {
     if (operators.includes(token)) {
@@ -189,16 +189,16 @@ function evalRPN(tokens) {
       let result;
 
       switch (token) {
-        case "+":
+        case '+':
           result = a + b;
           break;
-        case "-":
+        case '-':
           result = a - b;
           break;
-        case "*":
+        case '*':
           result = a * b;
           break;
-        case "/":
+        case '/':
           result = Math.trunc(a / b);
           break;
       }
@@ -213,7 +213,7 @@ function evalRPN(tokens) {
 }
 
 // 测试
-console.log("=== 数组栈测试 ===");
+console.log('=== 数组栈测试 ===');
 const arrayStack = new ArrayStack();
 
 // 入栈测试
@@ -231,11 +231,11 @@ while (!arrayStack.isEmpty()) {
   console.log(`出栈 ${val}，剩余栈: [${arrayStack.getItems()}]`);
 }
 
-console.log("\n=== 链表栈测试 ===");
+console.log('\n=== 链表栈测试 ===');
 const linkedStack = new LinkedListStack();
 
 // 入栈测试
-["a", "b", "c", "d", "e"].forEach((val) => {
+['a', 'b', 'c', 'd', 'e'].forEach((val) => {
   linkedStack.push(val);
   console.log(`入栈 ${val}，栈: [${linkedStack.getItems()}]`);
 });
@@ -249,10 +249,10 @@ while (!linkedStack.isEmpty()) {
   console.log(`出栈 ${val}，剩余栈: [${linkedStack.getItems()}]`);
 }
 
-console.log("\n=== 栈应用测试 ===");
+console.log('\n=== 栈应用测试 ===');
 
 // 括号匹配测试
-const testCases = ["()", "()[]{}", "(]", "([)]", "{[]}"];
+const testCases = ['()', '()[]{}', '(]', '([)]', '{[]}'];
 testCases.forEach((test) => {
   console.log(`"${test}" 括号匹配: ${isValidParentheses(test)}`);
 });
@@ -265,12 +265,12 @@ decimals.forEach((num) => {
 
 // 逆波兰表达式测试
 const rpnExpressions = [
-  ["2", "1", "+", "3", "*"], // ((2 + 1) * 3) = 9
-  ["4", "13", "5", "/", "+"], // (4 + (13 / 5)) = 6
-  ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"], // 22
+  ['2', '1', '+', '3', '*'], // ((2 + 1) * 3) = 9
+  ['4', '13', '5', '/', '+'], // (4 + (13 / 5)) = 6
+  ['10', '6', '9', '3', '+', '-11', '*', '/', '*', '17', '+', '5', '+'], // 22
 ];
 rpnExpressions.forEach((expr, index) => {
   console.log(
-    `逆波兰表达式 ${index + 1}: [${expr.join(", ")}] = ${evalRPN(expr)}`
+    `逆波兰表达式 ${index + 1}: [${expr.join(', ')}] = ${evalRPN(expr)}`
   );
 });

@@ -1,6 +1,6 @@
 /**
  * Module Federation 微前端实现
- * 
+ *
  * Module Federation 是 Webpack 5 的一个新特性，允许多个独立的构建可以组成一个应用程序
  * 这些独立的构建之间不应该有依赖关系，因此可以单独开发和部署
  */
@@ -59,7 +59,7 @@ class MicroFrontendLoader {
   // 动态加载远程组件
   async loadRemoteComponent(remoteName, componentName) {
     const cacheKey = `${remoteName}/${componentName}`;
-    
+
     if (this.cache.has(cacheKey)) {
       return this.cache.get(cacheKey);
     }
@@ -70,7 +70,7 @@ class MicroFrontendLoader {
       await container.init(__webpack_share_scopes__.default);
       const factory = await container.get(componentName);
       const Module = factory();
-      
+
       this.cache.set(cacheKey, Module.default);
       return Module.default;
     } catch (error) {
@@ -96,11 +96,11 @@ function App() {
   return (
     <div>
       <h1>Host Application</h1>
-      
+
       <Suspense fallback={<div>Loading Button...</div>}>
         <RemoteButton onClick={() => alert('Remote button clicked!')} />
       </Suspense>
-      
+
       <Suspense fallback={<div>Loading Header...</div>}>
         <RemoteHeader title="Remote Header" />
       </Suspense>
@@ -129,7 +129,9 @@ class RemoteComponentErrorBoundary extends React.Component {
         <div className="error-fallback">
           <h3>远程组件加载失败</h3>
           <p>{this.state.error?.message}</p>
-          <button onClick={() => this.setState({ hasError: false, error: null })}>
+          <button
+            onClick={() => this.setState({ hasError: false, error: null })}
+          >
             重试
           </button>
         </div>
@@ -182,15 +184,18 @@ runtime.registerRemote('mfe2', 'http://localhost:3002/remoteEntry.js');
 // 动态加载和使用
 async function loadAndRenderRemoteComponent() {
   try {
-    const RemoteComponent = await loader.loadRemoteComponent('mfe1', './Button');
-    
+    const RemoteComponent = await loader.loadRemoteComponent(
+      'mfe1',
+      './Button'
+    );
+
     if (RemoteComponent) {
       // 渲染组件
       const element = React.createElement(RemoteComponent, {
         text: 'Dynamic Remote Button',
-        onClick: () => console.log('Dynamic button clicked!')
+        onClick: () => console.log('Dynamic button clicked!'),
       });
-      
+
       ReactDOM.render(element, document.getElementById('remote-container'));
     }
   } catch (error) {
@@ -229,7 +234,7 @@ class SharedStateManager {
 
   // 通知订阅者
   notifySubscribers(key, value) {
-    this.subscribers.forEach(callback => {
+    this.subscribers.forEach((callback) => {
       callback(key, value);
     });
   }
@@ -243,12 +248,12 @@ export {
   MicroFrontendLoader,
   RemoteComponentErrorBoundary,
   RuntimeModuleFederation,
-  SharedStateManager
+  SharedStateManager,
 };
 
 /**
  * Module Federation 最佳实践：
- * 
+ *
  * 1. 版本管理：确保共享依赖的版本兼容性
  * 2. 错误处理：实现完善的错误边界和降级策略
  * 3. 性能优化：合理使用懒加载和预加载
