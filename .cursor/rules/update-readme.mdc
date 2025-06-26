@@ -1,8 +1,0 @@
----
-description: 
-globs: 
-alwaysApply: true
----
-
-- 每次新增算法题，都更新到readme的项目结构里
-- 生成的代码缩进为2

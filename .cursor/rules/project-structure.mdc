@@ -1,0 +1,80 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 前端面试题集合项目规则
+
+## 项目概述
+这是一个前端面试笔试题集合项目，包含JavaScript核心概念、数据结构、算法、异步编程、前端框架等多个方面的实现和解答。项目的主要文档是[README.md](mdc:README.md)。
+
+## 编码规范
+
+### 代码格式
+- 所有生成的代码缩进为2个空格
+- 使用JavaScript作为主要编程语言
+- 每个文件都应包含详细的注释说明实现思路
+- 函数和变量命名使用驼峰命名法
+
+### 文件命名规范
+- LeetCode题目使用格式：`题号_题目英文名.js`
+- 通用算法题使用描述性名称：`algorithmName.js`
+- HTML文件使用描述性名称：`featureName.html`
+- TypeScript文件使用描述性名称：`typeName.ts`
+
+## 项目结构规范
+
+### 算法题目组织
+算法题目按照类型分类存放在`algo/`目录下：
+- `array/` - 数组相关算法
+- `dp/` - 动态规划
+- `tree/` - 树相关算法
+- `linkList/` - 链表算法
+- `hash-table/` - 哈希表
+- `stack-and-queue/` - 栈和队列
+- `backtracking/` - 回溯算法
+- `greedy/` - 贪心算法
+- `graph-algorithms/` - 图算法
+- `string-algorithms/` - 字符串算法
+- `bit-manipulation/` - 位运算
+- `math/` - 数学算法
+- `searching/` - 搜索算法
+- `sorting/` - 排序算法
+
+### 前端技术分类
+- `frameworks/react/` - React相关实现
+- `frameworks/vue/` - Vue相关实现
+- `css/` - CSS和布局相关
+- `js-core/` - JavaScript核心概念
+- `async/` - 异步编程
+- `performance/` - 性能优化
+- `typescript/` - TypeScript相关
+
+## 重要工作流程
+
+### 新增算法题时的流程
+1. 在对应的算法分类目录下创建新文件
+2. **必须同时更新[README.md](mdc:README.md)中的项目结构部分**
+3. 新文件应包含：
+   - 题目描述
+   - 解决思路
+   - 代码实现（缩进为2）
+   - 时间复杂度和空间复杂度分析
+   - 测试用例
+
+### 代码实现要求
+- 每个解决方案都应该是可以直接运行的
+- 包含多种解法时，应该注释说明各种方法的优缺点
+- 提供完整的测试用例
+- 包含边界条件处理
+
+## 文件引用示例
+- 主要项目文档：[README.md](mdc:README.md)
+- 包配置文件：[package.json](mdc:package.json)
+- 锁定文件：[pnpm-lock.yaml](mdc:pnpm-lock.yaml)
+
+## 特殊注意事项
+- 使用PowerShell脚本（Windows环境）
+- 始终使用中文简体回复
+- 维护README.md中项目结构的完整性和准确性
+- 确保所有新增内容都有相应的文档更新
