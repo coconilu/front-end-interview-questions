@@ -110,9 +110,15 @@
 │
 ├── data-structures/           # 数据结构实现
 │   ├── LRUCache.js            # LRU缓存实现
+│   ├── binarySearchTree.js    # 二叉搜索树实现
+│   ├── graph.js               # 图的实现（邻接表和邻接矩阵）
 │   ├── hashTable.js           # 哈希表实现
 │   ├── heap.js                # 堆（最大堆/最小堆）实现
-│   └── stack.js               # 栈数据结构实现
+│   ├── linkedList.js          # 链表实现（单向和双向链表）
+│   ├── queue.js               # 队列实现（基础队列、循环队列、双端队列）
+│   ├── stack.js               # 栈数据结构实现
+│   ├── trie.js                # 前缀树实现
+│   └── unionFind.js           # 并查集实现
 │
 ├── dom/                       # DOM操作和事件处理
 │   ├── eventDelegation.js     # 事件委托实现
