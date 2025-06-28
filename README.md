@@ -237,7 +237,13 @@
 │   └── debuggingTools.js      # 调试工具与技巧
 │
 ├── design-patterns-advanced/  # 设计模式进阶
-│   └── designPatterns.js      # 高级设计模式实现
+│   ├── designPatterns.js      # 高级设计模式实现
+│   ├── visitor_pattern.js     # 访问者模式：表达式计算器实现
+│   ├── template_method.js     # 模板方法模式：数据处理流水线实现
+│   ├── chain_of_responsibility.js # 责任链模式：HTTP请求处理链实现
+│   ├── prototype_pattern.js   # 原型模式：可克隆图形系统实现
+│   ├── memento_pattern.js     # 备忘录模式：文本编辑器撤销重做实现
+│   └── demo.js                # 设计模式进阶演示：集成所有模式的示例
 │
 ├── nodejs-backend/            # Node.js后端开发
 │   └── nodeBasics.js          # Node.js基础与实践
